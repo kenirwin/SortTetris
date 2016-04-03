@@ -35,11 +35,13 @@ var game = {
     },
     
     newCite: function () {
+        if (game.rows[1] !== 1) {
         game.citeText = "Test Citation";
         game.color = "lightblue";
         $('#row1').text(game.citeText).css('background-color',game.color);
         game.activeRow = 1;
         game.rows[game.activeRow] = 1;
+        }
     },
 
     moveDown: function () {
