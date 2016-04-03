@@ -25,8 +25,6 @@ var game = {
         game.timer = window.setInterval(game.moveDown, game.delay);
     },
 
-    
-
     key: function(e) {
         alert(e.charCode);
         switch(e.charCode) {
@@ -59,6 +57,7 @@ var game = {
         }
         },
     touchdown: function () {
+        $('#row'+game.activeRow).css("background-color","red");
         window.clearInterval(game.timer);
         game.timer = window.setTimeout(function() { game.next() }, 100);
         return false;
