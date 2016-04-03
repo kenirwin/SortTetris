@@ -16,11 +16,16 @@ var game = {
     start: function () {
 //        alert ('test: start');
         $(game.bound).keypress(game.key);
-        game.next = game.newCite();
+        game.next();
+    },
+    
+    next: function () {
+        game.nextCite = game.newCite();
         game.delay=300;
         game.timer = window.setInterval(game.moveDown, game.delay);
     },
 
+    
 
     key: function(e) {
         alert(e.charCode);
@@ -48,7 +53,16 @@ var game = {
             game.activeRow++;
             $('#row'+game.activeRow).text(game.citeText).css('background-color',game.color);
           }  
+        else {
+            game.touchdown();
+            return false;
+        }
         },
+    touchdown: function () {
+        window.clearInterval(game.timer);
+        game.timer = window.setTimeout(function() { game.next() }, 100);
+        return false;
+    }
 };
 
 $(window).load(function() {
