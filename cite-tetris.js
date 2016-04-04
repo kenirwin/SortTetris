@@ -38,7 +38,10 @@ data = [
         game.citeText = '';
         game.color = 'lightblue';
         game.blankColor = 'white';
-        for (i=1; i<13; i++) {
+        game.height = 12;
+        game.lastClearRow = game.height;
+        game.interval = 300;
+        for (i=1; i<(game.height+1); i++) {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
@@ -57,7 +60,7 @@ data = [
 
     start: function () {
 //        alert ('test: start');
-        $(game.bound).keypress(game.key);
+//        $(game.bound).keypress(game.key); // accept keyboard input
         $('.game-button').click(function() {
             game.clickEval(this.id);
         });
@@ -66,8 +69,7 @@ data = [
     
     next: function () {
         game.nextCite = game.newCite();
-        game.delay=300;
-        game.timer = window.setInterval(game.moveDown, game.delay);
+        game.timer = window.setInterval(game.moveDown, game.interval);
     },
 
     key: function(e) {
@@ -80,7 +82,8 @@ data = [
     },
     
     clickEval: function (id) {
-        if (id === game.currAnswer) {
+       window.clearInterval(game.timer);
+       if (id === game.currAnswer) {
             game.correct();
         }
         else {
@@ -89,15 +92,36 @@ data = [
     },
 
     correct: function () {
-        window.clearInterval(game.timer);
-        game.timer = window.setTimeout(function() { game.next() }, 100);
+         game.timer = window.setTimeout(function() { game.next() }, game.interval);
         $('#row'+game.activeRow).text('').css('background-color',game.blankColor);
         game.rows[game.activeRow] = -1;
     },
 
     incorrect: function () {
-        alert('wrong');
+/*
+        for (var i=game.activeRow; i<game.height; i++) {
+            game.moveDown();
+        }
+*/
+
+
+        // move to game.lastClearRow
+        alert (game.lastClearRow);
+        for (i=1; i < game.lastClearRow; i++) {
+//            rows[i] = -1;
+//            $('#row'+i).text('').css('background-color',game.blankColor);
+            alert ('clear: '+ i);
+        }
+        $('#row'+game.lastClearRow).text(game.citeText).css('background-color',game.color);
+        // clear lines above
+        // touchdown
+
+//        game.touchdown();
+
+        game.next();
+        
     },
+
     
     newCite: function () {
         if (game.rows[1] !== 1) {
@@ -129,9 +153,11 @@ data = [
         }
         },
     touchdown: function () {
+        game.lastClearRow = game.activeRow-1;
+
         $('#row'+game.activeRow).css("background-color","red");
         window.clearInterval(game.timer);
-        game.timer = window.setTimeout(function() { game.next() }, 100);
+        game.timer = window.setTimeout(function() { game.next() }, game.interval);
         return false;
     }
 };
