@@ -1,11 +1,13 @@
 table { 
-    width: 300px;
+    width: 400px;
     border: 1px solid black;
+    position: absolute;
+    top: 4em;
 }
 tr {
     height: 2.5em;
 }
 #game { width: 50% }
-#citation { float: right; margin-left: 18em; }
-#controls { float: right; margin-left: 18em; } 
-#debug { float: left; width: 15em }
+#citation { position: relative; left: 450px; width: 450px;}
+#controls { position: absolute; left: 450px; top: 10em;} 
+#debug { position: absolute; left: 1000px; display:none }

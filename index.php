@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-
+<h1>Citation Tetris</h1>
 <div id="game">
 <div id="citation">Citation:</div>
 <div id="debug">Debug:</div>
