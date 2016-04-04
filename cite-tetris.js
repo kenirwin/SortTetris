@@ -87,8 +87,8 @@ data = [
     clickEval: function (id) {
        window.clearInterval(game.timer);
         game.debug();
-
-       if (id === game.currAnswer) {
+        game.givenAnswer = id;
+       if (game.givenAnswer === game.currAnswer) {
             game.correct();
         }
         else {
@@ -175,7 +175,7 @@ data = [
         game.debug();
         game.lastClearRow = game.activeRow-1;
 
-        $('#row'+game.activeRow).css("background-color","red");
+        $('#row'+game.activeRow).css("background-color","red").attr("data-correct",game.currAnswer).attr("data-incorrect",game.givenAnswer);
         window.clearInterval(game.timer);
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
         return false;
@@ -185,7 +185,9 @@ data = [
         game.debug();
         alert ('Game Over');
         window.clearInterval(game.timer);
-        $("#grid td").css("background-color","lightgrey");
+        $("#grid td").css("background-color","lightgrey").each(function() {
+                $(this).append( $('<span>'+$(this).attr("data-correct")+'</span>').addClass("overlay") );
+        });
         delete game.timer;
         $("#controls .game-button").unbind();
         die();

@@ -11,3 +11,19 @@ tr {
 #citation { position: relative; left: 450px; width: 450px;}
 #controls { position: absolute; left: 450px; top: 10em;} 
 #debug { position: absolute; left: 1000px; display:none }
+
+.overlay {
+    font-weight: bold;
+    text-transform: uppercase;
+    position: absolute;
+    right: 0;
+    opacity: 0.75;
+}
+.overlay .correct {
+    color: darkgreen;
+    background-color: lightgreen;
+}
+.overlay .incorrect {
+    color: red;
+    background-color: pink;
+}
