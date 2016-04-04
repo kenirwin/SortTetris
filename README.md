@@ -7,7 +7,7 @@ This tool could be readily adapted for other identification/sorting practice as 
 ## Demo
 
 Demo available online at: 
-www6.wittenberg.edu/lib/ken/demo/CitationTetris
+http://www6.wittenberg.edu/lib/ken/demo/CitationTetris
 
 ## Credits
 Written by Ken Irwin, Wittenberg University
