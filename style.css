@@ -15,8 +15,6 @@ tr {
 .overlay {
     font-weight: bold;
     text-transform: uppercase;
-    position: absolute;
-    right: 0;
     opacity: 0.75;
 }
 .correct {

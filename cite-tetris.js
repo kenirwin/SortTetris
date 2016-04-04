@@ -186,9 +186,9 @@ data = [
         alert ('Game Over');
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").each(function() {
-                $(this).append( 
-                    $('<span>'+$(this).attr("data-correct")+'</span>').addClass("overlay correct") 
-                    .append($('<span>'+$(this).attr('data-incorrect')+'</span>').addClass("incorrect"))
+                $(this).append(
+                    $('<br /><span>Correct: '+$(this).attr("data-correct")+' </span>').addClass("overlay correct") 
+                    .append($('<span> Your Answer: '+$(this).attr('data-incorrect')+'</span>').addClass("incorrect"))
                 );
         });
         delete game.timer;
