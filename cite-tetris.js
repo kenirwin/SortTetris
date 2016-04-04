@@ -68,6 +68,7 @@ data = [
     },
     
     next: function () {
+        game.debug();
         game.nextCite = game.newCite();
         game.timer = window.setInterval(game.moveDown, game.interval);
     },
@@ -83,6 +84,8 @@ data = [
     
     clickEval: function (id) {
        window.clearInterval(game.timer);
+        game.debug();
+
        if (id === game.currAnswer) {
             game.correct();
         }
@@ -98,28 +101,18 @@ data = [
     },
 
     incorrect: function () {
-/*
-        for (var i=game.activeRow; i<game.height; i++) {
-            game.moveDown();
-        }
-*/
-
-
         // move to game.lastClearRow
-        alert (game.lastClearRow);
-        for (i=1; i < game.lastClearRow; i++) {
-//            rows[i] = -1;
-//            $('#row'+i).text('').css('background-color',game.blankColor);
-            alert ('clear: '+ i);
+        for (var j=1; j < game.lastClearRow; j++) {
+            game.rows[j] = -1;
+            $('#row'+j).text('').css('background-color',game.blankColor);
         }
+        game.debug();
         $('#row'+game.lastClearRow).text(game.citeText).css('background-color',game.color);
-        // clear lines above
-        // touchdown
-
-//        game.touchdown();
-
-        game.next();
-        
+        game.activeRow = game.lastClearRow;
+        game.rows[game.activeRow] = 1;
+        game.debug();
+        game.touchdown();
+        game.debug();
     },
 
     
@@ -133,12 +126,35 @@ data = [
             game.activeRow = 1;
             game.rows[game.activeRow] = 1;
         }
-        else {
-            //game.gameOver();
+        else if (game.rows.join('').indexOf('-1') == -1) {
+            game.debug();
+            game.gameOver();
         }
     },
 
+    listProperties: function(obj) {
+    var list='';
+    for (var propertyName in obj) {
+        if (typeof obj[propertyName] == "string" || typeof obj[propertyName] == "number") {
+            list += '<li>'+propertyName+': ' + obj[propertyName]+ '</li>';
+        }
+        else { 
+            list += '<li>'+propertyName+': ' + typeof obj[propertyName]+ '</li>';
+        }
+
+    }
+    return list;
+
+    },
+    
+    debug: function () {
+        var listProp=game.listProperties(game);
+        listProp += game.listProperties(game.rows);
+        $("#debug").html(listProp);
+    },
+
     moveDown: function () {
+        game.debug();
         var n = game.activeRow;
         if (game.rows[game.activeRow+1] === -1) {
             $('#row'+game.activeRow).text('').css('background-color',game.blankColor);
@@ -153,13 +169,26 @@ data = [
         }
         },
     touchdown: function () {
+        game.debug();
         game.lastClearRow = game.activeRow-1;
 
         $('#row'+game.activeRow).css("background-color","red");
         window.clearInterval(game.timer);
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
         return false;
-    }
+    },
+
+    gameOver: function () {
+        game.debug();
+        alert ('Game Over');
+        window.clearInterval(game.timer);
+        $("#grid td").css("background-color","lightgrey");
+        delete game.timer;
+        $("#controls .game-button").unbind();
+        die();
+    },
+
+
 };
 
 $(window).load(function() {

@@ -3,8 +3,9 @@ table {
     border: 1px solid black;
 }
 tr {
-    height: 1.2em;
+    height: 2.5em;
 }
 #game { width: 50% }
-#citation { float: right }
-#controls { float: right } 
+#citation { float: right; margin-left: 18em; }
+#controls { float: right; margin-left: 18em; } 
+#debug { float: left; width: 15em }
