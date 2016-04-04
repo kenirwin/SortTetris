@@ -7,15 +7,15 @@ var game = {
 data = [
     { 
         "citation": "ATQ. Jun98, Vol. 12 Issue 2, p145.",
-        "type" : "journal article"
+        "type" : "article"
     },
     { 
         "citation": "Burke, Susan L., et al. ''Letters.'' Ms 22.1 (2012): 6-8.", 
-        "type" : "journal article"
+        "type" : "article"
     },
     { 
         "citation": "Albert H. University of Chicago Law Review. Spring2008, Vol. 75 Issue 2, p649-714.",
-        "type": "journal"
+        "type": "article"
     },
     {
         "citation": "The New Woman in Fiction and in Fact: Fin-de-Siecle Feminisms. 122-135. New York, NY: Palgrave, 2001.", 
@@ -30,9 +30,9 @@ data = [
         "type": "book"
     }
 ];
-
-
-
+        game.data = data;
+        game.buttons = ['book','book chapter', 'article'];
+        game.controls();
         game.rows = [];
         game.activeRow = 0;
         game.citeText = '';
@@ -42,12 +42,25 @@ data = [
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
-        alert (data[1].type);
     },
+
+
+    controls: function () {
+        var buttonsHTML = '';
+        for (var i = 0; i < game.buttons.length; i++) {
+            buttonsHTML += '<br/><button class="game-button" id="'+game.buttons[i]+'">'+game.buttons[i]+'</button><br/>';
+        }
+
+        $('#controls').html(buttonsHTML);
+    },
+
 
     start: function () {
 //        alert ('test: start');
         $(game.bound).keypress(game.key);
+        $('.game-button').click(function() {
+            game.clickEval(this.id);
+        });
         game.next();
     },
     
@@ -66,13 +79,38 @@ data = [
         return false;
     },
     
+    clickEval: function (id) {
+        if (id === game.currAnswer) {
+            game.correct();
+        }
+        else {
+            game.incorrect();
+        }
+    },
+
+    correct: function () {
+        window.clearInterval(game.timer);
+        game.timer = window.setTimeout(function() { game.next() }, 100);
+        $('#row'+game.activeRow).text('').css('background-color',game.blankColor);
+        game.rows[game.activeRow] = -1;
+    },
+
+    incorrect: function () {
+        alert('wrong');
+    },
+    
     newCite: function () {
         if (game.rows[1] !== 1) {
-        game.citeText = "Test Citation";
-        game.color = "lightblue";
-        $('#row1').text(game.citeText).css('background-color',game.color);
-        game.activeRow = 1;
-        game.rows[game.activeRow] = 1;
+            var citeIndex = Math.floor(Math.random()*game.data.length);
+            game.citeText = game.data[citeIndex].citation;
+            game.currAnswer = game.data[citeIndex].type;
+            game.color = "lightblue";
+            $('#row1').text(game.citeText).css('background-color',game.color);
+            game.activeRow = 1;
+            game.rows[game.activeRow] = 1;
+        }
+        else {
+            //game.gameOver();
         }
     },
 

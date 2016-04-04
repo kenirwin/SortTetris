@@ -11,6 +11,8 @@
 <body>
 
 <div id="game">
+<div id="citation">Citation:</div>
+<div id="controls"></div>
 <div id="grid">
 <table>
 <tr><td id="row1"></td></tr>

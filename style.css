@@ -5,3 +5,6 @@ table {
 tr {
     height: 1.2em;
 }
+#game { width: 50% }
+#citation { float: right }
+#controls { float: right } 
