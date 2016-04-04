@@ -19,11 +19,11 @@ tr {
     right: 0;
     opacity: 0.75;
 }
-.overlay .correct {
+.correct {
     color: darkgreen;
     background-color: lightgreen;
 }
-.overlay .incorrect {
+.incorrect {
     color: red;
     background-color: pink;
 }

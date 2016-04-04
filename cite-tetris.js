@@ -186,7 +186,10 @@ data = [
         alert ('Game Over');
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").each(function() {
-                $(this).append( $('<span>'+$(this).attr("data-correct")+'</span>').addClass("overlay") );
+                $(this).append( 
+                    $('<span>'+$(this).attr("data-correct")+'</span>').addClass("overlay correct") 
+                    .append($('<span>'+$(this).attr('data-incorrect')+'</span>').addClass("incorrect"))
+                );
         });
         delete game.timer;
         $("#controls .game-button").unbind();
