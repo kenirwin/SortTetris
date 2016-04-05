@@ -153,38 +153,37 @@ data = [
             game.rows[game.activeRow+1] = 1; 
             game.activeRow++;
             $('#row'+game.activeRow).html(game.citeText).css('background-color',game.color);
-          }  
+        }  
         else {
             game.touchdown();
             return false;
         }
-        },
+    },
+
     touchdown: function () {
         game.debug();
         game.lastClearRow = game.activeRow-1;
-
+        
         $('#row'+game.activeRow).css("background-color","red").attr("data-correct",game.currAnswer).attr("data-incorrect",game.givenAnswer);
         window.clearInterval(game.timer);
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
         return false;
     },
-
+    
     gameOver: function () {
         game.debug();
         alert ('Game Over');
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").each(function() {
-                $(this).append(
-                    $('<br /><span>Correct: '+$(this).attr("data-correct")+' </span>').addClass("overlay correct") 
+            $(this).append(
+                $('<br /><span>Correct: '+$(this).attr("data-correct")+' </span>').addClass("overlay correct") 
                     .append($('<span> Your Answer: '+$(this).attr('data-incorrect')+'</span>').addClass("incorrect"))
-                );
+            );
         });
         delete game.timer;
         $("#controls .game-button").unbind();
         die();
     },
-
-
 };
 
 $(window).load(function() {
