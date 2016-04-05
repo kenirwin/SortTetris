@@ -58,11 +58,14 @@ data = [
 
     controls: function () {
         var buttonsHTML = '';
+        buttonsHTML += '<br /><button class="start-stop-button" id="start">Start Game</button><br />';
         for (var i = 0; i < game.buttons.length; i++) {
             buttonsHTML += '<br/><button class="game-button" id="'+game.buttons[i]+'">'+game.buttons[i]+'</button><br/>';
         }
-
         $('#controls').html(buttonsHTML);
+        $('.start-stop-button').click(function() {
+            game.start();
+        });
     },
 
 
@@ -188,5 +191,4 @@ data = [
 
 $(window).load(function() {
     game.init();
-    game.start();
 });
