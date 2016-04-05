@@ -73,7 +73,12 @@ data = [
         $('.game-button').click(function() {
             game.clickEval(this.id);
         });
+        $('.start-stop-button').unbind();
         game.next();
+    },
+    
+    pause: function () {
+
     },
     
     next: function () {
@@ -185,6 +190,13 @@ data = [
         });
         delete game.timer;
         $("#controls .game-button").unbind();
+        $(".start-stop-button").click(function() {
+            for (var i=0; i<game.height+1; i++) {
+                $('#row'+i).text('').css('background-color',game.blankColor);
+            }
+            game.init();
+            game.start();
+        });
         die();
     },
 };
