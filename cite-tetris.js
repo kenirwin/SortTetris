@@ -1,6 +1,12 @@
 
 
 var game = {
+    debug: function () {
+        var listProp=game.listProperties(game);
+        listProp += game.listProperties(game.rows);
+        $("#debug").html(listProp);
+    },
+
     init: function () {
 //        alert ('test: init');
         var i;
@@ -61,8 +67,6 @@ data = [
 
 
     start: function () {
-//        alert ('test: start');
-//        $(game.bound).keypress(game.key); // accept keyboard input
         $('.game-button').click(function() {
             game.clickEval(this.id);
         });
@@ -75,29 +79,20 @@ data = [
         game.timer = window.setInterval(game.moveDown, game.interval);
     },
 
-    key: function(e) {
-        alert(e.charCode);
-        switch(e.charCode) {
-        case 97: break; //a
-        case 98: break; //b
-        }
-        return false;
-    },
-    
     clickEval: function (id) {
-       window.clearInterval(game.timer);
+        window.clearInterval(game.timer);
         game.debug();
         game.givenAnswer = id;
-       if (game.givenAnswer === game.currAnswer) {
+        if (game.givenAnswer === game.currAnswer) {
             game.correct();
         }
         else {
             game.incorrect();
         }
     },
-
+    
     correct: function () {
-         game.timer = window.setTimeout(function() { game.next() }, game.interval);
+        game.timer = window.setTimeout(function() { game.next() }, game.interval);
         $('#row'+game.activeRow).html('').css('background-color',game.blankColor);
         game.rows[game.activeRow] = -1;
     },
@@ -116,7 +111,7 @@ data = [
         game.touchdown();
         game.debug();
     },
-
+    
     
     newCite: function () {
         if (game.rows[1] !== 1) {
@@ -134,28 +129,21 @@ data = [
             game.gameOver();
         }
     },
-
+    
     listProperties: function(obj) {
-    var list='';
-    for (var propertyName in obj) {
-        if (typeof obj[propertyName] == "string" || typeof obj[propertyName] == "number") {
-            list += '<li>'+propertyName+': ' + obj[propertyName]+ '</li>';
+        var list='';
+        for (var propertyName in obj) {
+            if (typeof obj[propertyName] == "string" || typeof obj[propertyName] == "number") {
+                list += '<li>'+propertyName+': ' + obj[propertyName]+ '</li>';
+            }
+            else { 
+                list += '<li>'+propertyName+': ' + typeof obj[propertyName]+ '</li>';
+            }
+            
         }
-        else { 
-            list += '<li>'+propertyName+': ' + typeof obj[propertyName]+ '</li>';
-        }
-
-    }
-    return list;
-
+        return list;
     },
     
-    debug: function () {
-        var listProp=game.listProperties(game);
-        listProp += game.listProperties(game.rows);
-        $("#debug").html(listProp);
-    },
-
     moveDown: function () {
         game.debug();
         var n = game.activeRow;
