@@ -60,7 +60,7 @@ data = [
         var buttonsHTML = '';
         buttonsHTML += '<br /><button class="start-stop-button" id="start">Start Game</button><br />';
         for (var i = 0; i < game.buttons.length; i++) {
-            buttonsHTML += '<br/><button class="game-button" id="'+game.buttons[i]+'">'+game.buttons[i]+'</button><br/>';
+            buttonsHTML += '<br/><button class="game-button inactive" id="'+game.buttons[i]+'">'+game.buttons[i]+'</button><br/>';
         }
         $('#controls').html(buttonsHTML);
         $('.start-stop-button').click(function() {
@@ -70,10 +70,10 @@ data = [
 
 
     start: function () {
-        $('.game-button').click(function() {
+        $('.game-button').removeClass('inactive').click(function() {
             game.clickEval(this.id);
         });
-        $('.start-stop-button').unbind();
+        $('.start-stop-button').addClass('inactive').unbind();
         game.next();
     },
     
@@ -189,8 +189,8 @@ data = [
             );
         });
         delete game.timer;
-        $("#controls .game-button").unbind();
-        $(".start-stop-button").click(function() {
+        $("#controls .game-button").addClass('inactive').unbind();
+        $(".start-stop-button").removeClass('inactive').click(function() {
             for (var i=0; i<game.height+1; i++) {
                 $('#row'+i).text('').css('background-color',game.blankColor);
             }
