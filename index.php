@@ -14,7 +14,7 @@
 <div id="game">
 <div id="citation">Citation:</div>
 <div id="debug">Debug:</div>
-<div id="score">Score: 0</div>
+<div id="score">Level: 1<br />Score: 0</div>
 <div id="controls"></div>
 <div id="grid">
 <table>

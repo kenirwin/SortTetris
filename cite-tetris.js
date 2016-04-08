@@ -6,17 +6,21 @@ var game = {
     },
 
     init: function () {
-        game.data = data;
+        game.data = data; // defined in external file
         game.buttons = ['book','book chapter', 'article'];
         game.pointUnits = 100;
-        game.interval = 600;
+        game.interval = 600; //hundredths of seconds between move down
+        game.height = 12;
+        game.correctPerLevel = 6;
+        game.correctThisLevel = 0;
+        game.intervalDecreasePerLevel=50;
+//        game.minInterval = 200; //don't go faster than this interval
         game.controls();
         game.rows = [];
         game.activeRow = 0;
         game.citeText = '';
         game.color = 'lightblue';
         game.blankColor = 'white';
-        game.height = 12;
         game.lastClearRow = game.height;
         game.level = 1;
         game.score = 0;
@@ -74,8 +78,14 @@ var game = {
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
         $('#row'+game.activeRow).html('').css('background-color',game.blankColor);
         game.rows[game.activeRow] = -1;
+        game.correctThisLevel++;
         game.score += game.level * game.pointUnits;
-        $('#score').text('Score: ' + game.score);
+        if (game.correctThisLevel == game.correctPerLevel) {
+            game.correctThisLevel=0;
+            game.interval-=game.intervalDecreasePerLevel;
+            game.level++;
+        }
+        $('#score').html('Level: '+game.level+'<br />Score: ' + game.score);
     },
 
     incorrect: function () {
@@ -150,7 +160,10 @@ var game = {
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
         return false;
     },
-    
+
+    levelUp: function () { 
+    },
+
     gameOver: function () {
         game.debug();
         alert ('Game Over');
