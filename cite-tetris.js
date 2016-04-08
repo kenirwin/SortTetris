@@ -112,6 +112,7 @@ var game = {
             var citeIndex = Math.floor(Math.random()*game.data.length);
             game.citeText = game.data[citeIndex].citation;
             game.currAnswer = game.data[citeIndex].type;
+            game.givenAnswer = '';
             game.color = "lightblue";
             $('#row1').html(game.citeText).css('background-color',game.color);
             $('#citation').html(game.citeText).css('background-color',game.color);
@@ -157,7 +158,7 @@ var game = {
     touchdown: function () {
         game.debug();
         game.lastClearRow = game.activeRow-1;
-        
+        if (game.givenAnswer == '') { game.givenAnswer = "No Answer"; }
         $('#row'+game.activeRow).css("background-color","red").attr("data-correct",game.currAnswer).attr("data-incorrect",game.givenAnswer);
         window.clearInterval(game.timer);
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
