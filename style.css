@@ -8,8 +8,13 @@ tr {
     height: 2.5em;
 }
 #game { width: 50% }
-#citation { position: relative; left: 450px; width: 450px;}
-#controls { position: absolute; left: 450px; top: 10em;} 
+#citation { position: absolute; left: 450px; width: 450px;
+         font-weight: bold; font-size: 105%; 
+          }
+#score { position: absolute; left: 450px; top: 11em; 
+         font-weight: bold; font-size: 105%; 
+       }
+#controls { position: absolute; left: 450px; top: 13em;} 
 #debug { position: absolute; left: 1000px; display:none }
 
 .overlay {

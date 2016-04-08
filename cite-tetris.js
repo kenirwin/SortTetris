@@ -8,6 +8,8 @@ var game = {
     init: function () {
         game.data = data;
         game.buttons = ['book','book chapter', 'article'];
+        game.pointUnits = 100;
+        game.interval = 600;
         game.controls();
         game.rows = [];
         game.activeRow = 0;
@@ -16,7 +18,8 @@ var game = {
         game.blankColor = 'white';
         game.height = 12;
         game.lastClearRow = game.height;
-        game.interval = 600;
+        game.level = 1;
+        game.score = 0;
         for (var i=1; i<(game.height+1); i++) {
             game.rows[i] = -1; //empty
         }
@@ -71,6 +74,8 @@ var game = {
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
         $('#row'+game.activeRow).html('').css('background-color',game.blankColor);
         game.rows[game.activeRow] = -1;
+        game.score += game.level * game.pointUnits;
+        $('#score').text('Score: ' + game.score);
     },
 
     incorrect: function () {
