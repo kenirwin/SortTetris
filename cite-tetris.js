@@ -12,9 +12,9 @@ var game = {
         game.interval = 600; //hundredths of seconds between move down
         game.height = 12;
         game.correctPerLevel = 6;
-        game.correctThisLevel = 0;
+        game.correctThisLevel = 0; //always start at zero
+        game.winAtLevel = 6;
         game.intervalDecreasePerLevel=50;
-//        game.minInterval = 200; //don't go faster than this interval
         game.controls();
         game.rows = [];
         game.activeRow = 0;
@@ -86,6 +86,9 @@ var game = {
             game.level++;
         }
         $('#score').html('Level: '+game.level+'<br />Score: ' + game.score);
+        if (game.level == game.winAtLevel) {
+            game.gameOver("win");
+        }
     },
 
     incorrect: function () {
@@ -117,7 +120,7 @@ var game = {
         }
         else if (game.rows.join('').indexOf('-1') == -1) {
             game.debug();
-            game.gameOver();
+            game.gameOver("lose");
         }
     },
     
@@ -164,9 +167,9 @@ var game = {
     levelUp: function () { 
     },
 
-    gameOver: function () {
+    gameOver: function (winOrLose) {
         game.debug();
-        alert ('Game Over');
+        alert ('Game Over: You ' + winOrLose + '!');
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").each(function() {
             $(this).append(
