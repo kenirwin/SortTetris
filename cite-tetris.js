@@ -6,7 +6,6 @@ var game = {
     },
 
     init: function () {
-        alert (data);
         game.data = data;
         game.buttons = ['book','book chapter', 'article'];
         game.controls();
