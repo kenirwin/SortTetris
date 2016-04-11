@@ -82,7 +82,7 @@ var game = {
     
     correct: function () {
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
-        $('#row'+game.activeRow).html('').css('background-color',game.blankColor);
+        $('#row'+game.activeRow).html('').css('background-color',game.blankColor).css('border-color',game.blankColor);
         game.rows[game.activeRow] = -1;
         game.correctThisLevel++;
         game.score += game.level * game.pointUnits;
@@ -101,10 +101,11 @@ var game = {
         // move to game.lastClearRow
         for (var j=1; j < game.lastClearRow; j++) {
             game.rows[j] = -1;
-            $('#row'+j).html('').css('background-color',game.blankColor);
+            $('#row'+j).html('').css('background-color',game.blankColor).css('border-color',game.blankColor);
         }
         game.debug();
-        $('#row'+game.lastClearRow).html(game.citeText).css('background-color',game.color);
+        $('#row'+game.lastClearRow).html(game.citeText);
+        game.addCSS(game.colorIndex, '#row'+game.lastClearRow);
         game.activeRow = game.lastClearRow;
         game.rows[game.activeRow] = 1;
         game.debug();
@@ -194,7 +195,7 @@ var game = {
         game.debug();
         alert ('Game Over: You ' + winOrLose + '!');
         window.clearInterval(game.timer);
-        $("#grid td").css("background-color","lightgrey").each(function() {
+        $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {
             $(this).append(
                 $('<br /><span>Correct: '+$(this).attr("data-correct")+' </span>').addClass("overlay correct") 
                     .append($('<span> Your Answer: '+$(this).attr('data-incorrect')+'</span>').addClass("incorrect"))
