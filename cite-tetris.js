@@ -19,7 +19,7 @@ var game = {
         game.rows = [];
         game.activeRow = 0;
         game.citeText = '';
-        game.color = 'lightblue';
+        game.colors = ['#00e427','#e4de00','#00e4e4','#e40027','#9c13e4']; //green, yellow, lightblue, red, purple
         game.blankColor = 'white';
         game.lastClearRow = game.height;
         game.level = 1;
@@ -113,7 +113,8 @@ var game = {
             game.citeText = game.data[citeIndex].citation;
             game.currAnswer = game.data[citeIndex].type;
             game.givenAnswer = '';
-            game.color = "lightblue";
+            var colorIndex = Math.floor(Math.random()*game.colors.length);
+            game.color = game.colors[colorIndex];
             $('#row1').html(game.citeText).css('background-color',game.color);
             $('#citation').html(game.citeText).css('background-color',game.color);
             game.activeRow = 1;
