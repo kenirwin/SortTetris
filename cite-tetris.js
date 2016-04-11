@@ -160,7 +160,7 @@ var game = {
         game.debug();
         game.lastClearRow = game.activeRow-1;
         if (game.givenAnswer == '') { game.givenAnswer = "No Answer"; }
-        $('#row'+game.activeRow).css("background-color","red").attr("data-correct",game.currAnswer).attr("data-incorrect",game.givenAnswer);
+        $('#row'+game.activeRow).attr("data-correct",game.currAnswer).attr("data-incorrect",game.givenAnswer);
         window.clearInterval(game.timer);
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
         return false;
