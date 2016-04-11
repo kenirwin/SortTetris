@@ -7,9 +7,13 @@ table {
 tr {
     height: 2.5em;
 }
+td { 
+    padding: .5em;
+
+}
 #game { width: 50% }
 #citation { position: absolute; left: 450px; width: 450px;
-         font-weight: bold; font-size: 105%; 
+         font-weight: bold; font-size: 105%; padding: .5em; 
           }
 #score { position: absolute; left: 450px; top: 11em; 
          font-weight: bold; font-size: 105%; 
