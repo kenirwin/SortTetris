@@ -19,7 +19,13 @@ var game = {
         game.rows = [];
         game.activeRow = 0;
         game.citeText = '';
-        game.colors = ['#00e427','#e4de00','#00e4e4','#e40027','#9c13e4']; //green, yellow, lightblue, red, purple
+        game.colors = [
+            ['#00e427', '#bdffca', '#009c1a', '#00961a', '#2dff55'], //green
+            ['#e4de00','#ffffbd','#a39c00','#968f00','#fff83a'], //yellow
+            ['#00e4e4','#c4ffff','#00aaaa','#009696','#34ffff'], //lightblue
+            ['#e40027','#ffbdca','#a3001a','#96001a','#ff345b'], //red
+            ['#9c13e4','#ebbdff','#6f009c','#620096','#c441ff'], //purple
+        ];
         game.blankColor = 'white';
         game.lastClearRow = game.height;
         game.level = 1;
@@ -114,9 +120,11 @@ var game = {
             game.currAnswer = game.data[citeIndex].type;
             game.givenAnswer = '';
             var colorIndex = Math.floor(Math.random()*game.colors.length);
-            game.color = game.colors[colorIndex];
-            $('#row1').html(game.citeText).css('background-color',game.color);
-            $('#citation').html(game.citeText).css('background-color',game.color);
+            game.colorIndex = colorIndex;
+            $('#row1').html(game.citeText);
+            game.addCSS(colorIndex, '#row1');
+            $('#citation').html(game.citeText);
+            game.addCSS(colorIndex, '#citation');
             game.activeRow = 1;
             game.rows[game.activeRow] = 1;
         }
@@ -139,16 +147,29 @@ var game = {
         }
         return list;
     },
+
+    addCSS: function (index, id) {
+        var borderstring = game.colors[index][1]; // + ' ' + game.colors[index][2]) + ' ' + game.colors[index][3] + ' ' + game.colors[index][4];
+        $(id).css('background-color',game.colors[index][0])
+            .css('border-width','5px')
+            .css('border-style','solid')
+            .css('border-top-color', game.colors[index][1])
+            .css('border-right-color', game.colors[index][2])
+            .css('border-bottom-color', game.colors[index][3])
+            .css('border-left-color', game.colors[index][4]);
+    },
     
     moveDown: function () {
         game.debug();
         var n = game.activeRow;
         if (game.rows[game.activeRow+1] === -1) {
-            $('#row'+game.activeRow).html('').css('background-color',game.blankColor);
+            $('#row'+game.activeRow).html('').css('background-color',game.blankColor).css('border-color',game.blankColor)
             game.rows[game.activeRow] = -1;
             game.rows[game.activeRow+1] = 1; 
             game.activeRow++;
-            $('#row'+game.activeRow).html(game.citeText).css('background-color',game.color);
+            $('#row'+game.activeRow).html(game.citeText);
+            game.addCSS(game.colorIndex, '#row'+game.activeRow);
+
         }  
         else {
             game.touchdown();
