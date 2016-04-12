@@ -56,6 +56,7 @@ var game = {
         });
         $('.start-stop-button').addClass('inactive').unbind();
         game.next();
+	playaudio();
     },
     
     pause: function () {
@@ -90,6 +91,7 @@ var game = {
             game.correctThisLevel=0;
             game.interval-=game.intervalDecreasePerLevel;
             game.level++;
+	    speedUp();
         }
         $('#score').html('Level: '+game.level+'<br />Score: ' + game.score);
         if (game.level == game.winAtLevel) {
@@ -192,6 +194,8 @@ var game = {
     },
 
     gameOver: function (winOrLose) {
+	pauseaudio();
+
         game.debug();
         alert ('Game Over: You ' + winOrLose + '!');
         window.clearInterval(game.timer);
