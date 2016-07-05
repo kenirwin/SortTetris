@@ -8,6 +8,7 @@ var game = {
     init: function () {
         game.data = data; // defined in external file
         game.buttons = ['book','book chapter', 'article'];
+        game.audioOK = false;
         game.pointUnits = 100;
         game.interval = 600; //hundredths of seconds between move down
         game.height = 12;
@@ -32,13 +33,20 @@ var game = {
         game.score = 0;
         game.nCorrect = 0;
         game.nTotal = 0;
-        game.log = [];
+        game.answerLog = [];
         for (var i=1; i<(game.height+1); i++) {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
     },
 
+    logStatus: function() { 
+        console.log('=======================');
+        console.log('N:' + game.nTotal);
+        console.log('Correct:' + game.nCorrect);
+        console.log('Percent:' + game.nCorrect/game.nTotal);
+        console.log(game.answerLog);
+    },
 
     controls: function () {
         var buttonsHTML = '';
@@ -59,7 +67,7 @@ var game = {
         });
         $('.start-stop-button').addClass('inactive').unbind();
         game.next();
-	playaudio();
+	    if (game.audioOK === true) { playaudio(); }
     },
     
     pause: function () {
@@ -76,12 +84,15 @@ var game = {
         window.clearInterval(game.timer);
         game.debug();
         game.givenAnswer = id;
+        game.nTotal++;
+        game.answerLog.push([game.givenAnswer, game.currAnswer]);
         if (game.givenAnswer === game.currAnswer) {
             game.correct();
         }
         else {
             game.incorrect();
         }
+        game.logStatus();
     },
     
     correct: function () {
@@ -90,6 +101,7 @@ var game = {
         game.rows[game.activeRow] = -1;
         game.correctThisLevel++;
         game.score += game.level * game.pointUnits;
+        game.nCorrect++;
         if (game.correctThisLevel == game.correctPerLevel) {
             game.correctThisLevel=0;
             game.interval-=game.intervalDecreasePerLevel;
@@ -186,10 +198,15 @@ var game = {
     touchdown: function () {
         game.debug();
         game.lastClearRow = game.activeRow-1;
-        if (game.givenAnswer == '') { game.givenAnswer = "No Answer"; }
+        if (game.givenAnswer == '') { 
+            game.givenAnswer = "No Answer"; 
+            game.answerLog.push([game.correctAnswer, game.currAnswer]);
+            game.nTotal++;
+        }
         $('#row'+game.activeRow).attr("data-correct",game.currAnswer).attr("data-incorrect",game.givenAnswer);
         window.clearInterval(game.timer);
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
+        game.logStatus();
         return false;
     },
 
@@ -197,8 +214,7 @@ var game = {
     },
 
     gameOver: function (winOrLose) {
-	pauseaudio();
-
+        if (game.audioOK === true) { pauseaudio(); } 
         game.debug();
         alert ('Game Over: You ' + winOrLose + '!');
         window.clearInterval(game.timer);
