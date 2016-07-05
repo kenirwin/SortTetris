@@ -30,6 +30,9 @@ var game = {
         game.lastClearRow = game.height;
         game.level = 1;
         game.score = 0;
+        game.nCorrect = 0;
+        game.nTotal = 0;
+        game.log = [];
         for (var i=1; i<(game.height+1); i++) {
             game.rows[i] = -1; //empty
         }
