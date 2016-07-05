@@ -48,6 +48,13 @@ var game = {
         console.log(game.answerLog);
     },
 
+    getStats: function () {
+        var str='Total citations: ' +game.nTotal+ '<br />';
+        str+='Total correct: ' +game.nCorrect+ '<br />';
+        str+='Percent correct: ' +Math.round(100*game.nCorrect/game.nTotal)+ '%';
+        return str;
+    },
+
     controls: function () {
         var buttonsHTML = '';
         buttonsHTML += '<br /><button class="start-stop-button" id="start">Start Game</button><br />';
@@ -216,6 +223,8 @@ var game = {
     gameOver: function (winOrLose) {
         if (game.audioOK === true) { pauseaudio(); } 
         game.debug();
+        var stats = game.getStats();
+        $('#citation').html('Game Stats: ' + stats +' </p>');
         alert ('Game Over: You ' + winOrLose + '!');
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {
