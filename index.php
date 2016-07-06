@@ -11,10 +11,11 @@
 </head>
 <body>
 <?php
-     $audioOK = false;
-     if ($audioOK === true) {
-         include ("audio.php");
-     }
+//check audio setttings in cite-tetris.js
+$js = file_get_contents("cite-tetris.js");
+if (preg_match("/game.audioOK *\= *true *;/", $js, $m)) {
+    include ("audio.php");
+}
 ?>
 <img src="logo.png" />
 <div id="game">

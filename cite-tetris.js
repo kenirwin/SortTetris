@@ -8,7 +8,7 @@ var game = {
     init: function () {
         game.data = data; // defined in external file
         game.buttons = ['book','book chapter', 'article'];
-        game.audioOK = false;
+        game.audioOK = false; //true activates music; server must support audio
         game.pointUnits = 100;
         game.interval = 600; //hundredths of seconds between move down
         game.height = 12;
