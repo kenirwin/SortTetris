@@ -134,7 +134,8 @@ var game = {
 
 
     start: function () {
-        $('.game-button').removeClass('inactive').click(function() {
+        $('#long-stats').hide();
+        $('.game-button').removeClass('inactive').show().click(function() {
             game.clickEval(this.id);
         });
         $('.start-stop-button').addClass('inactive').unbind();
@@ -288,10 +289,11 @@ var game = {
     gameOver: function (winOrLose) {
         if (game.audioOK === true) { pauseaudio(); } 
         game.debug();
+        $('.game-button').hide();
         var stats = game.getStats();
         var longStats = game.getLongStats();
         $('#citation').html('Game Stats: ' + stats +' </p>');
-        $('#long-stats').html(longStats);
+        $('#long-stats').html(longStats).show();
         alert ('Game Over: You ' + winOrLose + '!');
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {
