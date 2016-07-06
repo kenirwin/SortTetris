@@ -55,6 +55,69 @@ var game = {
         return str;
     },
 
+    getLongStats: function () { 
+        var answers = [];
+        for (i = 0; i < game.answerLog.length; i++) {
+            var correct=game.answerLog[i][0];
+            var answered=game.answerLog[i][1];
+            if (answers[correct] == null) { 
+                answers[correct] = [];
+            }
+            if (answers[correct][answered] == null) {
+                answers[correct][answered] = 1;
+            }
+            else {
+                answers[correct][answered]++;
+            }
+        }
+
+        var key_count=[];
+        for (j=0; j<game.buttons.length; j++) { 
+            for (k=0; k<game.buttons.length; k++) {
+                var key1 = game.buttons[j];
+                var key2 = game.buttons[k];
+                if (answers[key1] !== undefined) {
+                    if (answers[key1][key2] !== undefined) {
+                        var this_key_count = answers[key1][key2];
+                        console.log(key1 +'+'+ key2 + ':' + this_key_count);
+                        if (key_count[key1] == undefined) {
+                            key_count[key1] = this_key_count;
+                        }
+                        else {
+                            key_count[key1] += this_key_count;
+                        }
+                        console.log(key1 + ' count: '+ key_count[key1]);
+                    }
+                }
+            }
+        }
+        
+        var output = '';
+        // go through again to calculate percentages and build display
+        for (j=0; j<game.buttons.length; j++) { 
+            var key1 = game.buttons[j];
+            if (answers[key1] !== undefined) {
+                output+='<tr class="score-header"><td colspan="3">Where correct answer is: <b>'+key1+'</b><br />You answered...</td></tr>';
+
+            for (k=0; k<game.buttons.length; k++) {
+                var key2 = game.buttons[k];
+                    if (answers[key1][key2] !== undefined) {
+                        var percent = answers[key1][key2]/key_count[key1];
+                        if (key1 == key2) { 
+                            var score_class = 'score-correct';
+                        }
+                        else {
+                            var score_class = 'score-incorrect';
+                        }
+                        output+= '<tr class="'+score_class+'"><td>' + key2 + '</td><td>' +answers[key1][key2]+ '</td><td>' + Math.round(percent*100) +'%</td></tr>';                        
+                    }
+                }
+            }
+        }
+        output = '<table>'+output+'</table>';
+        return output;
+    },
+    
     controls: function () {
         var buttonsHTML = '';
         buttonsHTML += '<br /><button class="start-stop-button" id="start">Start Game</button><br />';
@@ -224,7 +287,9 @@ var game = {
         if (game.audioOK === true) { pauseaudio(); } 
         game.debug();
         var stats = game.getStats();
+        var longStats = game.getLongStats();
         $('#citation').html('Game Stats: ' + stats +' </p>');
+        $('#long-stats').html(longStats);
         alert ('Game Over: You ' + winOrLose + '!');
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {

@@ -19,6 +19,7 @@ td {
          font-weight: bold; font-size: 105%; 
        }
 #controls { position: absolute; left: 450px; top: 14em;} 
+#long-stats { position: absolute; left: 450px; top: 30em;} 
 #debug { position: absolute; left: 1000px; display:none }
 
 .overlay {
@@ -26,11 +27,11 @@ td {
     text-transform: uppercase;
     opacity: 0.75;
 }
-.correct {
+.correct, .score-correct {
     color: darkgreen;
     background-color: lightgreen;
 }
-.incorrect {
+.incorrect, .score-incorrect {
     color: red;
     background-color: pink;
 }

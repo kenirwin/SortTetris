@@ -22,6 +22,7 @@
 <div id="debug">Debug:</div>
 <div id="score">Level: 1<br />Score: 0</div>
 <div id="controls"></div>
+<div id="long-stats"></div>                                         
 <div id="grid">
 <table>
 <tr><td id="row1"></td></tr>
