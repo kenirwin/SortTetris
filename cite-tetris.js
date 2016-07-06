@@ -57,6 +57,8 @@ var game = {
 
     getLongStats: function () { 
         var answers = [];
+        game.possibleAnswers = game.buttons;
+        game.possibleAnswers.push('No Answer');
         for (i = 0; i < game.answerLog.length; i++) {
             var correct=game.answerLog[i][0];
             var answered=game.answerLog[i][1];
@@ -72,10 +74,10 @@ var game = {
         }
 
         var key_count=[];
-        for (j=0; j<game.buttons.length; j++) { 
-            for (k=0; k<game.buttons.length; k++) {
-                var key1 = game.buttons[j];
-                var key2 = game.buttons[k];
+        for (j=0; j<game.possibleAnswers.length; j++) { 
+            for (k=0; k<game.possibleAnswers.length; k++) {
+                var key1 = game.possibleAnswers[j];
+                var key2 = game.possibleAnswers[k];
                 if (answers[key1] !== undefined) {
                     if (answers[key1][key2] !== undefined) {
                         var this_key_count = answers[key1][key2];
@@ -94,13 +96,13 @@ var game = {
         
         var output = '';
         // go through again to calculate percentages and build display
-        for (j=0; j<game.buttons.length; j++) { 
-            var key1 = game.buttons[j];
+        for (j=0; j<game.possibleAnswers.length; j++) { 
+            var key1 = game.possibleAnswers[j];
             if (answers[key1] !== undefined) {
                 output+='<tr class="score-header"><td colspan="3">Where correct answer is: <b>'+key1+'</b><br />You answered...</td></tr>';
 
-            for (k=0; k<game.buttons.length; k++) {
-                var key2 = game.buttons[k];
+            for (k=0; k<game.possibleAnswers.length; k++) {
+                var key2 = game.possibleAnswers[k];
                     if (answers[key1][key2] !== undefined) {
                         var percent = answers[key1][key2]/key_count[key1];
                         if (key1 == key2) { 
@@ -155,7 +157,7 @@ var game = {
         game.debug();
         game.givenAnswer = id;
         game.nTotal++;
-        game.answerLog.push([game.givenAnswer, game.currAnswer]);
+        game.answerLog.push([game.currAnswer, game.givenAnswer]);
         if (game.givenAnswer === game.currAnswer) {
             game.correct();
         }
@@ -270,7 +272,7 @@ var game = {
         game.lastClearRow = game.activeRow-1;
         if (game.givenAnswer == '') { 
             game.givenAnswer = "No Answer"; 
-            game.answerLog.push([game.correctAnswer, game.currAnswer]);
+            game.answerLog.push([game.currAnswer, game.givenAnswer]);
             game.nTotal++;
         }
         $('#row'+game.activeRow).attr("data-correct",game.currAnswer).attr("data-incorrect",game.givenAnswer);
