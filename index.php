@@ -26,7 +26,7 @@
 <div id="controls"></div>
 <div id="long-stats"></div>                                         
 <div id="grid">
-<table>
+<table id="game-table">
 <tr><td id="row1"></td></tr>
 <tr><td id="row2"></td></tr>
 <tr><td id="row3"></td></tr>
@@ -42,4 +42,5 @@
 </table>
 </div>
 </div>
+<?php include("license.php"); ?>
 </html>

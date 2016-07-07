@@ -1,9 +1,10 @@
 table { 
     width: 400px;
     border: 1px solid black;
-    position: absolute;
     top: 4em;
 }
+
+
 tr {
     height: 2.5em;
 }
@@ -11,7 +12,9 @@ td {
     padding: .5em;
 
 }
-#game { width: 50% }
+
+#game { width: 50%; }
+
 #item { position: absolute; left: 450px; width: 450px;
          font-weight: bold; font-size: 105%; padding: .5em; 
           }
@@ -20,8 +23,9 @@ td {
        }
 #controls { position: absolute; left: 450px; top: 14em;} 
 #long-stats { position: absolute; left: 450px; top: 15em; }
+#long-stats table { position: absolute }
 #debug { position: absolute; left: 1000px; display:none }
-
+#license { margin-top: 1em; }
 .overlay {
     font-weight: bold;
     text-transform: uppercase;
