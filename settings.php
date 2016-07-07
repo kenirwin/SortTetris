@@ -7,7 +7,7 @@ $data_file = 'bibliography.js';
 
 $json_buttons = json_encode($buttons);
 ?>
-<script type="javascript">
+<script type="text/javascript">
 var settings_buttons = <?php print($json_buttons); ?>;
 var settings_audioOK = <?php if($audioOK) { print 'true'; } else print 'false'; ?>;
 </script>
