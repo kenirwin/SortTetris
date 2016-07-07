@@ -2,12 +2,15 @@
 
 **Citation Tetris** is a game to help library workers and others practice quickly identifying the kind of citation they are looking at. Options include "article", "book chapter", and "book". 
 
-This tool could be readily adapted for other identification/sorting practice as well.
+This tool can be readily adapted for other identification/sorting practice as well. See alternate demo below.
 
 ## Demo
 
-Demo available online at: 
+Demo available online at:
 http://www6.wittenberg.edu/lib/ken/demo/CitationTetris
+
+Alternate demo: sorting animals by Linnean Class:
+http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=animal
 
 ## Credits
 Written by Ken Irwin, Wittenberg University
