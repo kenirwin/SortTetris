@@ -118,6 +118,7 @@ var game = {
             }
         }
         output = '<table>'+output+'</table>';
+        game.possibleAnswers.pop();
         return output;
     },
     
