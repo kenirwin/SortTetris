@@ -4,18 +4,17 @@
 <html>
 
 <head>
+<?php include('settings.php'); ?>
 <script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="bibliography.js"></script>
+<script type="text/javascript" src="<?php print($data_file);?>"></script>
 <script type="text/javascript" src="cite-tetris.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
 <?php
-//check audio setttings in cite-tetris.js
-$js = file_get_contents("cite-tetris.js");
-if (preg_match("/game.audioOK *\= *true *;/", $js, $m)) {
-    include ("audio.php");
-}
+     if ($audioOK) { 
+         include ("audio.php");
+     }
 ?>
 <img src="logo.png" />
 <div id="game">

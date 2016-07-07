@@ -6,9 +6,9 @@ var game = {
     },
 
     init: function () {
-        game.data = data; // defined in external file
-        game.buttons = ['book','book chapter', 'article'];
-        game.audioOK = false; //true activates music; server must support audio
+        game.data = data; // defined in external file specified in settings.php
+        game.buttons = buttons; //defined in settings.php
+        game.audioOK = audioOK; //defined in settings.php
         game.pointUnits = 100;
         game.interval = 600; //hundredths of seconds between move down
         game.height = 12;
