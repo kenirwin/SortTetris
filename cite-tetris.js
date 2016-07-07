@@ -112,12 +112,14 @@ var game = {
                         else {
                             var score_class = 'score-incorrect';
                         }
-                        output+= '<tr class="'+score_class+'"><td>' + key2 + '</td><td>' +answers[key1][key2]+ '</td><td>' + Math.round(percent*100) +'%</td></tr>';                        
+                        game.percent =  Math.round(percent*100);
+                        output+= '<tr class="'+score_class+'"><td>' + key2 + '</td><td>' +answers[key1][key2]+ '</td><td>' + game.percent +'%</td></tr>';                        
                     }
                 }
             }
         }
         output = '<table>'+output+'</table>';
+        game.possibleAnswers.pop();
         return output;
     },
     
@@ -317,11 +319,23 @@ var game = {
     },
     
     gameOverBanner: function () {
-        $('#score').html(game.score);
-//        $('#accuracy').html(percent);
-//        $('#final-score').html(score*multiplier);
-
+        $('#gameover-score').html(game.score);
+        $('#accuracy').html(game.percent);
+        game.multiplier=1;
+        $('#final-score').html(game.score*game.multiplier);
         $('#gameover').show();
+        game.i = 0;
+        game.incrementScore();
+    },
+
+    incrementScore: function () { 
+        game.multiplier++;
+        game.percent--;
+        $('#final-score').html(game.score*game.multiplier);
+        $('#accuracy').html(game.percent);
+        if (game.i < game.percent) {
+            game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 30);
+        }
     },
 };
 
