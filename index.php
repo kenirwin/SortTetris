@@ -5,6 +5,8 @@
 
 <head>
 <?php include('settings.php'); ?>
+<?php include('process_settings.php'); ?>
+<title><?php print($game_title); ?></title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="<?php print($data_file);?>"></script>
 <script type="text/javascript" src="cite-tetris.js"></script>
@@ -16,9 +18,9 @@
          include ("audio.php");
      }
 ?>
-<img src="logo.png" />
+<?php print($game_header); ?>
 <div id="game">
-<div id="citation">Citation:</div>
+     <div id="item"><?php print($item_label_cap);?>:</div>
 <div id="debug">Debug:</div>
 <div id="score">Level: 1<br />Score: 0</div>
 <div id="controls"></div>
@@ -40,3 +42,4 @@
 </table>
 </div>
 </div>
+</html>

@@ -9,6 +9,7 @@ var game = {
         game.data = data; // defined in external file specified in settings.php
         game.buttons = settings_buttons; //defined in settings.php
         game.audioOK = settings_audioOK; //defined in settings.php
+        game.itemLabel = settings_itemLabel; //defined in settings.php
         game.pointUnits = 100;
         game.interval = 600; //hundredths of seconds between move down
         game.height = 12;
@@ -49,7 +50,7 @@ var game = {
     },
 
     getStats: function () {
-        var str='Total citations: ' +game.nTotal+ '<br />';
+        var str='Total '+game.itemLabel+'s: ' +game.nTotal+ '<br />';
         str+='Total correct: ' +game.nCorrect+ '<br />';
         str+='Percent correct: ' +Math.round(100*game.nCorrect/game.nTotal)+ '%';
         return str;
@@ -207,15 +208,15 @@ var game = {
     newCite: function () {
         if (game.rows[1] !== 1) {
             var citeIndex = Math.floor(Math.random()*game.data.length);
-            game.citeText = game.data[citeIndex].citation;
+            game.citeText = game.data[citeIndex].item;
             game.currAnswer = game.data[citeIndex].type;
             game.givenAnswer = '';
             var colorIndex = Math.floor(Math.random()*game.colors.length);
             game.colorIndex = colorIndex;
             $('#row1').html(game.citeText);
             game.addCSS(colorIndex, '#row1');
-            $('#citation').html(game.citeText);
-            game.addCSS(colorIndex, '#citation');
+            $('#item').html(game.citeText);
+            game.addCSS(colorIndex, '#item');
             game.activeRow = 1;
             game.rows[game.activeRow] = 1;
         }
@@ -292,7 +293,7 @@ var game = {
         $('.game-button').hide();
         var stats = game.getStats();
         var longStats = game.getLongStats();
-        $('#citation').html('Game Stats: ' + stats +' </p>');
+        $('#item').html('Game Stats: ' + stats +' </p>');
         $('#long-stats').html(longStats).show();
         alert ('Game Over: You ' + winOrLose + '!');
         window.clearInterval(game.timer);

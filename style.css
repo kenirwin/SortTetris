@@ -12,7 +12,7 @@ td {
 
 }
 #game { width: 50% }
-#citation { position: absolute; left: 450px; width: 450px;
+#item { position: absolute; left: 450px; width: 450px;
          font-weight: bold; font-size: 105%; padding: .5em; 
           }
 #score { position: absolute; left: 450px; top: 11em; 
