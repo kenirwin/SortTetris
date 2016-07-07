@@ -1,9 +1,10 @@
 table { 
     width: 400px;
     border: 1px solid black;
-    position: absolute;
     top: 4em;
 }
+
+
 tr {
     height: 2.5em;
 }
@@ -11,26 +12,30 @@ td {
     padding: .5em;
 
 }
-#game { width: 50% }
-#citation { position: absolute; left: 450px; width: 450px;
+
+#game { width: 50%; }
+
+#item { position: absolute; left: 450px; width: 450px;
          font-weight: bold; font-size: 105%; padding: .5em; 
           }
 #score { position: absolute; left: 450px; top: 11em; 
          font-weight: bold; font-size: 105%; 
        }
 #controls { position: absolute; left: 450px; top: 14em;} 
+#long-stats { position: absolute; left: 450px; top: 15em; }
+#long-stats table { position: absolute }
 #debug { position: absolute; left: 1000px; display:none }
-
+#license { margin-top: 3em; }
 .overlay {
     font-weight: bold;
     text-transform: uppercase;
     opacity: 0.75;
 }
-.correct {
+.correct, .score-correct {
     color: darkgreen;
     background-color: lightgreen;
 }
-.incorrect {
+.incorrect, .score-incorrect {
     color: red;
     background-color: pink;
 }

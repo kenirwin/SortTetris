@@ -6,8 +6,10 @@ var game = {
     },
 
     init: function () {
-        game.data = data; // defined in external file
-        game.buttons = ['book','book chapter', 'article'];
+        game.data = data; // defined in external file specified in settings.php
+        game.buttons = settings_buttons; //defined in settings.php
+        game.audioOK = settings_audioOK; //defined in settings.php
+        game.itemLabel = settings_itemLabel; //defined in settings.php
         game.pointUnits = 100;
         game.interval = 600; //hundredths of seconds between move down
         game.height = 12;
@@ -30,13 +32,95 @@ var game = {
         game.lastClearRow = game.height;
         game.level = 1;
         game.score = 0;
+        game.nCorrect = 0;
+        game.nTotal = 0;
+        game.answerLog = [];
         for (var i=1; i<(game.height+1); i++) {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
     },
 
+    logStatus: function() { 
+        console.log('=======================');
+        console.log('N:' + game.nTotal);
+        console.log('Correct:' + game.nCorrect);
+        console.log('Percent:' + game.nCorrect/game.nTotal);
+        console.log(game.answerLog);
+    },
 
+    getStats: function () {
+        var str='Total '+game.itemLabel+'s: ' +game.nTotal+ '<br />';
+        str+='Total correct: ' +game.nCorrect+ '<br />';
+        str+='Percent correct: ' +Math.round(100*game.nCorrect/game.nTotal)+ '%';
+        return str;
+    },
+
+    getLongStats: function () { 
+        var answers = [];
+        game.possibleAnswers = game.buttons;
+        game.possibleAnswers.push('No Answer');
+        for (i = 0; i < game.answerLog.length; i++) {
+            var correct=game.answerLog[i][0];
+            var answered=game.answerLog[i][1];
+            if (answers[correct] == null) { 
+                answers[correct] = [];
+            }
+            if (answers[correct][answered] == null) {
+                answers[correct][answered] = 1;
+            }
+            else {
+                answers[correct][answered]++;
+            }
+        }
+
+        var key_count=[];
+        for (j=0; j<game.possibleAnswers.length; j++) { 
+            for (k=0; k<game.possibleAnswers.length; k++) {
+                var key1 = game.possibleAnswers[j];
+                var key2 = game.possibleAnswers[k];
+                if (answers[key1] !== undefined) {
+                    if (answers[key1][key2] !== undefined) {
+                        var this_key_count = answers[key1][key2];
+                        console.log(key1 +'+'+ key2 + ':' + this_key_count);
+                        if (key_count[key1] == undefined) {
+                            key_count[key1] = this_key_count;
+                        }
+                        else {
+                            key_count[key1] += this_key_count;
+                        }
+                        console.log(key1 + ' count: '+ key_count[key1]);
+                    }
+                }
+            }
+        }
+        
+        var output = '';
+        // go through again to calculate percentages and build display
+        for (j=0; j<game.possibleAnswers.length; j++) { 
+            var key1 = game.possibleAnswers[j];
+            if (answers[key1] !== undefined) {
+                output+='<tr class="score-header"><td colspan="3">Where correct answer is: <b>'+key1+'</b><br />You answered...</td></tr>';
+
+            for (k=0; k<game.possibleAnswers.length; k++) {
+                var key2 = game.possibleAnswers[k];
+                    if (answers[key1][key2] !== undefined) {
+                        var percent = answers[key1][key2]/key_count[key1];
+                        if (key1 == key2) { 
+                            var score_class = 'score-correct';
+                        }
+                        else {
+                            var score_class = 'score-incorrect';
+                        }
+                        output+= '<tr class="'+score_class+'"><td>' + key2 + '</td><td>' +answers[key1][key2]+ '</td><td>' + Math.round(percent*100) +'%</td></tr>';                        
+                    }
+                }
+            }
+        }
+        output = '<table>'+output+'</table>';
+        return output;
+    },
+    
     controls: function () {
         var buttonsHTML = '';
         buttonsHTML += '<br /><button class="start-stop-button" id="start">Start Game</button><br />';
@@ -51,12 +135,13 @@ var game = {
 
 
     start: function () {
-        $('.game-button').removeClass('inactive').click(function() {
+        $('#long-stats').hide();
+        $('.game-button').removeClass('inactive').show().click(function() {
             game.clickEval(this.id);
         });
         $('.start-stop-button').addClass('inactive').unbind();
         game.next();
-	playaudio();
+	    if (game.audioOK === true) { playaudio(); }
     },
     
     pause: function () {
@@ -73,12 +158,15 @@ var game = {
         window.clearInterval(game.timer);
         game.debug();
         game.givenAnswer = id;
+        game.nTotal++;
+        game.answerLog.push([game.currAnswer, game.givenAnswer]);
         if (game.givenAnswer === game.currAnswer) {
             game.correct();
         }
         else {
             game.incorrect();
         }
+        game.logStatus();
     },
     
     correct: function () {
@@ -87,6 +175,7 @@ var game = {
         game.rows[game.activeRow] = -1;
         game.correctThisLevel++;
         game.score += game.level * game.pointUnits;
+        game.nCorrect++;
         if (game.correctThisLevel == game.correctPerLevel) {
             game.correctThisLevel=0;
             game.interval-=game.intervalDecreasePerLevel;
@@ -119,15 +208,15 @@ var game = {
     newCite: function () {
         if (game.rows[1] !== 1) {
             var citeIndex = Math.floor(Math.random()*game.data.length);
-            game.citeText = game.data[citeIndex].citation;
+            game.citeText = game.data[citeIndex].item;
             game.currAnswer = game.data[citeIndex].type;
             game.givenAnswer = '';
             var colorIndex = Math.floor(Math.random()*game.colors.length);
             game.colorIndex = colorIndex;
             $('#row1').html(game.citeText);
             game.addCSS(colorIndex, '#row1');
-            $('#citation').html(game.citeText);
-            game.addCSS(colorIndex, '#citation');
+            $('#item').html(game.citeText);
+            game.addCSS(colorIndex, '#item');
             game.activeRow = 1;
             game.rows[game.activeRow] = 1;
         }
@@ -183,10 +272,15 @@ var game = {
     touchdown: function () {
         game.debug();
         game.lastClearRow = game.activeRow-1;
-        if (game.givenAnswer == '') { game.givenAnswer = "No Answer"; }
+        if (game.givenAnswer == '') { 
+            game.givenAnswer = "No Answer"; 
+            game.answerLog.push([game.currAnswer, game.givenAnswer]);
+            game.nTotal++;
+        }
         $('#row'+game.activeRow).attr("data-correct",game.currAnswer).attr("data-incorrect",game.givenAnswer);
         window.clearInterval(game.timer);
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
+        game.logStatus();
         return false;
     },
 
@@ -194,9 +288,13 @@ var game = {
     },
 
     gameOver: function (winOrLose) {
-	pauseaudio();
-
+        if (game.audioOK === true) { pauseaudio(); } 
         game.debug();
+        $('.game-button').hide();
+        var stats = game.getStats();
+        var longStats = game.getLongStats();
+        $('#item').html('Game Stats: ' + stats +' </p>');
+        $('#long-stats').html(longStats).show();
         alert ('Game Over: You ' + winOrLose + '!');
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {

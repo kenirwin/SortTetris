@@ -4,51 +4,39 @@
 <html>
 
 <head>
+<?php
+if (isset($_GET['settings'])) {
+    $filename = 'settings_'.$_GET['settings'].'.php';
+    if (is_readable($filename)) {
+        include($filename);
+    }
+    else { include('settings.php'); }
+}
+else { include('settings.php'); }
+include('process_settings.php'); 
+?>
+
+<title><?php print($game_title); ?></title>
 <script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="bibliography.js"></script>
+<script type="text/javascript" src="<?php print($data_file);?>"></script>
 <script type="text/javascript" src="cite-tetris.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-    <audio id='myaudio' loop='loop'>
-      <source src='Korobeiniki.mp3' type='audio/mp3'>
-    </audio>
-
-    <script>
-   var audio=document.getElementById('myaudio');
-   audio.playbackRate = 1;
-   function playaudio()
-      {
-        audio.play()
-      }
-    function pauseaudio()
-      {
-       audio.pause()
-      }
-    function speedUp() 
-      {
-	var newRate = audio.playbackRate + 0.2;
-	if (newRate < 3) { 
-	  audio.playbackRate = newRate;
-	}
-      }
-    function slowDown() 
-      {
-	var newRate = audio.playbackRate - 0.2;
-	if (newRate < .5) { 
-	  audio.playbackRate = newRate;
-	}
-      }
-    </script>
-
-<img src="logo.png" />
+<?php
+     if ($audioOK) { 
+         include ("audio.php");
+     }
+?>
+<?php print($game_header); ?>
 <div id="game">
-<div id="citation">Citation:</div>
+     <div id="item"><?php print($item_label_cap);?>:</div>
 <div id="debug">Debug:</div>
 <div id="score">Level: 1<br />Score: 0</div>
 <div id="controls"></div>
+<div id="long-stats"></div>                                         
 <div id="grid">
-<table>
+<table id="game-table">
 <tr><td id="row1"></td></tr>
 <tr><td id="row2"></td></tr>
 <tr><td id="row3"></td></tr>
@@ -64,3 +52,5 @@
 </table>
 </div>
 </div>
+<?php include("license.php"); ?>
+</html>
