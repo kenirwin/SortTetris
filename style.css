@@ -26,6 +26,9 @@ td {
 #long-stats table { position: absolute }
 #debug { position: absolute; left: 1000px; display:none }
 #license { margin-top: 3em; }
+#gameover { position: absolute; top: 10%; left: 5%; width: 90%; height: 80%; z-index:100; background-color: #999; border: 10px solid gold; border-radius: 10px; font-size: 3em; display:none; }
+#close-gameover { }            
+
 .overlay {
     font-weight: bold;
     text-transform: uppercase;
@@ -40,7 +43,7 @@ td {
     background-color: pink;
 }
 
-button { 
+button, .button { 
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;

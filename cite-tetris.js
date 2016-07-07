@@ -295,7 +295,8 @@ var game = {
         var longStats = game.getLongStats();
         $('#item').html('Game Stats: ' + stats +' </p>');
         $('#long-stats').html(longStats).show();
-        alert ('Game Over: You ' + winOrLose + '!');
+        //alert ('Game Over: You ' + winOrLose + '!');
+        game.gameOverBanner();
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {
             $(this).append(
@@ -313,6 +314,14 @@ var game = {
             game.start();
         });
         die();
+    },
+    
+    gameOverBanner: function () {
+        $('#score').html(game.score);
+//        $('#accuracy').html(percent);
+//        $('#final-score').html(score*multiplier);
+
+        $('#gameover').show();
     },
 };
 

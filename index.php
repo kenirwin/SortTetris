@@ -20,6 +20,13 @@ include('process_settings.php');
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="<?php print($data_file);?>"></script>
 <script type="text/javascript" src="cite-tetris.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#close-gameover').click(function() {
+            $('#gameover').hide();
+        });
+    });
+</script>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
@@ -53,4 +60,12 @@ include('process_settings.php');
 </div>
 </div>
 <?php include("license.php"); ?>
+<div id="gameover"><h1>Game Over</h1>
+<div>
+<label for="score">Score:</label><span id="score"></span><br />
+<label for="accuracy">Accuracy Bonus: </label><span id="accuracy"></span><br />
+<label for="final-score">Final Score: </label><span id="final-score"></span>
+</div>
+<center><div id="close-gameover" class="button">Close</div></center>
+</div>
 </html>
