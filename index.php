@@ -4,8 +4,18 @@
 <html>
 
 <head>
-<?php include('settings.php'); ?>
-<?php include('process_settings.php'); ?>
+<?php
+if (isset($_GET['settings'])) {
+    $filename = 'settings_'.$_GET['settings'].'.php';
+    if (is_readable($filename)) {
+        include($filename);
+    }
+    else { include('settings.php'); }
+}
+else { include('settings.php'); }
+include('process_settings.php'); 
+?>
+
 <title><?php print($game_title); ?></title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="<?php print($data_file);?>"></script>

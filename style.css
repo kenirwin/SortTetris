@@ -25,7 +25,7 @@ td {
 #long-stats { position: absolute; left: 450px; top: 15em; }
 #long-stats table { position: absolute }
 #debug { position: absolute; left: 1000px; display:none }
-#license { margin-top: 1em; }
+#license { margin-top: 3em; }
 .overlay {
     font-weight: bold;
     text-transform: uppercase;
