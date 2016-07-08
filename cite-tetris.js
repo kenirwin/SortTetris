@@ -299,8 +299,7 @@ var game = {
         var longStats = game.getLongStats();
         $('#item').html('Game Stats: ' + stats +' </p>');
         $('#long-stats').html(longStats).show();
-        //alert ('Game Over: You ' + winOrLose + '!');
-        game.gameOverBanner();
+        game.gameOverBanner(winOrLose);
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {
             $(this).append(
@@ -320,9 +319,12 @@ var game = {
         die();
     },
     
-    gameOverBanner: function () {
+    gameOverBanner: function (winOrLose) {
         $('#gameover-score').html(game.score);
         $('#accuracy').html(game.percent);
+        if (winOrLose == "win") { 
+            $('#gameover .header').html('You win!');
+        }
         game.multiplier=1;
         $('#final-score').html(game.score*game.multiplier);
         $('#gameover').show();

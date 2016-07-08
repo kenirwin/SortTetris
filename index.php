@@ -59,7 +59,7 @@ include('process_settings.php');
 </div>
 </div>
 <?php include("license.php"); ?>
-<div id="gameover"><h1>Game Over</h1>
+<div id="gameover"><h1 class="header">Game Over</h1>
 <div>
 <label for="gameover-score">Score:</label><span id="gameover-score"></span><br />
 <label for="accuracy">Accuracy Bonus: </label><span id="accuracy"></span><br />
