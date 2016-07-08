@@ -324,20 +324,20 @@ var game = {
             $('#gameover .header').html('You win!');
         }
         game.multiplier=1;
-        $('#final-score').html(game.score*game.multiplier);
+        $('#final-score').html(game.score*game.multiplier/10);
         $('#gameover').show();
         game.i = 0;
         game.incrementScore();
     },
 
     incrementScore: function () { 
-        game.multiplier++;
         game.percent--;
         $('#final-score').html(game.score*game.multiplier);
         $('#accuracy').html(game.percent);
         if (game.i < game.percent) {
             game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 30);
         }
+        game.multiplier++;
     },
 };
 
