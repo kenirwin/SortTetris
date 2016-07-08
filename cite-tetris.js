@@ -6,7 +6,9 @@ var game = {
     },
 
     init: function () {
-        game.data = data; // defined in external file specified in settings.php
+        $.getJSON('./'+settings_dataFile, function(response) {
+            game.data = response;
+        });
         game.buttons = settings_buttons; //defined in settings.php
         game.audioOK = settings_audioOK; //defined in settings.php
         game.itemLabel = settings_itemLabel; //defined in settings.php

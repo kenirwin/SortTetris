@@ -1,4 +1,4 @@
-data = [
+[
     { 
         "item": "dog",
         "type" : "mammal"

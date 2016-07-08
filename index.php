@@ -18,7 +18,6 @@ include('process_settings.php');
 
 <title><?php print($game_title); ?></title>
 <script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="<?php print($data_file);?>"></script>
 <script type="text/javascript" src="cite-tetris.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
