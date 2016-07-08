@@ -10,8 +10,11 @@ foreach ($input_files as $file) {
             $buffer = ltrim(chop($buffer));
             //            print('"'.strip_tags($buffer, '<em><i>'). '","'. $type . '"'. PHP_EOL);
             $line['item']=strip_tags($buffer, '<em><i>');
+            $line['item']=preg_replace("/&nbsp;/"," ",$line['item']);
             $line['type']=$type;
-            array_push($contents, $line);
+            if (preg_match("/[a-zA-Z0-9]/",$line['item'])) { // if string has content
+                array_push($contents, $line);
+            }
         }
         if (!feof($handle)) {
             echo "Error: unexpected fgets() fail\n";
