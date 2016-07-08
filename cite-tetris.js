@@ -6,30 +6,12 @@ var game = {
     },
 
     init: function () {
-        $.getJSON('./'+settings_dataFile, function(response) {
-            game.data = response;
-        });
-        game.buttons = settings_buttons; //defined in settings.php
-        game.audioOK = settings_audioOK; //defined in settings.php
-        game.itemLabel = settings_itemLabel; //defined in settings.php
-        game.pointUnits = 100;
-        game.interval = 600; //hundredths of seconds between move down
-        game.height = 12;
-        game.correctPerLevel = 6;
+        game.importSettings();
         game.correctThisLevel = 0; //always start at zero
-        game.winAtLevel = 6;
-        game.intervalDecreasePerLevel=50;
         game.controls();
         game.rows = [];
         game.activeRow = 0;
         game.citeText = '';
-        game.colors = [
-            ['#00e427', '#bdffca', '#009c1a', '#00961a', '#2dff55'], //green
-            ['#e4de00','#ffffbd','#a39c00','#968f00','#fff83a'], //yellow
-            ['#00e4e4','#c4ffff','#00aaaa','#009696','#34ffff'], //lightblue
-            ['#e40027','#ffbdca','#a3001a','#96001a','#ff345b'], //red
-            ['#9c13e4','#ebbdff','#6f009c','#620096','#c441ff'], //purple
-        ];
         game.blankColor = 'white';
         game.lastClearRow = game.height;
         game.level = 1;
@@ -41,6 +23,22 @@ var game = {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
+    },
+
+    importSettings: function () {
+        $.getJSON('./'+settings_dataFile, function(response) {
+            game.data = response;
+        });
+        game.buttons = settings_buttons; //defined in settings.php
+        game.audioOK = settings_audioOK; //defined in settings.php
+        game.itemLabel = settings_itemLabel; //defined in settings.php
+        game.pointUnits = settings_pointUnits;
+        game.interval = settings_interval;
+        game.height = settings_height;
+        game.correctPerLevel = settings_correctPerLevel;
+        game.winAtLevel = settings_winAtLevel;
+        game.intervalDecreasePerLevel=settings_intervalDecreasePerLevel;
+        game.colors = settings_colors;
     },
 
     logStatus: function() { 
