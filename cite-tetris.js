@@ -341,7 +341,7 @@ var game = {
         $('#final-score').html(game.finalScore);
         $('#accuracy').html(game.percent);
         if (game.i < game.percent) {
-            game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 30);
+            game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 50);
         }
         game.multiplier++;
     },
