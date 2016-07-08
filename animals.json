@@ -1,4 +1,4 @@
-data = [
+[
     { 
         "item": "dog",
         "type" : "mammal"
@@ -58,5 +58,5 @@ data = [
     { 
         "item": "newt",
         "type" : "amphibian"
-    },
+    }
 ]

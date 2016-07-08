@@ -10,15 +10,18 @@ if (isset($_GET['settings'])) {
     if (is_readable($filename)) {
         include($filename);
     }
-    else { include('settings.php'); }
 }
-else { include('settings.php'); }
+elseif (is_readable('settings.php')) { 
+    include('settings.php'); 
+}
+else { include('settings_bib.php'); }    
+
+
 include('process_settings.php'); 
 ?>
 
 <title><?php print($game_title); ?></title>
 <script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="<?php print($data_file);?>"></script>
 <script type="text/javascript" src="cite-tetris.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
@@ -53,4 +56,12 @@ include('process_settings.php');
 </div>
 </div>
 <?php include("license.php"); ?>
+<div id="gameover"><h1 class="header">Game Over</h1>
+<div>
+<label for="gameover-score">Score:</label><span id="gameover-score"></span><br />
+<label for="accuracy">Accuracy Bonus: </label><span id="accuracy"></span><br />
+<label for="final-score">Final Score: </label><span id="final-score"></span>
+</div>
+<center><div id="close-gameover" class="button">Close</div></center>
+</div>
 </html>
