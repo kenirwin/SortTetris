@@ -10,9 +10,13 @@ if (isset($_GET['settings'])) {
     if (is_readable($filename)) {
         include($filename);
     }
-    else { include('settings.php'); }
 }
-else { include('settings.php'); }
+elseif (is_readable('settings.php')) { 
+    include('settings.php'); 
+}
+else { include('settings_bib.php'); }    
+
+
 include('process_settings.php'); 
 ?>
 
