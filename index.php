@@ -19,13 +19,6 @@ include('process_settings.php');
 <title><?php print($game_title); ?></title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="cite-tetris.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#close-gameover').click(function() {
-            $('#gameover').hide();
-        });
-    });
-</script>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>

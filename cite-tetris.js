@@ -23,6 +23,11 @@ var game = {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
+        $('#close-gameover').click(function() {
+            $('#score').append('<br />Final Score with Accuracy Bonus: ' + game.finalScore);
+            $('#gameover').hide();
+        });
+
     },
 
     importSettings: function () {
@@ -324,7 +329,7 @@ var game = {
             $('#gameover .header').html('You win!');
         }
         game.multiplier=1;
-        $('#final-score').html(game.score*game.multiplier/10);
+        $('#final-score').html(game.score);
         $('#gameover').show();
         game.i = 0;
         game.incrementScore();
@@ -332,7 +337,8 @@ var game = {
 
     incrementScore: function () { 
         game.percent--;
-        $('#final-score').html(game.score*game.multiplier);
+        game.finalScore = game.score + game.score*game.multiplier/100;
+        $('#final-score').html(game.finalScore);
         $('#accuracy').html(game.percent);
         if (game.i < game.percent) {
             game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 30);
