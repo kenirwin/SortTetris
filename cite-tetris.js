@@ -23,7 +23,7 @@ var game = {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
-        $('#close-gameover').click(function() {
+        $('#close-gameover').unbind().click(function() {
             $('#score').append('<br />Final Score with Accuracy Bonus: ' + game.finalScore);
             $('#gameover').hide();
         });
@@ -147,6 +147,7 @@ var game = {
             game.clickEval(this.id);
         });
         $('.start-stop-button').addClass('inactive').unbind();
+        $('#score').html('Level: 1<br />Score: 0');
         game.next();
 	    if (game.audioOK === true) { playaudio(); }
     },
