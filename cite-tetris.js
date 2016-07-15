@@ -244,7 +244,7 @@ var game = {
             array[randomIndex] = temporaryValue;
         }
         return array;
-    }
+    },
 
     listProperties: function(obj) {
         var list='';
