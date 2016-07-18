@@ -149,6 +149,7 @@ var game = {
 
     start: function () {
         $('#long-stats').hide();
+        $("#grid td").css("background-color",game.blankColor).css("border-color",game.blankColor);
         $('.game-button').removeClass('inactive').show().click(function() {
             game.clickEval(this.id);
         });
