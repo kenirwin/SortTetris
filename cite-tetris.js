@@ -149,7 +149,9 @@ var game = {
 
     start: function () {
         $('#long-stats').hide();
-        $("#grid td").css("background-color",game.blankColor).css("border-color",game.blankColor);
+        $("#grid td").css("background-color",game.blankColor).css("border-color",game.blankColor).each(function() {
+            $(this).removeAttr('data-correct').removeAttr('data-incorrect');
+        });
         $('.game-button').removeClass('inactive').show().click(function() {
             game.clickEval(this.id);
         });
@@ -329,10 +331,15 @@ var game = {
         game.gameOverBanner(winOrLose);
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {
-            $(this).append(
-                $('<br /><span>Correct: '+$(this).attr("data-correct")+' </span>').addClass("overlay correct") 
-                    .append($('<span> Your Answer: '+$(this).attr('data-incorrect')+'</span>').addClass("incorrect"))
-            );
+            if ($(this).attr("data-correct") == undefined) {
+                $(this).css("background-color",game.blankColor).css("border-color",game.blankColor);
+            }
+            else { 
+                $(this).append(
+                    $('<br /><span>Correct: '+$(this).attr("data-correct")+' </span>').addClass("overlay correct") 
+                        .append($('<span> Your Answer: '+$(this).attr('data-incorrect')+'</span>').addClass("incorrect"))
+                );
+            }
         });
         delete game.timer;
         $("#controls .game-button").addClass('inactive').unbind();
