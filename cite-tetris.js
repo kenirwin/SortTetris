@@ -164,7 +164,7 @@ var game = {
     
     next: function () {
         game.itemCounter++;
-        if (game.itemCounter > game.data.length) { 
+        if (game.itemCounter >= game.data.length) { 
             game.shuffle(game.data);
             game.itemCounter = 0; 
         }
