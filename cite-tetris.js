@@ -346,12 +346,12 @@ var game = {
     },
     
     gameOverBanner: function (winOrLose) {
+        game.multiplier=1;
         $('#gameover-score').html(game.score);
-        $('#accuracy').html(game.percent);
+        $('#accuracy').html(game.percent * game.score*game.multiplier/100);
         if (winOrLose == "win") { 
             $('#gameover .header').html('You win!');
         }
-        game.multiplier=1;
         $('#final-score').html(game.score);
         $('#gameover').show();
         game.i = 0;
@@ -362,7 +362,6 @@ var game = {
         game.percent--;
         game.finalScore = game.score + game.score*game.multiplier/100;
         $('#final-score').html(game.finalScore);
-        $('#accuracy').html(game.percent);
         if (game.i < game.percent) {
             game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 50);
         }
