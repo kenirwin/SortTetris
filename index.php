@@ -64,4 +64,11 @@ include('process_settings.php');
 </div>
 <center><div id="close-gameover" class="button">Close</div></center>
 </div>
+
+<?php
+if (! empty($google_analytics_block)) {
+    print $google_analytics_block;
+}
+?>
+
 </html>

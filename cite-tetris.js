@@ -11,7 +11,8 @@ var game = {
         game.controls();
         game.rows = [];
         game.activeRow = 0;
-        game.citeText = '';
+        game.itemCounter=0;
+        game.itemText = '';
         game.blankColor = 'white';
         game.lastClearRow = game.height;
         game.level = 1;
@@ -30,10 +31,15 @@ var game = {
 
     },
 
-    importSettings: function () {
+    loadData: function () {
         $.getJSON('./'+settings_dataFile, function(response) {
-            game.data = response;
+            game.data=response;
+            game.shuffle(game.data);
         });
+    },
+
+    importSettings: function () {
+        game.loadData();
         game.buttons = settings_buttons; //defined in settings.php
         game.audioOK = settings_audioOK; //defined in settings.php
         game.itemLabel = settings_itemLabel; //defined in settings.php
@@ -143,6 +149,9 @@ var game = {
 
     start: function () {
         $('#long-stats').hide();
+        $("#grid td").css("background-color",game.blankColor).css("border-color",game.blankColor).each(function() {
+            $(this).removeAttr('data-correct').removeAttr('data-incorrect');
+        });
         $('.game-button').removeClass('inactive').show().click(function() {
             game.clickEval(this.id);
         });
@@ -157,6 +166,11 @@ var game = {
     },
     
     next: function () {
+        game.itemCounter++;
+        if (game.itemCounter >= game.data.length) { 
+            game.shuffle(game.data);
+            game.itemCounter = 0; 
+        }
         game.debug();
         game.nextCite = game.newCite();
         game.timer = window.setInterval(game.moveDown, game.interval);
@@ -203,7 +217,7 @@ var game = {
             $('#row'+j).html('').css('background-color',game.blankColor).css('border-color',game.blankColor);
         }
         game.debug();
-        $('#row'+game.lastClearRow).html(game.citeText);
+        $('#row'+game.lastClearRow).html(game.itemText);
         game.addCSS(game.colorIndex, '#row'+game.lastClearRow);
         game.activeRow = game.lastClearRow;
         game.rows[game.activeRow] = 1;
@@ -215,15 +229,14 @@ var game = {
     
     newCite: function () {
         if (game.rows[1] !== 1) {
-            var citeIndex = Math.floor(Math.random()*game.data.length);
-            game.citeText = game.data[citeIndex].item;
-            game.currAnswer = game.data[citeIndex].type;
+            game.itemText = game.data[game.itemCounter].item;
+            game.currAnswer = game.data[game.itemCounter].type;
             game.givenAnswer = '';
             var colorIndex = Math.floor(Math.random()*game.colors.length);
             game.colorIndex = colorIndex;
-            $('#row1').html(game.citeText);
+            $('#row1').html(game.itemText);
             game.addCSS(colorIndex, '#row1');
-            $('#item').html(game.citeText);
+            $('#item').html(game.itemText);
             game.addCSS(colorIndex, '#item');
             game.activeRow = 1;
             game.rows[game.activeRow] = 1;
@@ -234,6 +247,18 @@ var game = {
         }
     },
     
+    shuffle: function(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    },
+
     listProperties: function(obj) {
         var list='';
         for (var propertyName in obj) {
@@ -267,7 +292,7 @@ var game = {
             game.rows[game.activeRow] = -1;
             game.rows[game.activeRow+1] = 1; 
             game.activeRow++;
-            $('#row'+game.activeRow).html(game.citeText);
+            $('#row'+game.activeRow).html(game.itemText);
             game.addCSS(game.colorIndex, '#row'+game.activeRow);
 
         }  
@@ -306,10 +331,15 @@ var game = {
         game.gameOverBanner(winOrLose);
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {
-            $(this).append(
-                $('<br /><span>Correct: '+$(this).attr("data-correct")+' </span>').addClass("overlay correct") 
-                    .append($('<span> Your Answer: '+$(this).attr('data-incorrect')+'</span>').addClass("incorrect"))
-            );
+            if ($(this).attr("data-correct") == undefined) {
+                $(this).css("background-color",game.blankColor).css("border-color",game.blankColor);
+            }
+            else { 
+                $(this).append(
+                    $('<br /><span>Correct: '+$(this).attr("data-correct")+' </span>').addClass("overlay correct") 
+                        .append($('<span> Your Answer: '+$(this).attr('data-incorrect')+'</span>').addClass("incorrect"))
+                );
+            }
         });
         delete game.timer;
         $("#controls .game-button").addClass('inactive').unbind();
@@ -324,12 +354,12 @@ var game = {
     },
     
     gameOverBanner: function (winOrLose) {
+        game.multiplier=1;
         $('#gameover-score').html(game.score);
-        $('#accuracy').html(game.percent);
+        $('#accuracy').html(game.percent * game.score*game.multiplier/100);
         if (winOrLose == "win") { 
             $('#gameover .header').html('You win!');
         }
-        game.multiplier=1;
         $('#final-score').html(game.score);
         $('#gameover').show();
         game.i = 0;
@@ -340,7 +370,6 @@ var game = {
         game.percent--;
         game.finalScore = game.score + game.score*game.multiplier/100;
         $('#final-score').html(game.finalScore);
-        $('#accuracy').html(game.percent);
         if (game.i < game.percent) {
             game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 50);
         }

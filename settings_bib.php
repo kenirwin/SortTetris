@@ -7,6 +7,7 @@ $data_file = 'bibliography.json';
 $item_label = 'citation';
 $game_title = 'Citation Tetris';
 $game_logo_file = 'logo.png'; //leave blank for text title
+$google_analytics_id = ''; // usually something like UA-1234567-8
 
 /* Scoring, Win conditions */
 
