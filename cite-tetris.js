@@ -132,7 +132,7 @@ var game = {
                         else {
                             var score_class = 'score-incorrect';
                         }
-                        game.percent =  Math.round(percent*100);
+                        game.percent =  Math.round(100*game.nCorrect/game.nTotal);
                         output+= '<tr class="'+score_class+'"><td>' + key2 + '</td><td>' +answers[key1][key2]+ '</td><td>' + game.percent +'%</td></tr>';                        
                     }
                 }
@@ -332,6 +332,7 @@ var game = {
     },
 
     gameOver: function (winOrLose) {
+        console.log ('Game Over Percent: '+game.percent);
         if (game.audioOK === true) { pauseaudio(); } 
         game.debug();
         $('.game-button').hide();
@@ -361,7 +362,7 @@ var game = {
             game.init();
             game.start();
         });
-        die();
+        throw new Error('game over');
     },
 
     submitScore: function() {
@@ -417,7 +418,7 @@ var game = {
     gameOverBanner: function (winOrLose) {
         game.multiplier=1;
         $('#gameover-score').html(game.score);
-        game.accuracyBonus = game.percent/100 * game.score;
+        game.accuracyBonus = Math.floor(game.percent/100 * game.score);
         $('#accuracy').html(game.accuracyBonus + '('+Math.floor(game.percent)+'%)');
         game.finalScore = game.accuracyBonus + game.score;
         game.finalScoreDisplay = game.finalScore-game.accuracyBonus;
