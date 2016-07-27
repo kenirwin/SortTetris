@@ -31,6 +31,13 @@ var game = {
             $('#close-gameover').removeClass('inactive');
             $('#name-display').text('Player: ' + game.playerName).show();
         });
+        $('#name').keypress(function(event) {
+            if (event.key == 'Enter') {
+                event.preventDefault();
+                $('#name-submit').click();
+            }
+        });
+
         $('#close-gameover').unbind().click(function() {
             $('#score').append('<br />Final Score with Accuracy Bonus: ' + game.finalScore);
             $('#gameover').hide();
