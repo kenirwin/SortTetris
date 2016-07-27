@@ -8,11 +8,6 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 return $db;
 }
 
-/*
-$json = '{"action":"submit","secret_word":"yourmom","username":"ken","score":15000,"level":5,"percent":20,"config_file":"test"}';
-$json = '{"action":"leaderboard","secret_word":"yourmom","config_file":"test"}';
-$request = json_decode($json);
-*/
 $request = (object) $_REQUEST;
 
 try {
@@ -20,15 +15,6 @@ try {
 }
 catch (PDOException $e){
     die ('Connection failed: ' .$e->getMessage());
-}
-
-try { 
-    if (is_null ($request->secret_word) || ($request->secret_word != $secret_word)) {
-        throw new Exception ('Secret word is incorrect');
-    }
-}
-catch (Exception $e) {
-    die ($e);
 }
 
 try {

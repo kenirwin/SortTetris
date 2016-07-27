@@ -5,6 +5,7 @@
 
 <head>
 <?php
+include ('mysql_connect.php'); 
 if (isset($_GET['settings'])) {
     $filename = 'settings_'.$_GET['settings'].'.php';
     if (is_readable($filename)) {
@@ -62,6 +63,9 @@ include('process_settings.php');
 <label for="accuracy">Accuracy Bonus: </label><span id="accuracy"></span><br />
 <label for="final-score">Final Score: </label><span id="final-score"></span>
 </div>
+
+<div id="leaderboard"></div>
+
 <center><div id="close-gameover" class="button">Close</div></center>
 </div>
 

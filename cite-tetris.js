@@ -50,6 +50,7 @@ var game = {
         game.winAtLevel = settings_winAtLevel;
         game.intervalDecreasePerLevel=settings_intervalDecreasePerLevel;
         game.colors = settings_colors;
+        game.config = settings_config;
     },
 
     logStatus: function() { 
@@ -353,6 +354,32 @@ var game = {
         die();
     },
     
+    displayLeaderboard: function() {
+        $.getJSON("leaderboard.php", {
+            config_file: game.config,
+            action: "leaderboard"
+        },
+                  function (json) {
+                      game.config_file = "test";
+                      var lines = '<tr><th>Rank</th><th>Player</th><th>Score</th></tr>';
+                      var current_score_displayed = false;
+                      var rank=1;
+                      for (i=0; i<json.length; i++) {
+                          if (game.score > json[i].score && current_score_displayed == false) {
+                              lines += '<tr id="current-score"><td>'+rank+'<td id="current-name">YOUR SCORE</td><td>'+game.score+'</td></tr>';
+                              current_score_displayed = true;
+                              rank++;
+                              game.onLeaderboard = true;
+                          }
+                          if (current_score_displayed == false || rank<=10) {
+                              lines += '<tr><td>'+rank+'<td>'+json[i].username + '</td><td>' + json[i].score+'</td></tr>';
+                              rank++;
+                          }
+                      }
+                      $('#leaderboard').html('<table>'+lines+'</table>');
+                  });
+    },
+    
     gameOverBanner: function (winOrLose) {
         game.multiplier=1;
         $('#gameover-score').html(game.score);
@@ -361,6 +388,7 @@ var game = {
             $('#gameover .header').html('You win!');
         }
         $('#final-score').html(game.score);
+        game.displayLeaderboard();
         $('#gameover').show();
         game.i = 0;
         game.incrementScore();
