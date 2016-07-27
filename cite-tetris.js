@@ -415,7 +415,10 @@ var game = {
     gameOverBanner: function (winOrLose) {
         game.multiplier=1;
         $('#gameover-score').html(game.score);
-        $('#accuracy').html(game.percent * game.score*game.multiplier/100);
+        game.accuracyBonus = game.percent/100 * game.score;
+        $('#accuracy').html(game.accuracyBonus + '('+Math.floor(game.percent)+'%)');
+        game.finalScore = game.accuracyBonus + game.score;
+        game.finalScoreDisplay = game.finalScore-game.accuracyBonus;
         if (winOrLose == "win") { 
             $('#gameover .header').html('You win!');
         }
@@ -427,13 +430,11 @@ var game = {
     },
 
     incrementScore: function () { 
-        game.percent--;
-        game.finalScore = game.score + game.score*game.multiplier/100;
-        $('#final-score').html(game.finalScore);
-        if (game.i < game.percent) {
-            game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 50);
+        game.finalScoreDisplay++;
+        $('#final-score').html(game.finalScoreDisplay);
+        if (game.finalScoreDisplay < game.finalScore) {
+            game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 1);
         }
-        game.multiplier++;
     },
 };
 
