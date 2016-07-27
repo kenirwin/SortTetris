@@ -24,6 +24,12 @@ var game = {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
+        $('#name-submit').click(function() {
+            game.playerName = $('#name').val();
+            game.submitScore();
+            $('#name-entry').hide();
+            $('#name-display').text(game.playerName).show();
+        });
         $('#close-gameover').unbind().click(function() {
             $('#score').append('<br />Final Score with Accuracy Bonus: ' + game.finalScore);
             $('#gameover').hide();
@@ -149,6 +155,8 @@ var game = {
 
 
     start: function () {
+        $('#name-entry').show();
+        $('#name-display').hide();
         $('#long-stats').hide();
         $("#grid td").css("background-color",game.blankColor).css("border-color",game.blankColor).each(function() {
             $(this).removeAttr('data-correct').removeAttr('data-incorrect');
@@ -353,6 +361,22 @@ var game = {
         });
         die();
     },
+
+    submitScore: function() {
+        $.getJSON("leaderboard.php", {
+            config_file: game.config,
+            action: "submit",
+            username: game.playerName,
+            score: game.finalScore,
+            percent: game.percent,
+            level: game.level
+        },
+                  function(json) {
+                      if (json.result == "success") {
+                          $('#current-name').text(game.playerName);
+                      }
+                  });
+    },
     
     displayLeaderboard: function() {
         $.getJSON("leaderboard.php", {
@@ -365,8 +389,8 @@ var game = {
                       var current_score_displayed = false;
                       var rank=1;
                       for (i=0; i<json.length; i++) {
-                          if (game.score > json[i].score && current_score_displayed == false) {
-                              lines += '<tr id="current-score"><td>'+rank+'<td id="current-name">YOUR SCORE</td><td>'+game.score+'</td></tr>';
+                          if (game.finalScore > json[i].score && current_score_displayed == false) {
+                              lines += '<tr id="current-score"><td>'+rank+'<td id="current-name">YOUR SCORE</td><td>'+game.finalScore+'</td></tr>';
                               current_score_displayed = true;
                               rank++;
                               game.onLeaderboard = true;
@@ -376,6 +400,14 @@ var game = {
                               rank++;
                           }
                       }
+                      /*if there's room for new score at the end*/
+                      if (current_score_displayed == false && rank<=10 && i==json.length) {
+                          lines += '<tr id="current-score"><td>'+rank+'<td id="current-name">YOUR SCORE</td><td>'+game.finalScore+'</td></tr>';
+                          current_score_displayed = true;
+                          rank++;
+                          game.onLeaderboard = true;
+                      }
+                      
                       $('#leaderboard').html('<table>'+lines+'</table>');
                   });
     },

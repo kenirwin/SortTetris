@@ -64,6 +64,13 @@ include('process_settings.php');
 <label for="final-score">Final Score: </label><span id="final-score"></span>
 </div>
 
+<form id="name-entry">
+<input type="text" id="name" size="10">
+<input type="button" id="name-submit" value="Enter">
+</form>
+
+<div id="name-display"></div>
+
 <div id="leaderboard"></div>
 
 <center><div id="close-gameover" class="button">Close</div></center>
