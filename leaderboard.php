@@ -39,7 +39,11 @@ if ($request->action == "submit") {
         $prepped = PrepareInsert($required_fields, $request, "leaderboard"); 
         $stmt = $db->prepare($prepped->prep);
         $stmt->execute($prepped->exec);
-        
+        if ($db->lastInsertId()) {
+            $response = array("result" => "success");
+            $response = json_encode((object) $response);
+            print $response;
+        }
     }
     else {
         throw new Exception ($check);
