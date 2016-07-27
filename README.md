@@ -26,6 +26,7 @@ The `raw-data/` folder contains a tool for generating appropriate data files. Th
 
 ## Credits
 Written by Ken Irwin, Wittenberg University
+"Atari" font created by Genshichi Yasui with a freeware license: http://www.fontspace.com/genshichi-yasui/atari-font
 
 Structure based in part on Tetris with jQuery by Franck Marcia (MIT License):
 http://fmarcia.info/jquery/tetris/tetris.html
