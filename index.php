@@ -65,15 +65,18 @@ include('process_settings.php');
 </div>
 
 <form id="name-entry">
-<input type="text" id="name" size="10">
-<input type="button" id="name-submit" value="Enter">
+<input type="text" placeholder="your name"  id="name" size="10">
+<span id="name-submit" type="button" class="button">-></span>
+
 </form>
 
-<div id="name-display"></div>
+<h3 id="name-display"></h3>
 
+<h2>High Scores</h2>
+<center>
 <div id="leaderboard"></div>
-
-<center><div id="close-gameover" class="button">Close</div></center>
+<div id="close-gameover" class="button inactive">Close</div>
+</center>
 </div>
 
 <?php

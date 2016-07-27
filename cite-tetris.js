@@ -28,11 +28,13 @@ var game = {
             game.playerName = $('#name').val();
             game.submitScore();
             $('#name-entry').hide();
-            $('#name-display').text(game.playerName).show();
+            $('#close-gameover').removeClass('inactive');
+            $('#name-display').text('Player: ' + game.playerName).show();
         });
         $('#close-gameover').unbind().click(function() {
             $('#score').append('<br />Final Score with Accuracy Bonus: ' + game.finalScore);
             $('#gameover').hide();
+            $(this).addClass('inactive');
         });
 
     },
