@@ -24,6 +24,8 @@ var game = {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
+        $('#name-submit').unbind();
+        $('#name').unbind();
         $('#name-submit').click(function() {
             game.playerName = $('#name').val();
             game.submitScore();
@@ -31,6 +33,7 @@ var game = {
             $('#close-gameover').removeClass('inactive');
             $('#name-display').text('Player: ' + game.playerName).show();
         });
+        
         $('#name').keypress(function(event) {
             if (event.key == 'Enter') {
                 event.preventDefault();
