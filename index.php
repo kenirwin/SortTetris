@@ -5,6 +5,7 @@
 
 <head>
 <?php
+include ('mysql_connect.php'); 
 if (isset($_GET['settings'])) {
     $filename = 'settings_'.$_GET['settings'].'.php';
     if (is_readable($filename)) {
@@ -62,7 +63,20 @@ include('process_settings.php');
 <label for="accuracy">Accuracy Bonus: </label><span id="accuracy"></span><br />
 <label for="final-score">Final Score: </label><span id="final-score"></span>
 </div>
-<center><div id="close-gameover" class="button">Close</div></center>
+
+<form id="name-entry">
+<input type="text" placeholder="your name"  id="name" size="10">
+<span id="name-submit" type="button" class="button">-></span>
+
+</form>
+
+<h3 id="name-display"></h3>
+
+<h2>High Scores</h2>
+<center>
+<div id="leaderboard">If no high scores display, you may not be connected to a MySQL database. See the README file for installation instructions</div>
+<div id="close-gameover" class="button inactive">Close</div>
+</center>
 </div>
 
 <?php

@@ -24,9 +24,24 @@ var game = {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
+        $('#name-submit').click(function() {
+            game.playerName = $('#name').val();
+            game.submitScore();
+            $('#name-entry').hide();
+            $('#close-gameover').removeClass('inactive');
+            $('#name-display').text('Player: ' + game.playerName).show();
+        });
+        $('#name').keypress(function(event) {
+            if (event.key == 'Enter') {
+                event.preventDefault();
+                $('#name-submit').click();
+            }
+        });
+
         $('#close-gameover').unbind().click(function() {
             $('#score').append('<br />Final Score with Accuracy Bonus: ' + game.finalScore);
             $('#gameover').hide();
+            $(this).addClass('inactive');
         });
 
     },
@@ -50,6 +65,7 @@ var game = {
         game.winAtLevel = settings_winAtLevel;
         game.intervalDecreasePerLevel=settings_intervalDecreasePerLevel;
         game.colors = settings_colors;
+        game.config = settings_config;
     },
 
     logStatus: function() { 
@@ -111,7 +127,7 @@ var game = {
         for (j=0; j<game.possibleAnswers.length; j++) { 
             var key1 = game.possibleAnswers[j];
             if (answers[key1] !== undefined) {
-                output+='<tr class="score-header"><td colspan="3">Where correct answer is: <b>'+key1+'</b><br />You answered...</td></tr>';
+                output+='<tr class="score-header"><td colspan="3" class="label">Where correct answer is: <b>'+key1+'</b><br />You answered...</td></tr>';
 
             for (k=0; k<game.possibleAnswers.length; k++) {
                 var key2 = game.possibleAnswers[k];
@@ -123,7 +139,7 @@ var game = {
                         else {
                             var score_class = 'score-incorrect';
                         }
-                        game.percent =  Math.round(percent*100);
+                        game.percent =  Math.round(100*game.nCorrect/game.nTotal);
                         output+= '<tr class="'+score_class+'"><td>' + key2 + '</td><td>' +answers[key1][key2]+ '</td><td>' + game.percent +'%</td></tr>';                        
                     }
                 }
@@ -148,6 +164,8 @@ var game = {
 
 
     start: function () {
+        $('#name-entry').show();
+        $('#name-display').hide();
         $('#long-stats').hide();
         $("#grid td").css("background-color",game.blankColor).css("border-color",game.blankColor).each(function() {
             $(this).removeAttr('data-correct').removeAttr('data-incorrect');
@@ -321,6 +339,7 @@ var game = {
     },
 
     gameOver: function (winOrLose) {
+        console.log ('Game Over Percent: '+game.percent);
         if (game.audioOK === true) { pauseaudio(); } 
         game.debug();
         $('.game-button').hide();
@@ -350,30 +369,82 @@ var game = {
             game.init();
             game.start();
         });
-        die();
+        throw new Error('game over');
+    },
+
+    submitScore: function() {
+        $.getJSON("leaderboard.php", {
+            config_file: game.config,
+            action: "submit",
+            username: game.playerName,
+            score: game.finalScore,
+            percent: game.percent,
+            level: game.level
+        },
+                  function(json) {
+                      if (json.result == "success") {
+                          $('#current-name').text(game.playerName);
+                      }
+                  });
+    },
+    
+    displayLeaderboard: function() {
+        $.getJSON("leaderboard.php", {
+            config_file: game.config,
+            action: "leaderboard"
+        },
+                  function (json) {
+                      var lines = '<tr><th>Rank</th><th>Player</th><th>Score</th></tr>';
+                      var current_score_displayed = false;
+                      var rank=1;
+                      for (i=0; i<json.length; i++) {
+                          if (game.finalScore > json[i].score && current_score_displayed == false) {
+                              lines += '<tr id="current-score"><td>'+rank+'<td id="current-name">YOUR SCORE</td><td>'+game.finalScore+'</td></tr>';
+                              current_score_displayed = true;
+                              rank++;
+                              game.onLeaderboard = true;
+                          }
+                          if (current_score_displayed == false || rank<=10) {
+                              lines += '<tr><td>'+rank+'<td>'+json[i].username + '</td><td>' + json[i].score+'</td></tr>';
+                              rank++;
+                          }
+                      }
+                      /*if there's room for new score at the end*/
+                      if (current_score_displayed == false && rank<=10 && i==json.length) {
+                          lines += '<tr id="current-score"><td>'+rank+'<td id="current-name">YOUR SCORE</td><td>'+game.finalScore+'</td></tr>';
+                          current_score_displayed = true;
+                          rank++;
+                          game.onLeaderboard = true;
+                      }
+                      $('#leaderboard').html('<table>'+lines+'</table>');
+                      $('#gameover').show();
+                      $('#name').focus();
+
+                  });
     },
     
     gameOverBanner: function (winOrLose) {
         game.multiplier=1;
         $('#gameover-score').html(game.score);
-        $('#accuracy').html(game.percent * game.score*game.multiplier/100);
+        game.accuracyBonus = Math.floor(game.percent/100 * game.score);
+        $('#accuracy').html(game.accuracyBonus + '('+Math.floor(game.percent)+'%)');
+        game.finalScore = game.accuracyBonus + game.score;
+        game.finalScoreDisplay = game.finalScore-game.accuracyBonus;
         if (winOrLose == "win") { 
             $('#gameover .header').html('You win!');
         }
         $('#final-score').html(game.score);
-        $('#gameover').show();
+        game.displayLeaderboard();
         game.i = 0;
         game.incrementScore();
     },
 
     incrementScore: function () { 
-        game.percent--;
-        game.finalScore = game.score + game.score*game.multiplier/100;
-        $('#final-score').html(game.finalScore);
-        if (game.i < game.percent) {
-            game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 50);
+        game.finalScoreDisplay++;
+        $('#final-score').html(game.finalScoreDisplay);
+        if (game.finalScoreDisplay < game.finalScore) {
+            game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 1);
         }
-        game.multiplier++;
     },
 };
 
