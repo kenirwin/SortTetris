@@ -38,8 +38,9 @@ td {
          font-weight: bold; font-size: 105%; 
        }
 #controls { position: absolute; left: 450px; top: 15em;} 
-#long-stats { position: absolute; left: 450px; top: 16em; }
+#long-stats { position: absolute; left: 450px; top: 16em; z-index: 100; }
 #long-stats table { position: absolute }
+
 #debug { position: absolute; left: 1000px; display:none }
 #license { margin-top: 3em; }
 #gameover { position: absolute; top: 10%; left: 5%; width: 90%; z-index:100; background-color: #999; border: 10px solid gold; border-radius: 10px; display:none; font-family: Atari; text-align: center;  line-height: 1.7em}
@@ -66,6 +67,9 @@ td {
     color: red;
     background-color: pink;
 }
+
+.label {background-color: #fff }
+
 
 button, .button { 
     background-color: #4CAF50; /* Green */

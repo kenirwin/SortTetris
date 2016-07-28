@@ -127,7 +127,7 @@ var game = {
         for (j=0; j<game.possibleAnswers.length; j++) { 
             var key1 = game.possibleAnswers[j];
             if (answers[key1] !== undefined) {
-                output+='<tr class="score-header"><td colspan="3">Where correct answer is: <b>'+key1+'</b><br />You answered...</td></tr>';
+                output+='<tr class="score-header"><td colspan="3" class="label">Where correct answer is: <b>'+key1+'</b><br />You answered...</td></tr>';
 
             for (k=0; k<game.possibleAnswers.length; k++) {
                 var key2 = game.possibleAnswers[k];
