@@ -2,20 +2,23 @@
 header("Content-type: application/json");
 include ("mysql_connect.php"); 
 
-function ConnectPDO($host,$db,$user,$pass,$charset) { 
-$db = new PDO("mysql:host=$host;dbname=$db;charset=$charset", "$user", "$pass");
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-return $db;
+foreach (['host', 'database','charset','user','pass'] as $f) {
+    if (!isset($$f)) { 
+        $return = ['message','MySQL Connect Error: variable $'.$f.' not set in mysql_connect.php'];
+        print(json_encode($return));
+    }
+}
+
+try {
+    $db = new PDO("mysql:host=$host;dbname=$database;charset=$charset", "$user", "$pass");
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+catch (PDOException $e) {
+    $return = [ 'message'=> 'MySQL error: '.$e->getMessage() ];
+    print (json_encode($return));
 }
 
 $request = (object) $_REQUEST;
-
-try {
-    $db = ConnectPDO($host,$db,$user,$pass,$charset);
-}
-catch (PDOException $e){
-    die ('Connection failed: ' .$e->getMessage());
-}
 
 try {
 if ($request->action == "submit") {

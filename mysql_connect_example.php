@@ -1,7 +1,7 @@
 <?php
 /* mysql connection info */
 $host = "localhost";
-$db = "";
+$database = "";
 $user = "";
 $pass = "";
 $charset = "utf8";
