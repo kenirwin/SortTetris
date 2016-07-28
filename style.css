@@ -30,9 +30,8 @@ td {
         font-color: #000;
         font-family: Calibri, Helvetica, Arial, sans-serif;
         line-height: 1.5em;
-
 }
-
+#game-table img { width: 400px }
 
 #score { position: absolute; left: 450px; top: 12em; 
          font-weight: bold; font-size: 105%; 
