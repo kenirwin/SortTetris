@@ -394,7 +394,6 @@ var game = {
             action: "leaderboard"
         },
                   function (json) {
-                      game.config_file = "test";
                       var lines = '<tr><th>Rank</th><th>Player</th><th>Score</th></tr>';
                       var current_score_displayed = false;
                       var rank=1;
@@ -417,8 +416,10 @@ var game = {
                           rank++;
                           game.onLeaderboard = true;
                       }
-                      
                       $('#leaderboard').html('<table>'+lines+'</table>');
+                      $('#gameover').show();
+                      $('#name').focus();
+
                   });
     },
     
@@ -434,7 +435,6 @@ var game = {
         }
         $('#final-score').html(game.score);
         game.displayLeaderboard();
-        $('#gameover').show();
         game.i = 0;
         game.incrementScore();
     },

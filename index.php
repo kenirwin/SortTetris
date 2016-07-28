@@ -74,7 +74,7 @@ include('process_settings.php');
 
 <h2>High Scores</h2>
 <center>
-<div id="leaderboard"></div>
+<div id="leaderboard">If no high scores display, you may not be connected to a MySQL database. See the README file for installation instructions</div>
 <div id="close-gameover" class="button inactive">Close</div>
 </center>
 </div>
