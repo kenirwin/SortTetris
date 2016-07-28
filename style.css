@@ -19,9 +19,21 @@ td {
 
 #game { width: 50%; }
 
-#item { position: absolute; left: 450px; width: 450px;
-         font-weight: bold; font-size: 105%; padding: .5em; 
-          }
+#item { position: absolute; 
+        left: 450px; 
+        width: 450px;
+      }
+#item, #game-table td {
+        font-weight: 600; 
+        font-size: 105%; 
+        padding: .5em; 
+        font-color: #000;
+        font-family: Calibri, Helvetica, Arial, sans-serif;
+        line-height: 1.5em;
+
+}
+
+
 #score { position: absolute; left: 450px; top: 11em; 
          font-weight: bold; font-size: 105%; 
        }
