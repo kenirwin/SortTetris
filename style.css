@@ -34,11 +34,11 @@ td {
 }
 
 
-#score { position: absolute; left: 450px; top: 11em; 
+#score { position: absolute; left: 450px; top: 12em; 
          font-weight: bold; font-size: 105%; 
        }
-#controls { position: absolute; left: 450px; top: 14em;} 
-#long-stats { position: absolute; left: 450px; top: 15em; }
+#controls { position: absolute; left: 450px; top: 15em;} 
+#long-stats { position: absolute; left: 450px; top: 16em; }
 #long-stats table { position: absolute }
 #debug { position: absolute; left: 1000px; display:none }
 #license { margin-top: 3em; }
