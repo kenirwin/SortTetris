@@ -12,6 +12,14 @@ http://www6.wittenberg.edu/lib/ken/demo/CitationTetris
 Alternate demo: sorting animals by Linnean Class:
 http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=animal
 
+## Installation
+
+The basic functionality of Citation Tetris should work "out of the box" upon moving the files to a suitable server. The leaderboard functions, however, require access to MySQL. To set up the leaderboard:
+1. create a database or using an existing MySQL database
+2. copy the file `mysql_connect_example.php` to `mysql_connect.php`
+3. modify the variables in `mysql_connect.php` to connect to the database
+4. use the `leaderboard.sql` file to create the table in your mysql database (you can do this by copying and pasting the sql file)
+
 ## Configuration
 
 The settings file defines the default configuration for an installation. By default, the program looks for a `settings.php` file, and fails back to `settings_bib.php`. (Note: the program does not install with a `settings.php` file -- that is reserved for local use. When freshly installed, the program defauts to using `settings_bib.php`.) Additional settings can be supported by the same installation by creating additional settings files; additional settings files must be named `settings_xxx.php` where `xxx` is replaced with an apprpriate string. (e.g. settings_animal). As shown in the alternate demo link above, the `settings_animal.php` file describes the configuration for a game playable at the URL `CitationTetris?settings=animal`.
