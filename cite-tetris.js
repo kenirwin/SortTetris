@@ -455,7 +455,12 @@ var game = {
     },
 
     incrementScore: function () { 
-        game.finalScoreDisplay++;
+        if (game.finalScoreDisplay < game.finalScore - 50) {
+            game.finalScoreDisplay += 50;
+        }
+        else { 
+            game.finalScoreDisplay++;
+        }
         $('#final-score').html(game.finalScoreDisplay);
         if (game.finalScoreDisplay < game.finalScore) {
             game.scoreTimer = window.setTimeout(function() { game.incrementScore() }, 1);
