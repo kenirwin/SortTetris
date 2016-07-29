@@ -175,7 +175,6 @@ var game = {
             $(this).removeAttr('data-correct').removeAttr('data-incorrect');
         });
         $('.game-button').removeClass('inactive').show();
-        game.gameButtonBind();
         $('.start-stop-button').addClass('inactive').unbind();
         $('#score').html('Level: 1<br />Score: 0');
         game.next();
