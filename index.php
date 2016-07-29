@@ -12,7 +12,10 @@ if (isset($_GET['settings'])) {
         include($filename);
     }
 }
-else { include('./settings/settings_bib.php'); }    
+else { 
+    include('./settings/settings_bib.php'); 
+    $_REQUEST['settings'] = $_GET['settings'] = 'bib';
+}    
 include('process_settings.php'); 
 ?>
 
