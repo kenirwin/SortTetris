@@ -174,9 +174,8 @@ var game = {
         $("#grid td").css("background-color",game.blankColor).css("border-color",game.blankColor).each(function() {
             $(this).removeAttr('data-correct').removeAttr('data-incorrect');
         });
-        $('.game-button').removeClass('inactive').show().click(function() {
-            game.clickEval(this.id);
-        });
+        $('.game-button').removeClass('inactive').show();
+        game.gameButtonBind();
         $('.start-stop-button').addClass('inactive').unbind();
         $('#score').html('Level: 1<br />Score: 0');
         game.next();
@@ -187,6 +186,16 @@ var game = {
 
     },
     
+    gameButtonBind: function() {
+        $('.game-button').click(function() {
+            game.clickEval(this.id);
+        });
+    },
+    
+    gameButtonUnbind: function() {
+        $('.game-button').unbind();
+    },
+
     next: function () {
         game.itemCounter++;
         if (game.itemCounter >= game.data.length) { 
@@ -195,10 +204,12 @@ var game = {
         }
         game.debug();
         game.nextCite = game.newCite();
+        game.gameButtonBind();
         game.timer = window.setInterval(game.moveDown, game.interval);
     },
 
     clickEval: function (id) {
+        game.gameButtonUnbind();
         window.clearInterval(game.timer);
         game.debug();
         game.givenAnswer = id;
