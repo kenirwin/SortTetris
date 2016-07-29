@@ -7,7 +7,7 @@
 <?php
 include ('mysql_connect.php'); 
 if (isset($_GET['settings'])) {
-    $filename = 'settings_'.$_GET['settings'].'.php';
+    $filename = './settings/settings_'.$_GET['settings'].'.php';
     if (is_readable($filename)) {
         include($filename);
     }
