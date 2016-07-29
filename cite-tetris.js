@@ -50,7 +50,7 @@ var game = {
     },
 
     loadData: function () {
-        $.getJSON('./'+settings_dataFile, function(response) {
+        $.getJSON('./data-files/'+settings_dataFile, function(response) {
             game.data=response;
             game.shuffle(game.data);
         });
