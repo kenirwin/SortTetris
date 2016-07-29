@@ -90,6 +90,7 @@ var game = {
         var answers = [];
         game.possibleAnswers = game.buttons;
         game.possibleAnswers.push('No Answer');
+        game.percent =  Math.round(100*game.nCorrect/game.nTotal);
         for (i = 0; i < game.answerLog.length; i++) {
             var correct=game.answerLog[i][0];
             var answered=game.answerLog[i][1];
@@ -142,8 +143,8 @@ var game = {
                         else {
                             var score_class = 'score-incorrect';
                         }
-                        game.percent =  Math.round(100*game.nCorrect/game.nTotal);
-                        output+= '<tr class="'+score_class+'"><td>' + key2 + '</td><td>' +answers[key1][key2]+ '</td><td>' + game.percent +'%</td></tr>';                        
+                        percent = Math.round(percent*100);
+                        output+= '<tr class="'+score_class+'"><td>' + key2 + '</td><td>' +answers[key1][key2]+ '</td><td>' + percent +'%</td></tr>';                        
                     }
                 }
             }
