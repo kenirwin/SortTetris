@@ -1,10 +1,10 @@
 <?php
 header("Content-type: application/json");
-include ("mysql_connect.php"); 
+include ("global_settings.php"); 
 
 foreach (['host', 'database','charset','user','pass'] as $f) {
     if (!isset($$f)) { 
-        $return = ['message','MySQL Connect Error: variable $'.$f.' not set in mysql_connect.php'];
+        $return = ['message','MySQL Connect Error: variable $'.$f.' not set in global_settings.php'];
         print(json_encode($return));
     }
 }

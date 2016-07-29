@@ -5,7 +5,7 @@
 
 <head>
 <?php
-include ('mysql_connect.php'); 
+include ('global_settings.php'); 
 if (isset($_GET['settings'])) {
     $filename = './settings/settings_'.$_GET['settings'].'.php';
     if (is_readable($filename)) {
