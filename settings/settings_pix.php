@@ -12,8 +12,8 @@ $point_units = 50; // base score per correct
 $drop_delay = 400; // milliseconds between move down
 $delay_decrease_per_level=50; //speed-up by x ms/drop 
 $height = 12; // number of wrong lines allowed before end of game
-$correct_per_level = 3; // level up after this many correct
-$win_at_level = 3; // automatic win when this level reached
+$correct_per_level = 6; // level up after this many correct
+$win_at_level = 6; // automatic win when this level reached
 
 /* 
    Block colors: main + bevels: top, right, bottom, left 
