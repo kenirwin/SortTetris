@@ -43,7 +43,7 @@ The two most important variables in the settings files are `$buttons` and `$data
 
 The `prep_files.php` file is a command-line tool for generating JSON-formatted data suitable for use with the program. Plain text files of categorized data go in the `raw-data/` folder. It contains a subfolder for each knowledge area (bibliography, animals, presidents) and each subfolder contains a plain text file with a list of examples (one item per line). So the "animals" folder contains files for "mammals", "fishs", and "birds". (Note that these files are named as plurals, but not very smart plurals -- just append an extra 's' to the file name, even if incorrect such as 'fishs' and 'brasss'.)
 
-Run `prep_files.php on the command line, giving the knowledge area corresponding to the folder name as an argument, e.g.:
+Run `prep_files.php` on the command line, giving the knowledge area corresponding to the folder name as an argument, e.g.:
 
 `php prep_files.php animals`
 
