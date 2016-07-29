@@ -42,12 +42,12 @@ td {
 
 #debug { position: absolute; left: 1000px; display:none }
 #license { margin-top: 3em; }
-#gameover { position: absolute; top: 10%; left: 5%; width: 90%; z-index:100; background-color: #999; border: 10px solid gold; border-radius: 10px; display:none; font-family: Atari, sans-serif; text-align: center;  line-height: 1.7em}
+#gameover { position: absolute; top: 10%; left: 5%; width: 90%; z-index:100; background-color: #999; border: 10px solid gold; border-radius: 10px; display:none; font-family: Atari, 'Press Start 2P', sans-serif; text-align: center;  line-height: 1.7em}
 
 #gameover input[type="text"] {
     border: 5px solid #4CAF50;
     background-color: #4CAF50;
-    font-family: Atari,sans-serif;
+    font-family: Atari, 'Press Start 2P', sans-serif;
     font-size: 1.5em; }
 }
 #gameover table td { padding: 0; }
