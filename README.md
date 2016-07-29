@@ -15,6 +15,12 @@ http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=animal
 Alternate demo #2: photo-based animal sorting 
 http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=pix
 
+Alternate demo #3: U.S. presidents by party: 
+http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=presidents
+
+Alternate demo #4: Musical instruments by type: 
+http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=instruments
+
 ## Installation
 
 The basic functionality of Citation Tetris should work "out of the box" upon moving the files to a suitable server. The leaderboard functions, however, require access to MySQL. To set up the leaderboard:
@@ -35,12 +41,20 @@ The two most important variables in the settings files are `$buttons` and `$data
 
 ### Generating JSON files
 
-The `raw-data/` folder contains a tool for generating appropriate data files. The `convert.php` (in its default setup) takes three files of one-entry-per-line lists in files called `books`, `book chapters`, and `articles`, and generates a single JSON file with item types `book`, `book chapter` and `article`. Save the output from this operation to generate new JSON data files. 
+The `prep_files.php` file is a command-line tool for generating JSON-formatted data suitable for use with the program. Plain text files of categorized data go in the `raw-data/` folder. It contains a subfolder for each knowledge area (bibliography, animals, presidents) and each subfolder contains a plain text file with a list of examples (one item per line). So the "animals" folder contains files for "mammals", "fishs", and "birds". (Note that these files are named as plurals, but not very smart plurals -- just append an extra 's' to the file name, even if incorrect such as 'fishs' and 'brasss'.)
+
+Run `prep_files.php on the command line, giving the knowledge area corresponding to the folder name as an argument, e.g.:
+
+`php prep_files.php animals`
+
+This will generate a correctly-formatted JSON file `animals.json` in the `data-files` directory. When establishing a new JSON file, you will also need to create a new corresponging `settings_FILENAME.php` file in the `settings/` folder in order to play a game with that data file.  
 
 ## Credits
 Written by Ken Irwin, Wittenberg University
 
-"Atari" font created by Genshichi Yasui with a freeware license: http://www.fontspace.com/genshichi-yasui/atari-font
+"Atari" font created by Genshichi Yasui with a freeware license: http://www.fontspace.com/genshichi-yasui/atari-font 
+
+"Press Start 2P" font by Cody "CodeMan38" Boisclair, used under the Open Font License: https://fonts.google.com/specimen/Press+Start+2P?query=press&selection.family=Press+Start+2P
 
 Structure based in part on Tetris with jQuery by Franck Marcia (MIT License):
 http://fmarcia.info/jquery/tetris/tetris.html
