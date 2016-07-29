@@ -13,8 +13,6 @@ if (isset($_GET['settings'])) {
     }
 }
 else { include('./settings/settings_bib.php'); }    
-
-
 include('process_settings.php'); 
 ?>
 

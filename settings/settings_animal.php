@@ -5,7 +5,6 @@ $data_file = 'animals.json';
 $item_label = 'animal';
 $game_title = 'Animal Tetris';
 $game_logo_file = ''; //leave blank for text title
-$google_analytics_id = ''; // usually something like UA-1234567-8
 
 /* Scoring, Win conditions */
 
