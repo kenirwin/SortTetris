@@ -13,6 +13,10 @@
       {
        audio.pause()
       }
+    function resetaudio() 
+     {
+       audio.playbackRate = 1;
+     }
     function speedUp() 
       {
 	var newRate = audio.playbackRate + 0.2;

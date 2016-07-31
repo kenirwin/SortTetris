@@ -185,6 +185,7 @@ var game = {
 
 
     start: function () {
+	resetaudio();
         $('#name-entry').show();
         $('#name-display').hide();
         $('#long-stats').hide();
