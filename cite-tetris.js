@@ -24,6 +24,7 @@ var game = {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
+
         $('#name-submit').unbind();
         $('#name').unbind();
         $('#name-submit').click(function() {
@@ -49,6 +50,19 @@ var game = {
 
     },
 
+    pause: function() {
+        if (game.timer_is_on == true) {
+            clearTimeout(game.timer);
+            game.timer_is_on = false;
+            game.gameButtonUnbind();
+        }
+        else { 
+            game.timer = window.setInterval(game.moveDown, game.interval);   
+            game.timer_is_on = true;
+            game.gameButtonBind();
+        }
+    },
+    
     loadData: function () {
         $.getJSON('./data-files/'+settings_dataFile, function(response) {
             game.data=response;
@@ -179,10 +193,13 @@ var game = {
         $('#score').html('Level: 1<br />Score: 0');
         game.next();
 	    if (game.audioOK === true) { playaudio(); }
-    },
-    
-    pause: function () {
-
+        $(document).keypress(function(event) {
+            event.preventDefault();
+            if(event.key==' '){ 
+                game.pause();
+            }
+        });
+        game.timer_is_on = true; 
     },
     
     gameButtonBind: function() {
