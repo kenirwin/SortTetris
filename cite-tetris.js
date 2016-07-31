@@ -56,11 +56,13 @@ var game = {
             clearTimeout(game.timer);
             game.timer_is_on = false;
             game.gameButtonUnbind();
+            pauseaudio();
         }
         else { 
             game.timer = window.setInterval(game.moveDown, game.interval);   
             game.timer_is_on = true;
             game.gameButtonBind();
+            playaudio();
         }
     },
     
