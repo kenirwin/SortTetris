@@ -53,6 +53,18 @@ td {
 #gameover table td { padding: 0; }
 #close-gameover { }            
 
+#pause-screen {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    display:none;
+    background-color: #999;
+    z-index: 1000;
+    font-family: Atari, 'Press Start 2P', sans-serif;
+    text-align: center;
+}
 .overlay {
     font-weight: bold;
     text-transform: uppercase;

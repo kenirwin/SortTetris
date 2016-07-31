@@ -79,6 +79,10 @@ include('process_settings.php');
 <div id="close-gameover" class="button inactive">Close</div>
 </center>
 </div>
+<div id="pause-screen">
+<h1>Paused</h1>
+<p>Press space-bar to continue</p>
+</div>
 
 <?php
 if (! empty($google_analytics_block)) {

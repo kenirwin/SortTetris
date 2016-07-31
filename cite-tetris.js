@@ -51,6 +51,7 @@ var game = {
     },
 
     pause: function() {
+        $('#pause-screen').toggle();
         if (game.timer_is_on == true) {
             clearTimeout(game.timer);
             game.timer_is_on = false;
@@ -370,6 +371,7 @@ var game = {
     },
 
     gameOver: function (winOrLose) {
+        $(document).unbind('keypress');
         console.log ('Game Over Percent: '+game.percent);
         if (game.audioOK === true) { pauseaudio(); } 
         game.debug();
