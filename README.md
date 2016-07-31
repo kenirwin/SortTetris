@@ -29,7 +29,10 @@ The basic functionality of Citation Tetris should work "out of the box" upon mov
 3. modify the variables in `global_settings.php` to connect to the database
 4. use the `leaderboard.sql` file to create the table in your mysql database (you can do this by copying and pasting the sql file)
 
+The `global_settings.php` file includes an `$audioOK` variable; by default it is set to false. If your server supports playing mp3 audio, you can set it to true. (Servers without support for this feature may hang significantly if the setting is turned on, so the default is to false.)
+
 You may add a Google Analytics ID to the appropriate variable in `global_settings.php` to track use of the program in Google Analytics.
+
 
 ## Configuration
 

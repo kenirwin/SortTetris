@@ -1,5 +1,4 @@
 <?php
-$audioOK = false; // set to true to allow music
 $buttons = array ('mammal','bird','reptile','amphibian','fish');
 $data_file = 'animals.json';
 $item_label = 'animal';

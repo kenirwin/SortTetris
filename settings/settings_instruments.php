@@ -1,5 +1,4 @@
 <?php
-$audioOK = false; // set to true to allow music
 $buttons = array ('brass','percussion','string','woodwind');
 $data_file = 'instruments.json';
 $item_label = 'instrument';

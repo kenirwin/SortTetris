@@ -1,5 +1,4 @@
 <?php
-$audioOK = false; // set to true to allow music
 $buttons = array ('Democrat','Republican');
 $data_file = 'presidents.json';
 $item_label = 'President';
