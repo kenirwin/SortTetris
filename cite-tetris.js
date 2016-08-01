@@ -56,13 +56,13 @@ var game = {
             clearTimeout(game.timer);
             game.timer_is_on = false;
             game.gameButtonUnbind();
-            pauseaudio();
+            if (game.audioOK) { pauseaudio(); }
         }
         else { 
             game.timer = window.setInterval(game.moveDown, game.interval);   
             game.timer_is_on = true;
             game.gameButtonBind();
-            playaudio();
+            if (game.audioOK) { playaudio(); }
         }
     },
     
@@ -185,7 +185,7 @@ var game = {
 
 
     start: function () {
-	resetaudio();
+	    if (game.audioOK) { resetaudio(); }
         $('#name-entry').show();
         $('#name-display').hide();
         $('#long-stats').hide();
