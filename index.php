@@ -21,6 +21,18 @@ include('process_settings.php');
 
 <title><?php print($game_title); ?></title>
 <script type="text/javascript" src="jquery.js"></script>
+<script src="https://ajax.google.com/ajax/libs/webfont/1.5.10/webfont.js"></script>
+<script>
+    WebFont.load({
+        google: {
+          families: ['Press Start 2P']
+        },
+        custom: {
+                families: ['Atari'],
+                urls: ['style.css'] 
+        }
+        });
+</script>
 <script type="text/javascript" src="cite-tetris.js"></script>
 <style>
     @import 'https://fonts.googleapis.com/css?family=Press+Start+2P';
