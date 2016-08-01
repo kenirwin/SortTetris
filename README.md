@@ -62,7 +62,7 @@ Written by Ken Irwin, Wittenberg University
 Structure based in part on Tetris with jQuery by Franck Marcia (MIT License):
 http://fmarcia.info/jquery/tetris/tetris.html
 
-Animal photos used under the Creative Commons CC0 from https://pixabay.com
+Animal photos used under the Creative Commons CC0 from https://pixabay.com, or under public domain from Wikimedia Commons.
 
 ## License
 
