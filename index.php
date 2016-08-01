@@ -96,6 +96,7 @@ include('process_settings.php');
 <p>Press space-bar to continue</p>
 </div>
 
+<img id="preloadImg"></div>
 <?php
 if (! empty($google_analytics_block)) {
     print $google_analytics_block;

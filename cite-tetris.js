@@ -47,7 +47,18 @@ var game = {
             $('#gameover').hide();
             $(this).addClass('inactive');
         });
+    },
 
+    preloadImages: function () {
+        var patt = /\"([^\"]+.jpg)\"/i;
+        for (i=0; i<game.data.length; i++) {
+            thisPic = game.data[i].item;
+            var refs = thisPic.match(patt);
+            if (refs[1]) { 
+                console.log('preload: ' + refs[1]);
+                $('#preloadImg').attr('src', refs[1]).delay(100);
+            }
+        }
     },
 
     pause: function() {
@@ -70,6 +81,7 @@ var game = {
         $.getJSON('./data-files/'+settings_dataFile, function(response) {
             game.data=response;
             game.shuffle(game.data);
+            game.preloadImages();
         });
     },
 

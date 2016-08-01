@@ -65,6 +65,9 @@ td {
     font-family: Atari, 'Press Start 2P', sans-serif;
     text-align: center;
 }
+
+#preloadImg { display: none }
+
 .overlay {
     font-weight: bold;
     text-transform: uppercase;
