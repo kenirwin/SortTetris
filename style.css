@@ -35,6 +35,8 @@ td {
 
 #score { position: absolute; left: 450px; top: 12em; 
          font-weight: bold; font-size: 105%; 
+         background-color: #fff;
+         border-radius: 5px;
        }
 #controls { position: absolute; left: 450px; top: 15em;} 
 #long-stats { position: absolute; left: 450px; top: 16em; z-index: 100; }
