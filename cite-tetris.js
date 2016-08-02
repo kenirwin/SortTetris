@@ -73,7 +73,7 @@ var game = {
         else { 
             game.timer = window.setInterval(game.moveDown, game.interval);   
             game.timer_is_on = true;
-            game.gameButtonBind();
+         //   game.gameButtonBind();
             if (game.audioOK) { playaudio(); }
         }
     },
