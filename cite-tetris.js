@@ -212,7 +212,7 @@ var game = {
 	    if (game.audioOK === true) { playaudio(); }
         $(document).keypress(function(event) {
             event.preventDefault();
-            if(event.key==' '){ 
+            if(event.key==' ' || event.key=='Spacebar'){ 
                 game.pause();
             }
         });
