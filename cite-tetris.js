@@ -397,7 +397,9 @@ var game = {
         var longStats = game.getLongStats();
         $('#item').html('Game Stats: ' + stats +' </p>');
         $('#long-stats').html(longStats).show();
-        game.gameOverBanner(winOrLose);
+	console.log('trying to print Gameover banner');
+	game.gameOverBanner(winOrLose);
+	console.log('tried to print Gameover banner');	
         window.clearInterval(game.timer);
         $("#grid td").css("background-color","lightgrey").css("border-color","lightgrey").each(function() {
             if ($(this).attr("data-correct") == undefined) {
@@ -442,8 +444,8 @@ var game = {
         $.getJSON("leaderboard.php", {
             config_file: game.config,
             action: "leaderboard"
-        },
-                  function (json) {
+	    })
+	.success(function (json) {
                       var lines = '<tr><th>Rank</th><th>Player</th><th>Score</th></tr>';
                       var current_score_displayed = false;
                       var rank=1;
@@ -470,7 +472,10 @@ var game = {
                       $('#gameover').show();
                       $('#name').focus();
 
-                  });
+	    })
+	.error (function () {
+		$('#gameover').show();
+	    });
     },
     
     gameOverBanner: function (winOrLose) {
@@ -484,7 +489,7 @@ var game = {
             $('#gameover .header').html('You win!');
         }
         $('#final-score').html(game.score);
-        game.displayLeaderboard();
+	game.displayLeaderboard();
         game.i = 0;
         game.incrementScore();
     },
