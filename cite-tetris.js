@@ -49,14 +49,15 @@ var game = {
         });
     },
 
-    preloadImages: function () {
+    preloadImage: function (index) {
         var patt = /\"([^\"]+.jpg)\"/i;
-        for (i=0; i<game.data.length; i++) {
-            thisPic = game.data[i].item;
-            var refs = thisPic.match(patt);
-            if (refs[1]) { 
+        console.log(game.data);
+        thisPic = game.data[index].item;
+        var refs;
+        if (refs = thisPic.match(patt)) {
+            if (typeof(refs[1]) !== null) { 
                 console.log('preload: ' + refs[1]);
-                $('#preloadImg').attr('src', refs[1]).delay(100);
+                $('#preloadImg').attr('src', refs[1]);
             }
         }
     },
@@ -81,7 +82,7 @@ var game = {
         $.getJSON('./data-files/'+settings_dataFile, function(response) {
             game.data=response;
             game.shuffle(game.data);
-            game.preloadImages();
+            game.preloadImage(0);
         });
     },
 
@@ -230,6 +231,7 @@ var game = {
 
     next: function () {
         game.itemCounter++;
+        game.preloadImage(game.itemCounter+1);
         if (game.itemCounter >= game.data.length) { 
             game.shuffle(game.data);
             game.itemCounter = 0; 
