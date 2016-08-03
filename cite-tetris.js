@@ -73,7 +73,9 @@ var game = {
         else { 
             game.timer = window.setInterval(game.moveDown, game.interval);   
             game.timer_is_on = true;
-         //   game.gameButtonBind();
+            console.log('about to rebind');
+            game.gameButtonBind();
+            console.log('re-bound');
             if (game.audioOK) { playaudio(); }
         }
     },
@@ -220,9 +222,11 @@ var game = {
     },
     
     gameButtonBind: function() {
-        $('.game-button').click(function() {
+        console.log('binding...');
+        $('.game-button').bind('click', function() {
             game.clickEval(this.id);
         });
+        console.log('binding... and bound');
     },
     
     gameButtonUnbind: function() {
@@ -371,6 +375,7 @@ var game = {
 
     touchdown: function () {
         game.debug();
+        game.gameButtonUnbind();
         game.lastClearRow = game.activeRow-1;
         if (game.givenAnswer == '') { 
             game.givenAnswer = "No Answer"; 
