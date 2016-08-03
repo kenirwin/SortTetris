@@ -63,6 +63,7 @@ var game = {
     },
 
     pause: function() {
+        console.log('fn: pause');
         $('#pause-screen').toggle();
         if (game.timer_is_on == true) {
             clearTimeout(game.timer);
@@ -74,7 +75,7 @@ var game = {
             game.timer = window.setInterval(game.moveDown, game.interval);   
             game.timer_is_on = true;
             console.log('about to rebind');
-            game.gameButtonBind();
+           // game.gameButtonBind();
             console.log('re-bound');
             if (game.audioOK) { playaudio(); }
         }
@@ -222,18 +223,22 @@ var game = {
     },
     
     gameButtonBind: function() {
+        console.log('fn: gameButtonBind');
         console.log('binding...');
-        $('.game-button').bind('click', function() {
+        $('.game-button').on('click', function() {
+            console.log('triggering on click');
             game.clickEval(this.id);
         });
         console.log('binding... and bound');
     },
     
     gameButtonUnbind: function() {
+        console.log('fn: gameButtonUnbind');
         $('.game-button').unbind();
     },
 
     next: function () {
+        console.log('fn: next');
         game.itemCounter++;
         game.preloadImage(game.itemCounter+1);
         if (game.itemCounter >= game.data.length) { 
@@ -247,6 +252,7 @@ var game = {
     },
 
     clickEval: function (id) {
+        console.log('fn: clickEval: '+id);
         game.gameButtonUnbind();
         window.clearInterval(game.timer);
         game.debug();
@@ -259,10 +265,11 @@ var game = {
         else {
             game.incorrect();
         }
-        game.logStatus();
+//        game.logStatus();
     },
     
     correct: function () {
+        console.log('fn: correct');
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
         $('#row'+game.activeRow).html('').css('background-color',game.blankColor).css('border-color',game.blankColor);
         game.rows[game.activeRow] = -1;
@@ -282,6 +289,7 @@ var game = {
     },
 
     incorrect: function () {
+        console.log('fn: incorrect');
         // move to game.lastClearRow
         for (var j=1; j < game.lastClearRow; j++) {
             game.rows[j] = -1;
@@ -299,6 +307,7 @@ var game = {
     
     
     newCite: function () {
+        console.log('fn: newCite');
         if (game.rows[1] !== 1) {
             game.itemText = game.data[game.itemCounter].item;
             game.currAnswer = game.data[game.itemCounter].type;
@@ -374,6 +383,7 @@ var game = {
     },
 
     touchdown: function () {
+        console.log('fn: touchdown');
         game.debug();
         game.gameButtonUnbind();
         game.lastClearRow = game.activeRow-1;
@@ -385,7 +395,7 @@ var game = {
         $('#row'+game.activeRow).attr("data-correct",game.currAnswer).attr("data-incorrect",game.givenAnswer);
         window.clearInterval(game.timer);
         game.timer = window.setTimeout(function() { game.next() }, game.interval);
-        game.logStatus();
+//        game.logStatus();
         return false;
     },
 

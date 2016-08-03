@@ -94,6 +94,7 @@ include('process_settings.php');
 <div id="pause-screen">
 <h1>Paused</h1>
 <p>Press space-bar to continue</p>
+<p>Note: You will not be able to select an answer for the current block after un-pausing the game.</p>
 </div>
 
 <img id="preloadImg"></div>
