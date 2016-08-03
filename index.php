@@ -91,10 +91,13 @@ include('process_settings.php');
 <div id="close-gameover" class="button inactive">Close</div>
 </center>
 </div>
-<div id="pause-screen">
+<div id="pause-wrapper">
+<div id="pause-background"></div>
+<div id="pause-text">
 <h1>Paused</h1>
 <p>Press space-bar to continue</p>
 <p>Note: You will not be able to select an answer for the current block after un-pausing the game.</p>
+</div>
 </div>
 
 <img id="preloadImg"></div>

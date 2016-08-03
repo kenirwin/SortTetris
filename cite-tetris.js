@@ -64,7 +64,7 @@ var game = {
 
     pause: function() {
         console.log('fn: pause');
-        $('#pause-screen').toggle();
+        $('#pause-wrapper').toggle();
         if (game.timer_is_on == true) {
             clearTimeout(game.timer);
             game.timer_is_on = false;
