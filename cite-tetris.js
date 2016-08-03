@@ -246,7 +246,7 @@ var game = {
             game.itemCounter = 0; 
         }
         game.debug();
-        game.nextCite = game.newCite();
+        game.newItem();
         game.gameButtonBind();
         game.timer = window.setInterval(game.moveDown, game.interval);
     },
@@ -306,8 +306,8 @@ var game = {
     },
     
     
-    newCite: function () {
-        console.log('fn: newCite');
+    newItem: function () {
+        console.log('fn: newItem');
         if (game.rows[1] !== 1) {
             game.itemText = game.data[game.itemCounter].item;
             game.currAnswer = game.data[game.itemCounter].type;
