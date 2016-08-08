@@ -105,7 +105,13 @@ else {
 <body>
 <h1>Sort Tetris</h1>
     <div id="description">
-    <p>Sort Tetris is an educational game designed to provide practice sorting things into categories (e.g. animals sorted by class, presidents by party, bibliographic items by material type.)</p>
+    <p>Sort Tetris is an educational falling-blocks style game designed to provide practice sorting things into categories. It can be adapted to sort any short textual or small visual items into 2-5 categories. Examples include:</p>
+<ul>
+<li>Animals: Amphibian, Bird, Fish, Mammal, Reptile</li>
+<li>Bibliographic Entries: Article, Book, Book Chapter</li>
+<li>Instruments: Brass, Percussion, Strings, Woodwind</li>
+<li>U.S. Presidents: Democrat, Republican</li>
+</ul>
 
     <p><b>Playing the Game:</b> Sortable items will fall down the page. Select the approriate category from the green buttons to the right of the game. Correct answers will disappear; incorrect answers will fall to the bottom of the screen. The game will speed up as you answer more items correctly.</p>
 </div>

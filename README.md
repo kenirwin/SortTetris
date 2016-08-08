@@ -1,8 +1,11 @@
 # Citation Tetris
 
-**Citation Tetris** is a game to help library workers and others practice quickly identifying the kind of citation they are looking at. Options include "article", "book chapter", and "book". 
+**Sort Tetris** is an educational falling-blocks style game designed to provide practice sorting things into categories. It can be adapted to sort any short textual or small visual items into 2-5 categories. Examples include:
 
-This tool can be readily adapted for other identification/sorting practice for both text and images as well. See alternate demos below.
+* U.S. Presidents: Democrat, Republican
+* Instruments: Brass, Percussion, Strings, Woodwind
+* Animals: Amphibian, Bird, Fish, Mammal, Reptile
+* Bibliographic Entries: Article, Book, Book Chapter
 
 ## Demo
 
