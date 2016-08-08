@@ -440,7 +440,7 @@ var game = {
     },
 
     submitScore: function() {
-        $.getJSON("leaderboard.php", {
+        $.getJSON("ajax.php", {
             config_file: game.config,
             action: "submit",
             username: game.playerName,
@@ -456,7 +456,7 @@ var game = {
     },
     
     displayLeaderboard: function() {
-        $.getJSON("leaderboard.php", {
+        $.getJSON("ajax.php", {
             config_file: game.config,
             action: "leaderboard"
 	    })
