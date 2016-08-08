@@ -2,6 +2,9 @@
     font-family: Atari;
     src: url(./fonts/atari.ttf) format("truetype");
 }
+body {
+    font-family: Calibri, Arial, Helvetica, sans-serif;
+}
 table { 
     width: 400px;
     border: 1px solid black;
@@ -89,6 +92,17 @@ td {
 }
 
 #preloadImg { display: none }
+
+#description { font-size: 115%; 
+               margin: 0 5em 0 2em;
+             } 
+#list-games { font-size: 125%; 
+            }
+
+#list-games li { margin-top: .5em; 
+                 font-weight: bold;
+               } 
+#list-games li a { text-decoration: none; } 
 
 .overlay {
     font-weight: bold;

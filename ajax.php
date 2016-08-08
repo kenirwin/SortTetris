@@ -69,7 +69,11 @@ function ListPublicGames() {
         include($f);
         if ($public_game) {
             if (preg_match('/settings_(.+).php/', $f, $m)) {
-                array_push($public_games, $m[1]);
+                array_push($public_games, 
+                           array(
+                               'url'=>$m[1],
+                               'title'=>$game_title,
+                           ));
             }
         }
     }

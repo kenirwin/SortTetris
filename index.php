@@ -10,15 +10,10 @@ if (isset($_GET['settings'])) {
     $filename = './settings/settings_'.$_GET['settings'].'.php';
     if (is_readable($filename)) {
         include($filename);
-    }
-}
-else { 
-    include('./settings/settings_bib.php'); 
-    $_REQUEST['settings'] = $_GET['settings'] = 'bib';
-}    
-include('process_settings.php'); 
-?>
 
+    }
+    include('process_settings.php'); 
+?>
 <title><?php print($game_title); ?></title>
 <script type="text/javascript" src="jquery.js"></script>
 <script src="https://ajax.google.com/ajax/libs/webfont/1.5.10/webfont.js"></script>
@@ -69,7 +64,6 @@ include('process_settings.php');
 </table>
 </div>
 </div>
-<?php include("license.php"); ?>
 <div id="gameover"><h1 class="header">Game Over</h1>
 <div>
 <label for="gameover-score">Score:</label><span id="gameover-score"></span><br />
@@ -101,6 +95,44 @@ include('process_settings.php');
 </div>
 
 <img id="preloadImg"></div>
+<?php
+}
+else {
+?>
+<title>Sort Tetris - Choose a Game</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+<h1>Sort Tetris</h1>
+    <div id="description">
+    <p>Sort Tetris is an educational game designed to provide practice sorting things into categories (e.g. animals sorted by class, presidents by party, bibliographic items by material type.)</p>
+
+    <p><b>Playing the Game:</b> Sortable items will fall down the page. Select the approriate category from the green buttons to the right of the game. Correct answers will disappear; incorrect answers will fall to the bottom of the screen. The game will speed up as you answer more items correctly.</p>
+</div>
+
+<h2>Choose a Game</h2>
+<?
+    if (preg_match('/^(.+)\//',$_SERVER['REQUEST_URI'], $m)) {
+        $path = 'http://' . $_SERVER['HTTP_HOST'] . $m[1];
+    }
+    $ch = curl_init($path."/ajax.php?action=list-games");
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = json_decode(curl_exec($ch));
+    curl_close($ch);
+    fclose($fp);
+
+    
+    print '<ol id="list-games">'.PHP_EOL;
+    foreach($response as $game) {
+        print '<li><a href="?settings='.$game->url.'">'.$game->title.'</a>'.PHP_EOL;
+    }
+    print '</ol>';
+}
+?>
+
+<?php include("license.php"); ?>
+
 <?php
 if (! empty($google_analytics_block)) {
     print $google_analytics_block;
