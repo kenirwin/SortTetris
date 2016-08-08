@@ -4,6 +4,8 @@ $data_file = 'animals.json';
 $item_label = 'animal';
 $game_title = 'Animal Tetris';
 $game_logo_file = ''; //leave blank for text title
+$public_game = true; //true to list as an available game; false hides unless users has the direct URL; settings inlude in GitHub repository should all be public
+
 
 /* Scoring, Win conditions */
 

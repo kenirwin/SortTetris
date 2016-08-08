@@ -6,6 +6,7 @@ $data_file = 'bibliography.json';
 $item_label = 'citation';
 $game_title = 'Citation Tetris';
 $game_logo_file = 'logo.png'; //leave blank for text title
+$public_game = true; //true to list as an available game; false hides unless users has the direct URL; settings inlude in GitHub repository should all be public
 
 /* Scoring, Win conditions */
 

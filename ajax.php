@@ -21,7 +21,11 @@ catch (PDOException $e) {
 $request = (object) $_REQUEST;
 
 try {
-if ($request->action == "submit") {
+    if ($request->action == "list-games") {
+        print(json_encode(ListPublicGames()));
+    }
+
+elseif ($request->action == "submit") {
     $required_fields = array ('username','score','percent','level','config_file');
     $check = CheckRequiredFields($request,$required_fields);
     if ($check === true) {
@@ -54,6 +58,23 @@ elseif ($request->action == "leaderboard") {
 
 catch (Exception $e) {
     print $e;
+}
+
+function ListPublicGames() {
+    $public_games = array();
+    $files = glob('settings/settings_*.php');
+    ob_start(); //capture irrelevant output;
+    foreach ($files as $f) {
+        $public_game = false;
+        include($f);
+        if ($public_game) {
+            if (preg_match('/settings_(.+).php/', $f, $m)) {
+                array_push($public_games, $m[1]);
+            }
+        }
+    }
+    ob_end_clean();
+    return $public_games;
 }
 
 function Leaderboard ($config,$db) {

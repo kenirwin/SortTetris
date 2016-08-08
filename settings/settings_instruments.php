@@ -4,6 +4,7 @@ $data_file = 'instruments.json';
 $item_label = 'instrument';
 $game_title = 'Instrument Tetris';
 $game_logo_file = ''; //leave blank for text title
+$public_game = true; //true to list as an available game; false hides unless users has the direct URL; settings inlude in GitHub repository should all be public
 
 /* Scoring, Win conditions */
 
