@@ -1,4 +1,4 @@
-# Citation Tetris
+# Sort Tetris
 
 **Sort Tetris** is an educational falling-blocks style game designed to provide practice sorting things into categories. It can be adapted to sort any short textual or small visual items into 2-5 categories. Examples include:
 
@@ -10,23 +10,23 @@
 ## Demo
 
 Demo available online at:
-http://www6.wittenberg.edu/lib/ken/demo/CitationTetris
+http://www6.wittenberg.edu/lib/ken/demo/SortTetris
 
 Alternate demo #1: sorting animals by Linnean Class:
-http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=animal
+http://www6.wittenberg.edu/lib/ken/demo/SortTetris?settings=animal
 
 Alternate demo #2: photo-based animal sorting 
-http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=pix
+http://www6.wittenberg.edu/lib/ken/demo/SortTetris?settings=pix
 
 Alternate demo #3: U.S. presidents by party: 
-http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=presidents
+http://www6.wittenberg.edu/lib/ken/demo/SortTetris?settings=presidents
 
 Alternate demo #4: Musical instruments by type: 
-http://www6.wittenberg.edu/lib/ken/demo/CitationTetris?settings=instruments
+http://www6.wittenberg.edu/lib/ken/demo/SortTetris?settings=instruments
 
 ## Installation
 
-The basic functionality of Citation Tetris should work "out of the box" upon moving the files to a suitable server. The leaderboard functions, however, require access to MySQL. To set up the leaderboard:
+The basic functionality of Sort Tetris should work "out of the box" upon moving the files to a suitable server. The leaderboard functions, however, require access to MySQL. To set up the leaderboard:
 1. create a database or using an existing MySQL database
 2. copy the file `global_settings_example.php` to `global_settings_example.php`
 3. modify the variables in `global_settings.php` to connect to the database
@@ -39,7 +39,7 @@ You may add a Google Analytics ID to the appropriate variable in `global_setting
 
 ## Configuration
 
-The settings file defines the default configuration for an installation. By default, the program looks for a `settings.php` file, and fails back to `settings_bib.php`. (Note: the program does not install with a `settings.php` file -- that is reserved for local use. When freshly installed, the program defauts to using `settings_bib.php`.) Additional settings can be supported by the same installation by creating additional settings files; additional settings files must be named `settings_xxx.php` where `xxx` is replaced with an apprpriate string. (e.g. settings_animal). As shown in the alternate demo link above, the `settings_animal.php` file describes the configuration for a game playable at the URL `CitationTetris?settings=animal`.
+The settings file defines the default configuration for an installation. By default, the program looks for a `settings.php` file, and fails back to `settings_bib.php`. (Note: the program does not install with a `settings.php` file -- that is reserved for local use. When freshly installed, the program defauts to using `settings_bib.php`.) Additional settings can be supported by the same installation by creating additional settings files; additional settings files must be named `settings_xxx.php` where `xxx` is replaced with an apprpriate string. (e.g. settings_animal). As shown in the alternate demo link above, the `settings_animal.php` file describes the configuration for a game playable at the URL `SortTetris?settings=animal`.
 
 The two most important variables in the settings files are `$buttons` and `$data_file`: 
 * `$buttons` array, which defines the allowable answers (e.g. "book","chapter","article" or "mammal", "fish", "bird")
