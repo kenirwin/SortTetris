@@ -2,22 +2,6 @@
 header("Content-type: application/json");
 include ("global_settings.php"); 
 
-foreach (['host', 'database','charset','user','pass'] as $f) {
-    if (!isset($$f)) { 
-        $return = ['message','MySQL Connect Error: variable $'.$f.' not set in global_settings.php'];
-        print(json_encode($return));
-    }
-}
-
-try {
-    $db = new PDO("mysql:host=$host;dbname=$database;charset=$charset", "$user", "$pass");
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch (PDOException $e) {
-    $return = [ 'message'=> 'MySQL error: '.$e->getMessage() ];
-    print (json_encode($return));
-}
-
 $request = (object) $_REQUEST;
 
 try {
@@ -26,6 +10,7 @@ try {
     }
 
 elseif ($request->action == "submit") {
+    $db = MysqlConnect();
     $required_fields = array ('username','score','percent','level','config_file');
     $check = CheckRequiredFields($request,$required_fields);
     if ($check === true) {
@@ -46,6 +31,7 @@ elseif ($request->action == "submit") {
 elseif ($request->action == "leaderboard") {
     $required_fields = array ('config_file');
     $check = CheckRequiredFields($request,$required_fields);
+    $db = MysqlConnect();
     if ($check === true) {
         Leaderboard($request->config_file, $db); 
     }
@@ -110,6 +96,26 @@ function CheckRequiredFields ($request, $required) {
         }
     }
     return true;
+}
+
+function MysqlConnect() { 
+    include ("global_settings.php"); 
+    foreach (['host', 'database','charset','user','pass'] as $f) {
+        if (!isset($$f)) { 
+            $return = ['message','MySQL Connect Error: variable $'.$f.' not set in global_settings.php'];
+            print(json_encode($return));
+        }
+    }
+    
+    try {
+        $db = new PDO("mysql:host=$host;dbname=$database;charset=$charset", "$user", "$pass");
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $db;
+    }
+    catch (PDOException $e) {
+        $return = [ 'message'=> 'MySQL error: '.$e->getMessage() ];
+        print (json_encode($return));
+    }
 }
 
 
