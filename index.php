@@ -33,7 +33,7 @@ include('process_settings.php');
         }
         });
 </script>
-<script type="text/javascript" src="cite-tetris.js"></script>
+<script type="text/javascript" src="sort-tetris.js"></script>
 <style>
     @import 'https://fonts.googleapis.com/css?family=Press+Start+2P';
 </style> 
