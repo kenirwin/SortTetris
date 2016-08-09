@@ -10,19 +10,7 @@
 ## Demo
 
 Demo available online at:
-http://www6.wittenberg.edu/lib/ken/demo/SortTetris
-
-Alternate demo #1: sorting animals by Linnean Class:
-http://www6.wittenberg.edu/lib/ken/demo/SortTetris?settings=animal
-
-Alternate demo #2: photo-based animal sorting 
-http://www6.wittenberg.edu/lib/ken/demo/SortTetris?settings=pix
-
-Alternate demo #3: U.S. presidents by party: 
-http://www6.wittenberg.edu/lib/ken/demo/SortTetris?settings=presidents
-
-Alternate demo #4: Musical instruments by type: 
-http://www6.wittenberg.edu/lib/ken/demo/SortTetris?settings=instruments
+http://www.sort-tetris.com/play/
 
 ## Installation
 
