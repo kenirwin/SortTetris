@@ -51,15 +51,16 @@ var game = {
 
     preloadImage: function (index) {
         var patt = /\"([^\"]+.jpg)\"/i;
-        console.log(game.data);
-        thisPic = game.data[index].item;
-        var refs;
-        if (refs = thisPic.match(patt)) {
-            if (typeof(refs[1]) !== null) { 
-                console.log('preload: ' + refs[1]);
-                $('#preloadImg').attr('src', refs[1]);
-            }
-        }
+	if (index < game.data.length) { 
+	    thisPic = game.data[index].item;
+	    var refs;
+	    if (refs = thisPic.match(patt)) {
+		if (typeof(refs[1]) !== null) { 
+		    console.log('preload: ' + refs[1]);
+		    $('#preloadImg').attr('src', refs[1]);
+		}
+	    }
+	}
     },
 
     pause: function() {
