@@ -20,10 +20,23 @@ var game = {
         game.nCorrect = 0;
         game.nTotal = 0;
         game.answerLog = [];
+	game.audioUserOn = true;
         for (var i=1; i<(game.height+1); i++) {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
+
+
+	$('#audio-toggle').click(function() {
+		if (game.audioUserOn == true) { 
+		    game.audioUserOn = false;
+		    $('#audio-toggle-button').attr('src','images/audioOff.png');
+		}
+		else { 
+		    game.audioUserOn = true;
+		    $('#audio-toggle-button').attr('src','images/audioOn.png');
+		}
+	    });
 
         $('#name-submit').unbind();
         $('#name').unbind();

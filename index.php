@@ -32,7 +32,7 @@ if (isset($_GET['settings'])) {
 <style>
     @import 'https://fonts.googleapis.com/css?family=Press+Start+2P';
 </style> 
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
 <?php
@@ -134,6 +134,12 @@ $response = json_decode(curl_exec($ch));
         print '<li><a href="?settings='.$game->url.'">'.$game->title.'</a>'.PHP_EOL;
     }
     print '</ol>';
+}
+?>
+
+<?php
+if ($audioOK == true) {
+  print '<div id="audio-toggle"><img src="images/audioOn.png" id="audio-toggle-button"></div>';
 }
 ?>
 
