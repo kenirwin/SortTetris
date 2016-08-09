@@ -42,6 +42,9 @@ td {
          border-radius: 5px;
        }
 #controls { position: absolute; left: 450px; top: 15em;} 
+#audio-toggle { position: absolute; left: 750px; top: 16.5em; }
+#audio-toggle-button { height: 50px } 
+
 #long-stats { position: absolute; left: 450px; top: 16em; z-index: 100; }
 #long-stats table { position: absolute }
 

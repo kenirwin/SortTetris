@@ -20,10 +20,30 @@ var game = {
         game.nCorrect = 0;
         game.nTotal = 0;
         game.answerLog = [];
+	if (game.audioUserOn == undefined) { game.audioUserOn = true; } 
+	game.inProgress = false;
         for (var i=1; i<(game.height+1); i++) {
             game.rows[i] = -1; //empty
         }
         game.bound = $.browser == 'msie' ? '#game' : window;
+
+	
+	$('#audio-toggle').unbind().click(function() {
+		console.log ('UserAudioOn was: '+game.audioUserOn);
+		if (game.audioUserOn == true) { 
+		    pauseaudio();
+		    game.audioUserOn = false;
+		    $('#audio-toggle-button').attr('src','images/audioOff.png');
+		}
+		else { 
+		    if (game.inProgress == true) { 
+			playaudio();
+		    }
+		    game.audioUserOn = true;
+		    $('#audio-toggle-button').attr('src','images/audioOn.png');
+		}
+		console.log ('UserAudioOn is: '+game.audioUserOn);
+	    });
 
         $('#name-submit').unbind();
         $('#name').unbind();
@@ -78,8 +98,8 @@ var game = {
             console.log('about to rebind');
            // game.gameButtonBind();
             console.log('re-bound');
-            if (game.audioOK) { playaudio(); }
-        }
+            if (game.audioOK & game.audioUserOn) { playaudio(); }
+        } 
     },
     
     loadData: function () {
@@ -202,7 +222,7 @@ var game = {
 
 
     start: function () {
-	    if (game.audioOK) { resetaudio(); }
+	if (game.audioOK) { resetaudio(); }
         $('#name-entry').show();
         $('#name-display').hide();
         $('#long-stats').hide();
@@ -213,7 +233,7 @@ var game = {
         $('.start-stop-button').addClass('inactive').unbind();
         $('#score').html('Level: 1<br />Score: 0');
         game.next();
-	    if (game.audioOK === true) { playaudio(); }
+	    if (game.audioOK === true & game.audioUserOn) { playaudio(); }
         $(document).keypress(function(event) {
             event.preventDefault();
             if(event.key==' ' || event.key=='Spacebar'){ 
@@ -221,6 +241,7 @@ var game = {
             }
         });
         game.timer_is_on = true; 
+	    game.inProgress = true;
     },
     
     gameButtonBind: function() {
@@ -404,6 +425,7 @@ var game = {
     },
 
     gameOver: function (winOrLose) {
+	game.inProgress = false;
         $(document).unbind('keypress');
         console.log ('Game Over Percent: '+game.percent);
         if (game.audioOK === true) { pauseaudio(); } 
