@@ -16,6 +16,7 @@
     function resetaudio() 
      {
        audio.playbackRate = 1;
+       audio.currentTime = 0;
      }
     function speedUp() 
       {
