@@ -8,7 +8,7 @@ else {
     $game_header = '<img src="'.$game_logo_file.'" />';
 }
 
-if (! is_array($colors_override)) {
+if (! (isset($colors_override) && is_array($colors_override))) {
 $colors = [
     ['#00e427', '#bdffca', '#009c1a', '#00961a', '#2dff55'], //green
     ['#e4de00','#ffffbd','#a39c00','#968f00','#fff83a'], //yellow

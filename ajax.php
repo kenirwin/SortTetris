@@ -68,11 +68,12 @@ function ListPublicGames() {
 }
 
 function Leaderboard ($config,$db) {
+  if (is_object($db)) {
     $stmt = $db->prepare("SELECT username,score FROM leaderboard WHERE config_file=? ORDER BY score DESC LIMIT 0,10");
     $stmt->execute(array($config));
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     print (json_encode($results));
-    
+  }
 }
 
 function PrepareInsert ($fields, $data, $table) {
