@@ -93,6 +93,11 @@ if (isset($_GET['settings'])) {
 <p>Note: You will not be able to select an answer for the current block after un-pausing the game.</p>
 </div>
 </div>
+<?php
+if ($audioOK == true) {
+  print '<div id="audio-toggle"><img src="images/audioOn.png" id="audio-toggle-button"></div>';
+}
+?>
 
 <img id="preloadImg"></div>
 <?php
@@ -134,12 +139,6 @@ $response = json_decode(curl_exec($ch));
         print '<li><a href="?settings='.$game->url.'">'.$game->title.'</a>'.PHP_EOL;
     }
     print '</ol>';
-}
-?>
-
-<?php
-if ($audioOK == true) {
-  print '<div id="audio-toggle"><img src="images/audioOn.png" id="audio-toggle-button"></div>';
 }
 ?>
 
