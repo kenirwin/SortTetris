@@ -5,6 +5,7 @@ $item_label = 'animal';
 $game_title = 'Test Game (Animals)';
 $game_logo_file = ''; //leave blank for text title
 $public_game = true; //true to list as an available game; false hides unless users has the direct URL; settings inlude in GitHub repository should all be public
+$infopage = ''; // in the infopages/ folder
 
 /* Scoring, Win conditions */
 

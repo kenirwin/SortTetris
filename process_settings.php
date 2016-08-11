@@ -8,6 +8,12 @@ else {
     $game_header = '<img src="'.$game_logo_file.'" />';
 }
 
+$game_header .= '<div id="links"><span id="choose-game"><a href="./">Choose another game</a></span>';
+if (isset($infopage) && file_exists('infopages/'.$infopage) && $infopage != '') {
+    $game_header.=' | <span id="infopage">Need help identifying items? <a href="infopages/'.$infopage.'">Here is a helpful guide</a></span>';
+}
+$game_header .= '</div>'.PHP_EOL;
+
 if (! (isset($colors_override) && is_array($colors_override))) {
 $colors = [
     ['#00e427', '#bdffca', '#009c1a', '#00961a', '#2dff55'], //green
