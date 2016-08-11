@@ -15,7 +15,7 @@ else {
             $total_files++;
             $input_path = $maindir.'/'.$realm.'/'.$file;
             $handle = @fopen($input_path, 'r');
-            $type = $file;
+            $type = str_replace('\ ',' ',$file);
             if ($handle) {
                 while (($buffer = fgets($handle, 4096)) !== false) {
                     $buffer = ltrim(chop($buffer));
