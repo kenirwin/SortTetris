@@ -131,8 +131,6 @@ else {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = json_decode(curl_exec($ch));
     curl_close($ch);
-    fclose($fp);
-
     
     print '<ol id="list-games">'.PHP_EOL;
     foreach($response as $game) {
