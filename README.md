@@ -43,6 +43,22 @@ Run `prep_files.php` on the command line, giving the knowledge area correspondin
 
 This will generate a correctly-formatted JSON file `animals.json` in the `data-files` directory. When establishing a new JSON file, you will also need to create a new corresponging `settings_FILENAME.php` file in the `settings/` folder in order to play a game with that data file.  
 
+### Infopages
+
+The `infopages/` directory contains infomrational or instructional materials to support learning. Links to relevant infopages are defined in the settings for each game. Users are encouraged to develop helpful infopages for any game they create. 
+
+The `generate_infopage.php` script creates very simple infopages most suitable for known-item lists, such as presidents or instruments. The script lists all of the answers by category and links to the relevant Wikipedia page. Note: this is not a "smart" feature -- it speeds up the process of creating such a page, but may link to the "wrong" Wikipedia page (e.g. the "triagle" wikipedia page is about the shape, not about the musical instrument.) It is strongly suggested that you test and edit any infopages generated automatically. 
+
+The `generate_infopage.php` script does not, by default, write a new file (to protect edited infopages from being accidentally overwritten.) To use the script to create a file, use the `>` directive to write a new file, e.g.
+
+`php generate_infopage.php presidents > infopages/presidents_test.html`
+
+To sort items alphabetically within their type, use the --sort flag:
+
+`php generate_infopage.php --sort animals > infopages/animals.html`
+
+Note: you might not want to sort items like presidents because they may have another valid ordering, such as chronological.
+
 ## Credits
 Written by Ken Irwin, Wittenberg University
 
