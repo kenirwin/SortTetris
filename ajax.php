@@ -28,12 +28,12 @@ elseif ($request->action == "submit") {
     }
 }
 
-elseif ($request->action == "leaderboard") {
+elseif ($request->action == ("supervisor"||"leaderboard")) {
     $required_fields = array ('config_file');
     $check = CheckRequiredFields($request,$required_fields);
     $db = MysqlConnect();
     if ($check === true) {
-        Leaderboard($request->config_file, $db); 
+      print(HighScores($request->config_file, $db, $request->action)); 
     }
     else {
         throw new Exception ($check);
@@ -67,14 +67,24 @@ function ListPublicGames() {
     return $public_games;
 }
 
-function Leaderboard ($config,$db) {
+function HighScores ($config,$db,$format='leaderboard') {
   if (is_object($db)) {
-    $stmt = $db->prepare("SELECT username,score FROM leaderboard WHERE config_file=? ORDER BY score DESC LIMIT 0,10");
+    if ($format=='leaderboard') {
+      $query = 'SELECT username,score FROM leaderboard WHERE config_file=? ORDER BY score DESC LIMIT 0,10';
+    }
+    elseif ($format=='supervisor') {
+      $query = 'SELECT * FROM leaderboard WHERE config_file=? ORDER BY time_entry DESC LIMIT 0,1000';
+    }
+    $stmt = $db->prepare($query);
     $stmt->execute(array($config));
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    print (json_encode($results));
+
+
+    return (json_encode($results));
   }
+
 }
+
 
 function PrepareInsert ($fields, $data, $table) {
     $prep = 'INSERT INTO '.$table.'(';
