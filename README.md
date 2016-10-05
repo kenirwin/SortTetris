@@ -71,6 +71,8 @@ http://fmarcia.info/jquery/tetris/tetris.html
 
 Animal photos used under the Creative Commons CC0 from https://pixabay.com, or under public domain from Wikimedia Commons.
 
+`scores.php` makes use of the DynaTable jQuery plugin by Alfa Jango: https://www.dynatable.com
+
 ## License
 
 Licensed under the GNU Affero General Public License.
