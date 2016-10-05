@@ -1,15 +1,15 @@
 <head>
 <title>Sort Tetris: High Scores</title>
 <style>
-@import url("jquery.dynatable.css");
+@import url("./lib./jquery.dynatable.css");
 #my-ajax-table {width: 50%}
 
 table {border: 1px solid black  }
 #json-records { display: none }
 #wrapper { width: 50% }
 </style>
-<script src="jquery.js"></script>
-<script src="jquery.dynatable.js"></script>
+<script src="./lib/jquery.js"></script>
+<script src="./lib/jquery.dynatable.js"></script>
 
 <script>
 $(document).ready(function() {

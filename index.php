@@ -15,7 +15,7 @@ if (isset($_GET['settings'])) {
     include('process_settings.php'); 
 ?>
 <title><?php print($game_title); ?></title>
-<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="./lib/jquery.js"></script>
 <script src="https://ajax.google.com/ajax/libs/webfont/1.5.10/webfont.js"></script>
 <script>
     WebFont.load({
