@@ -4,12 +4,24 @@ include ("global_settings.php");
 
 $request = (object) $_REQUEST;
 
+if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
+  $local_request=true;
+}
+else {
+  $local_request=false;
+}
+
 try {
     if ($request->action == "list-games") {
-        print(json_encode(ListPublicGames()));
+      print(json_encode(ListPublicGames()));
     }
 
-elseif ($request->action == "submit") {
+    elseif ($request->action == "list-all-games") {
+      if ($local_request) { print(json_encode(ListGames(true))); }
+      else { print "only local requests"; }
+    }
+    
+    elseif ($request->action == "submit") {
     $db = MysqlConnect();
     $required_fields = array ('username','score','percent','level','config_file');
     $check = CheckRequiredFields($request,$required_fields);
@@ -66,6 +78,29 @@ function ListPublicGames() {
     ob_end_clean();
     return $public_games;
 }
+
+function ListGames($include_private=false) {
+    $games = array();
+    $files = glob('settings/settings_*.php');
+    ob_start(); //capture irrelevant output;
+    foreach ($files as $f) {
+        $public_game = false;
+        include($f);
+        if (($public_game) || ($include_private == true)) {
+            if (preg_match('/settings_(.+).php/', $f, $m)) {
+                array_push($games, 
+                           array(
+                               'url'=>$m[1],
+                               'title'=>$game_title,
+                           ));
+            }
+        }
+    }
+    ob_end_clean();
+    return $games;
+}
+
+
 
 function HighScores ($config,$db,$format='leaderboard') {
   if (is_object($db)) {
