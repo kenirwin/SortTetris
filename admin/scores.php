@@ -1,15 +1,15 @@
 <head>
 <title>Sort Tetris: High Scores</title>
 <style>
-@import url("./lib./jquery.dynatable.css");
+@import url("../lib/jquery.dynatable.css");
 #my-ajax-table {width: 50%}
 
 table {border: 1px solid black  }
 #json-records { display: none }
 #wrapper { width: 50% }
 </style>
-<script src="./lib/jquery.js"></script>
-<script src="./lib/jquery.dynatable.js"></script>
+<script src="../lib/jquery.js"></script>
+<script src="../lib/jquery.dynatable.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -21,6 +21,13 @@ $(document).ready(function() {
       dataset: {
 	records: myRecords,
 	    perPageDefault: 100,
+	    perPageOptions: [10,20,50,100,500,1000],
+	    sortTypes: {
+	    'game_id': 'number',
+	      'score': 'number',
+	      'percent': 'number',
+	      'level': 'number'
+	  },
 	    }
       });
 });
@@ -47,7 +54,8 @@ $(document).ready(function() {
 
 <pre id="json-records">
 <?
-  $ajax_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/ajax.php?action=supervisor&config_file=bib';
+  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/admin\/.*/','/',$_SERVER['REQUEST_URI']);
+$ajax_url = $path.'ajax.php?action=supervisor&config_file='.$_REQUEST['config'];
 print(file_get_contents($ajax_url));
 ?>
 </pre>
