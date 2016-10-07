@@ -11,7 +11,7 @@ curl_close($ch);
 
 print '<ol id="list-games">'.PHP_EOL;
 foreach($response as $game) {
-      print '<li><a href="./scores.php?config='.$game->url.'">'.$game->title.'</a>'.PHP_EOL;
+      print '<li><a href="./scores.php?config='.$game->url.'">'.$game->title.'</a> [<a href="chart.php?config='.$game->url.'">chart</a>]'.PHP_EOL;
     }
 print '</ol>';
 
