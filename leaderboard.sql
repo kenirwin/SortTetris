@@ -27,5 +27,6 @@ CREATE TABLE IF NOT EXISTS `leaderboard` (
   `percent` tinyint(4) NOT NULL,
   `level` tinyint(4) NOT NULL,
   `config_file` varchar(50) NOT NULL,
+  `institution` varchar(50),
   PRIMARY KEY (`game_id`)
 ) DEFAULT CHARSET=utf8 AUTO_INCREMENT=60 ;
