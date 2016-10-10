@@ -1,3 +1,10 @@
+<head>
+<title>Sort Tetris - Site Administration</title>
+<style>
+@import url("../style.css");
+</style>
+</head>
+<body>
 <h1>Sort Tetris - Site Administration</h1>
 <h2>View Recent Scores for:</h2>
 
@@ -11,8 +18,9 @@ curl_close($ch);
 
 print '<ol id="list-games">'.PHP_EOL;
 foreach($response as $game) {
-      print '<li><a href="./scores.php?config='.$game->url.'">'.$game->title.'</a> [<a href="chart.php?config='.$game->url.'">chart</a>]'.PHP_EOL;
+  print '<li><a href="./scores.php?config='.$game->url.'&title='.urlencode($game->title).'">'.$game->title.'</a>'.PHP_EOL;
     }
 print '</ol>';
 
 ?>
+<?php include("../license.php"); ?>

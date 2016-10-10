@@ -1,6 +1,7 @@
 <head>
-<title>Sort Tetris: High Scores</title>
+<title>Sort Tetris: High Scores - <?php print $_REQUEST['title']; ?></title>
 <style>
+@import url("../style.css");
 @import url("../lib/jquery.dynatable.css");
 #my-ajax-table {width: 50%}
 
@@ -69,7 +70,8 @@ series :
 </head>
 
 <body>
-
+<h1>Scores: <? print $_REQUEST['title']; ?></h1>
+<p><a href="./">Return to Main Admin Screen</a></p>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
@@ -127,3 +129,5 @@ function json2highcharts ($json) {
   return (json_encode($series));
 }
 ?>
+
+<?php include("../license.php"); ?>
