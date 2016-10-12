@@ -12,10 +12,14 @@ else {
 }
 
 try {
-    if ($request->action == "list-games") {
-      print(json_encode(ListPublicGames()));
-    }
+  if ($request->action == "list-institutions") {
+    print((ListInstitutions()));
+  }
 
+  elseif ($request->action == "list-games") {
+    print(json_encode(ListPublicGames()));
+  }
+  
     elseif ($request->action == "list-all-games") {
       if ($local_request) { print(json_encode(ListGames(true))); }
       else { print "only local requests"; }
@@ -100,7 +104,13 @@ function ListGames($include_private=false) {
     return $games;
 }
 
-
+function ListInstitutions() {
+  $db = MysqlConnect();
+  $query = "SELECT `institution_id`, `institution_name` FROM institutions";
+  $stmt = $db->query($query);
+  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return (json_encode($results));
+}
 
 function HighScores ($config,$db,$format='leaderboard') {
   if (is_object($db)) {

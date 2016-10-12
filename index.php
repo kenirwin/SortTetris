@@ -1,3 +1,6 @@
+<?
+session_start();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -14,25 +17,20 @@
 
 <script>
     $(document).ready(function() { 
-	alert('first');
 	$form = $("#inst-form");
 	$("#form-submit").click(function() {
-	    alert('yourmom');
+	    var inst_name = $("#inst-id option:selected").text();
+            $("#inst-name").val(inst_name);
 	    $.ajax({
 	      url: './inst_select.php',
 		  data: $form.serialize(),
 		  success: function(result) {		
-		  alert(result);
+		  //		  alert(result);
 		}
 	      });
-
 	  });
       });
 </script>
-
-<?php
-print "<!--". $_SESSION['inst_id'] ."-->";
-?>
 
 <?php
 include ('global_settings.php'); 
@@ -70,7 +68,7 @@ if (isset($_GET['settings'])) {
      }
 ?>
 <?php print($game_header); ?>
-    <? print '<div id="institution">ID: '.$_SESSION['inst_id'].'</div>'.PHP_EOL;?>
+    <? print '<div id="institution" class="button">Playing for: '.$_SESSION['inst_name'].'</div>'.PHP_EOL;?>
 <div id="game">
      <div id="item"><?php print($item_label_cap);?>:</div>
 <div id="debug">Debug:</div>
@@ -103,6 +101,7 @@ if (isset($_GET['settings'])) {
 
 <form id="name-entry">
 <input type="text" placeholder="your name"  id="name" size="10">
+<input type="hidden" name="inst_id_score" value="<?php print($_SESSION['inst_id']); ?>" />
 <span id="name-submit" type="button" class="button">-></span>
 
 </form>
@@ -167,7 +166,7 @@ $opts = "<option>--Select an Institution--</option>";
 foreach(json_decode($json) as $data) {
   $opts .=  '<option value="'. $data->institution_id .'">'.$data->institution_name.'</option>'.PHP_EOL;
 }
-print '<form id="inst-form"><select name="inst_id">'.$opts.'</select><input type="button" value="Submit" name="set_institution" id="form-submit"/></form>'.PHP_EOL;
+print '<form id="inst-form"><select name="inst_id" id="inst-id">'.$opts.'</select><input type="hidden" name="inst_name" id="inst-name" value=""><input type="button" value="Submit" name="set_institution" id="form-submit"/></form>'.PHP_EOL;
 ?></div>
 
 <h2>Choose a Game</h2>
