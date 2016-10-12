@@ -111,7 +111,7 @@ if (isset($_GET['settings'])) {
 
 <form id="name-entry">
 <input type="text" placeholder="your name"  id="name" size="10">
-<input type="hidden" id="inst-id-score" value="<?php print($_SESSION['inst_id']); ?>" />
+<input type="hidden" id="inst-id-score" value="<?php if (isset($_SESSION['inst_id'])) { print($_SESSION['inst_id']);} ?>" />
 <span id="name-submit" type="button" class="button">-></span>
 
 </form>
@@ -215,7 +215,9 @@ function InstSelector() {
   }
   $opts.= '<option value="-1">None</option>';
   print '<form id="inst-form" style="display:'.$selector_display.'"><select name="inst_id" id="inst-id">'.$opts.'</select><input type="hidden" name="inst_name" id="inst-name" value=""><input type="button" value="Submit" name="set_institution" id="form-submit"/></form>'.PHP_EOL;
-  print '<div id="inst-display" style="display:'.$selected_display.'"><span id="inst-display-name">'.$_SESSION['inst_name'].'</span> <span id="inst-display-edit">Edit</span></div>'.PHP_EOL;
+  print '<div id="inst-display" style="display:'.$selected_display.'"><span id="inst-display-name">';
+  if (isset($_SESSION['inst_name'])) { print $_SESSION['inst_name']; }
+  print '</span> <span id="inst-display-edit">Edit</span></div>'.PHP_EOL;
   print '</div>'.PHP_EOL;
   }
 
