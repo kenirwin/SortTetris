@@ -49,6 +49,7 @@ var game = {
         $('#name').unbind();
         $('#name-submit').click(function() {
             game.playerName = $('#name').val();
+            game.instID = $('#inst-id-score').val();
             game.submitScore();
             $('#name-entry').hide();
             $('#close-gameover').removeClass('inactive');
@@ -469,7 +470,8 @@ var game = {
             username: game.playerName,
             score: game.finalScore,
             percent: game.percent,
-            level: game.level
+            level: game.level,
+	    inst_id: game.instID
         },
                   function(json) {
                       if (json.result == "success") {

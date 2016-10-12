@@ -101,7 +101,7 @@ if (isset($_GET['settings'])) {
 
 <form id="name-entry">
 <input type="text" placeholder="your name"  id="name" size="10">
-<input type="hidden" name="inst_id_score" value="<?php print($_SESSION['inst_id']); ?>" />
+<input type="hidden" id="inst-id-score" value="<?php print($_SESSION['inst_id']); ?>" />
 <span id="name-submit" type="button" class="button">-></span>
 
 </form>

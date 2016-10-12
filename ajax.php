@@ -27,7 +27,8 @@ try {
     
     elseif ($request->action == "submit") {
     $db = MysqlConnect();
-    $required_fields = array ('username','score','percent','level','config_file');
+    if (! isset($request->inst_id)) { $request->inst_id = -1; }
+    $required_fields = array ('username','score','percent','level','config_file','inst_id');
     $check = CheckRequiredFields($request,$required_fields);
     if ($check === true) {
         $prepped = PrepareInsert($required_fields, $request, "leaderboard"); 
