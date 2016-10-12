@@ -4,6 +4,36 @@
 <html>
 
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!--script type="text/javascript" src="./lib/jquery.js"></script-->
+<!--script type="text/javascript" src="./lib/jquery-ui.min.js"></script-->
+<!--link rel="stylesheet" type="text/css" href="lib/jquery-ui.css" /-->
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<script>
+    $(document).ready(function() { 
+	alert('first');
+	$form = $("#inst-form");
+	$("#form-submit").click(function() {
+	    alert('yourmom');
+	    $.ajax({
+	      url: './inst_select.php',
+		  data: $form.serialize(),
+		  success: function(result) {		
+		  alert(result);
+		}
+	      });
+
+	  });
+      });
+</script>
+
+<?php
+print "<!--". $_SESSION['inst_id'] ."-->";
+?>
+
 <?php
 include ('global_settings.php'); 
 if (isset($_GET['settings'])) {
@@ -15,7 +45,7 @@ if (isset($_GET['settings'])) {
     include('process_settings.php'); 
 ?>
 <title><?php print($game_title); ?></title>
-<script type="text/javascript" src="./lib/jquery.js"></script>
+
 <script src="https://ajax.google.com/ajax/libs/webfont/1.5.10/webfont.js"></script>
 <script>
     WebFont.load({
@@ -32,7 +62,6 @@ if (isset($_GET['settings'])) {
 <style>
     @import 'https://fonts.googleapis.com/css?family=Press+Start+2P';
 </style> 
-<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
 <?php
@@ -41,6 +70,7 @@ if (isset($_GET['settings'])) {
      }
 ?>
 <?php print($game_header); ?>
+    <? print '<div id="institution">ID: '.$_SESSION['inst_id'].'</div>'.PHP_EOL;?>
 <div id="game">
      <div id="item"><?php print($item_label_cap);?>:</div>
 <div id="debug">Debug:</div>
@@ -104,6 +134,7 @@ if ($audioOK == true) {
 }
 else {
 ?>
+
 <title>Sort Tetris - Choose a Game</title>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
@@ -120,6 +151,24 @@ else {
 
     <p><b>Playing the Game:</b> Sortable items will fall down the page. Select the approriate category from the green buttons to the right of the game. Correct answers will disappear; incorrect answers will fall to the bottom of the screen. The game will speed up as you answer more items correctly.</p>
 </div>
+
+																							  <div class="button" id="institution-select">Playing for Work/School? Select Institution: 
+<?php 
+
+																															 
+if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
+$curr_dir = $m[1];
+}
+$path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
+$ajax_url = $path.'ajax.php?action=list-institutions';
+print $ajax_url;
+$json = file_get_contents($ajax_url);
+$opts = "<option>--Select an Institution--</option>";
+foreach(json_decode($json) as $data) {
+  $opts .=  '<option value="'. $data->institution_id .'">'.$data->institution_name.'</option>'.PHP_EOL;
+}
+print '<form id="inst-form"><select name="inst_id">'.$opts.'</select><input type="button" value="Submit" name="set_institution" id="form-submit"/></form>'.PHP_EOL;
+?></div>
 
 <h2>Choose a Game</h2>
 <?
