@@ -19,6 +19,13 @@ try {
   elseif ($request->action == "list-games") {
     print(json_encode(ListPublicGames()));
   }
+
+  elseif ($request->action == "authenticate") {
+    //if ($local_request) { 
+      print(json_encode(Authenticate($request))); 
+      //}
+      //else { print "only local requests"; }
+  }
   
     elseif ($request->action == "list-all-games") {
       if ($local_request) { print(json_encode(ListGames(true))); }
@@ -62,6 +69,19 @@ elseif ($request->action == ("supervisor"||"leaderboard")) {
 catch (Exception $e) {
     print $e;
 }
+
+function Authenticate($req) {
+    $db = MysqlConnect();  
+    $stmt = $db->prepare('SELECT institution_id,institution_name FROM institutions WHERE contact_email = ? AND password = ?');
+    $stmt->execute(array($req->user,$req->pass));
+    if ($stmt->rowCount() == 0) {
+      return(array("error" => "Invalid username or password"));
+    }
+    else {
+      return($stmt->fetch(PDO::FETCH_ASSOC));
+    }
+}
+
 
 function ListPublicGames() {
     $public_games = array();

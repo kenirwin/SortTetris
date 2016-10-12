@@ -1,5 +1,5 @@
 <head>
-<title>Sort Tetris - Site Administration</title>
+<title>Sort Tetris - Supervisor View</title>
 <style>
 @import url("../style.css");
 </style>
@@ -9,7 +9,7 @@
 <h2>View Recent Scores for:</h2>
 
 <?
-$path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/admin\/.*/','/',$_SERVER['REQUEST_URI']);
+$path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
 $ch = curl_init($path."ajax.php?action=list-all-games");
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
