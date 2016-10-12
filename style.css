@@ -20,10 +20,17 @@ td {
 
 }
 
-#institution { 
+#game-inst-wrapper { 
     position: absolute;
     top: .5em;
     right: 2em;
+}
+#inst-display-name {
+    font-weight: bold;
+    font-style: italic;
+}
+#inst-display-edit {
+    
 }
 #links { margin-top: 1em; margin-bottom: 1em; }
 #game { width: 50%; }

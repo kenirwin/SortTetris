@@ -18,14 +18,22 @@ session_start();
 <script>
     $(document).ready(function() { 
 	$form = $("#inst-form");
+	$("#inst-display-edit").click(function() {
+	    $("#inst-display").hide();
+	    $("#inst-form").show();
+	  });
 	$("#form-submit").click(function() {
+	    var inst_id = $("#inst-id").val();
 	    var inst_name = $("#inst-id option:selected").text();
             $("#inst-name").val(inst_name);
+	    $("#inst-id-score").val(inst_id);
 	    $.ajax({
 	      url: './inst_select.php',
 		  data: $form.serialize(),
 		  success: function(result) {		
-		  //		  alert(result);
+		  $("#inst-display-name").text(inst_name);
+		  $("#inst-form").hide();
+		  $("#inst-display").show();
 		}
 	      });
 	  });
@@ -68,7 +76,9 @@ if (isset($_GET['settings'])) {
      }
 ?>
 <?php print($game_header); ?>
-    <? print '<div id="institution" class="button">Playing for: '.$_SESSION['inst_name'].'</div>'.PHP_EOL;?>
+<div id="game-inst-wrapper">
+   <?php InstSelector(); ?>
+</div>
 <div id="game">
      <div id="item"><?php print($item_label_cap);?>:</div>
 <div id="debug">Debug:</div>
@@ -151,23 +161,7 @@ else {
     <p><b>Playing the Game:</b> Sortable items will fall down the page. Select the approriate category from the green buttons to the right of the game. Correct answers will disappear; incorrect answers will fall to the bottom of the screen. The game will speed up as you answer more items correctly.</p>
 </div>
 
-																							  <div class="button" id="institution-select">Playing for Work/School? Select Institution: 
-<?php 
-
-																															 
-if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
-$curr_dir = $m[1];
-}
-$path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
-$ajax_url = $path.'ajax.php?action=list-institutions';
-print $ajax_url;
-$json = file_get_contents($ajax_url);
-$opts = "<option>--Select an Institution--</option>";
-foreach(json_decode($json) as $data) {
-  $opts .=  '<option value="'. $data->institution_id .'">'.$data->institution_name.'</option>'.PHP_EOL;
-}
-print '<form id="inst-form"><select name="inst_id" id="inst-id">'.$opts.'</select><input type="hidden" name="inst_name" id="inst-name" value=""><input type="button" value="Submit" name="set_institution" id="form-submit"/></form>'.PHP_EOL;
-?></div>
+<?php InstSelector(); ?>
 
 <h2>Choose a Game</h2>
 <?
@@ -197,3 +191,32 @@ if (! empty($google_analytics_block)) {
 ?>
 
 </html>
+<?php
+function InstSelector() {
+  if (isset($_SESSION['inst_id'])) {
+    $selector_display="none";
+    $selected_display="block";
+  }
+  else {
+    $selector_display="block";
+    $selected_display="none";
+  }
+  print '<div class="button" id="institution-select">Playing for Work/School?'.PHP_EOL;
+
+  if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
+    $curr_dir = $m[1];
+  }
+  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
+  $ajax_url = $path.'ajax.php?action=list-institutions';
+  $json = file_get_contents($ajax_url);
+  $opts = '<option>--Select an Institution--</option>';
+  foreach(json_decode($json) as $data) {
+    $opts .=  '<option value="'. $data->institution_id .'">'.$data->institution_name.'</option>'.PHP_EOL;
+  }
+  $opts.= '<option value="-1">None</option>';
+  print '<form id="inst-form" style="display:'.$selector_display.'"><select name="inst_id" id="inst-id">'.$opts.'</select><input type="hidden" name="inst_name" id="inst-name" value=""><input type="button" value="Submit" name="set_institution" id="form-submit"/></form>'.PHP_EOL;
+  print '<div id="inst-display" style="display:'.$selected_display.'"><span id="inst-display-name">'.$_SESSION['inst_name'].'</span> <span id="inst-display-edit">Edit</span></div>'.PHP_EOL;
+  print '</div>'.PHP_EOL;
+  }
+
+?>
