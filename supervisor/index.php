@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['institution_id'])) {
+  header('Location: login.php');
+  die();
+}
+?>
 <head>
 <title>Sort Tetris - Supervisor View</title>
 <style>
@@ -6,6 +13,7 @@
 </head>
 <body>
 <h1>Sort Tetris - Site Administration</h1>
+<?php include("display_login.php"); ?>
 <h2>View Recent Scores for:</h2>
 
 <?

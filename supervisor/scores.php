@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['institution_id'])) {
+  header('Location: login.php');
+  die();
+}
+?>
 <head>
 <title>Sort Tetris: High Scores - <?php print $_REQUEST['title']; ?></title>
 <style>
@@ -71,6 +78,7 @@ series :
 
 <body>
 <h1>Scores: <? print $_REQUEST['title']; ?></h1>
+<?php include("display_login.php"); ?>
 <p><a href="./">Return to Main Supervisor Screen</a></p>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>

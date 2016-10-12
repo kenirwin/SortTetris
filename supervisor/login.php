@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION = array();
+
 if (isset($_POST['password']) && isset($_POST['email'])) {
   $id = VerifyLogin($_POST['password'], $_POST['email']);
   if ($id > 0) {

@@ -137,7 +137,7 @@ td {
 .label {background-color: #fff }
 
 
-button, .button { 
+button, .button, .button-small { 
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
@@ -149,6 +149,12 @@ button, .button {
     border-radius: 10px;
 }
 
+.button-small {
+    padding: .25em .25em;
+}
+.button a, .button-small a {
+    color: #fff;
+}
 .inactive {
     background-color: lightgrey;
     color: darkgrey;

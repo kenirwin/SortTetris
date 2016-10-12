@@ -21,10 +21,10 @@ try {
   }
 
   elseif ($request->action == "authenticate") {
-    //if ($local_request) { 
+    if ($local_request) { 
       print(json_encode(Authenticate($request))); 
-      //}
-      //else { print "only local requests"; }
+    }
+    else { print "only local requests"; }
   }
   
     elseif ($request->action == "list-all-games") {
