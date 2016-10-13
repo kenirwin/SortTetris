@@ -49,7 +49,6 @@ var game = {
         $('#name').unbind();
         $('#name-submit').click(function() {
             game.playerName = $('#name').val();
-            game.instID = $('#inst-id-score').val();
             game.submitScore();
             $('#name-entry').hide();
             $('#close-gameover').removeClass('inactive');
@@ -61,7 +60,7 @@ var game = {
                 event.preventDefault();
                 $('#name-submit').click();
             }
-        });
+	    });
 
         $('#close-gameover').unbind().click(function() {
             $('#score').append('<br />Final Score with Accuracy Bonus: ' + game.finalScore);
@@ -224,6 +223,7 @@ var game = {
 
     start: function () {
 	if (game.audioOK) { resetaudio(); }
+	game.instID = $('#inst-id-score').val();
         $('#name-entry').show();
         $('#name-display').hide();
         $('#long-stats').hide();
@@ -483,9 +483,11 @@ var game = {
     displayLeaderboard: function() {
         $.getJSON("ajax.php", {
             config_file: game.config,
+	    inst_id: game.instID,
             action: "leaderboard"
 	    })
 	.success(function (json) {
+		//		alert(json + game.config + game.instID + leaderboard);
                       var lines = '<tr><th>Rank</th><th>Player</th><th>Score</th></tr>';
                       var current_score_displayed = false;
                       var rank=1;

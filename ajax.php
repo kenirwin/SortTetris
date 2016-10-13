@@ -57,7 +57,7 @@ elseif ($request->action == ("supervisor"||"leaderboard")) {
     $check = CheckRequiredFields($request,$required_fields);
     $db = MysqlConnect();
     if ($check === true) {
-      print(HighScores($request->config_file, $db, $request->action)); 
+      print(HighScores($request->config_file, $db, $request->inst_id, $request->action)); 
     }
     else {
         throw new Exception ($check);
@@ -133,18 +133,17 @@ function ListInstitutions() {
   return (json_encode($results));
 }
 
-function HighScores ($config,$db,$format='leaderboard') {
+function HighScores ($config,$db,$inst_id=0,$format='leaderboard') {
   if (is_object($db)) {
     if ($format=='leaderboard') {
-      $query = 'SELECT username,score FROM leaderboard WHERE config_file=? ORDER BY score DESC LIMIT 0,10';
+      $query = 'SELECT username,score FROM leaderboard WHERE config_file=? AND inst_id=? ORDER BY score DESC LIMIT 0,10';
     }
     elseif ($format=='supervisor') {
-      $query = 'SELECT * FROM leaderboard WHERE config_file=? ORDER BY time_entry DESC LIMIT 0,1000';
+      $query = 'SELECT * FROM leaderboard WHERE config_file=? AND inst_id=? ORDER BY time_entry DESC LIMIT 0,1000';
     }
     $stmt = $db->prepare($query);
-    $stmt->execute(array($config));
+    $stmt->execute(array($config,$inst_id));
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
     return (json_encode($results));
   }

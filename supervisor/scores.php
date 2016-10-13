@@ -20,7 +20,7 @@ table {border: 1px solid black  }
 <script src="../lib/jquery.dynatable.js"></script>
 <?php
   $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
-$ajax_url = $path.'ajax.php?action=supervisor&config_file='.$_REQUEST['config'];
+$ajax_url = $path.'ajax.php?action=supervisor&config_file='.$_REQUEST['config'].'&inst_id='.$_SESSION['institution_id'];
 $json = file_get_contents($ajax_url);
 $series_json = json2highcharts($json);
 ?>
