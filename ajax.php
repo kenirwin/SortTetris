@@ -26,7 +26,11 @@ try {
     }
     else { print "only local requests"; }
   }
-  
+
+  elseif ($request->action == "register") {
+    print(json_encode(RegisterSupervisor($request, $require_supervisor_confirmation)));
+  }
+
     elseif ($request->action == "list-all-games") {
       if ($local_request) { print(json_encode(ListGames(true))); }
       else { print "only local requests"; }
@@ -164,6 +168,20 @@ function PrepareInsert ($fields, $data, $table) {
     $return->exec = $exec;
     return($return);
 }
+
+function RegisterSupervisor($request, $require_supervisor_confirmation) {
+  if ($require_supervisor_confirmation) {
+    $activated = 'N';
+  }
+  else { $activated = 'Y'; }
+  $db = MysqlConnect();
+  $password = file_get_contents('http://www.dinopass.com/password/simple');
+  $stmt = $db->prepare('INSERT INTO institutions(institution_id,institution_name,contact_email,contact_name,password,activated) VALUES (?,?,?,?,?,?)');
+  $stmt->execute(array(NULL,$request->inst_name,$request->email,$request->contact_name,$password,$activated));
+  if ($stmt->rowCount() == 1) { return(array('success'=>true)); }
+}
+
+
 
 function CheckRequiredFields ($request, $required) {
     foreach ($required as $f) {

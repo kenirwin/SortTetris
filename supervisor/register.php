@@ -9,7 +9,7 @@
 <?php
    if (isset($_REQUEST['submit_button']) && (isset($_REQUEST['g-recaptcha-response']))) {
      ConfirmHuman($captcha_secret_key);
-     SubmitSupervisorRequest();
+     SubmitSupervisorRequest($require_supervisor_confirmation);
    }
 ?>
 
@@ -62,7 +62,17 @@
 	 }
        }
        
-function SubmitSupervisorRequest() {
-  
+function SubmitSupervisorRequest($require_supervisor_confirmation, $db) {
+  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
+  $url .= $path.'ajax.php?action=register&inst_name='.urlencode($_REQUEST['inst_name']).'&email='.urlencode($_REQUEST['email']).'&contact_name='.urlencode($_REQUEST['name']);
+  //  print $url;
+  $response = json_decode(file_get_contents($url));
+  if ($response->success == true) {
+    print "Registration Successful. More info.";
+  }
+  else { 
+    print ("Registration Failed: ");
+    var_dump ($response);
+  }
 }
 ?>
