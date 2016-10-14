@@ -51,6 +51,9 @@ function SubmitSupervisorRequest($require_supervisor_confirmation, $db) {
     if (preg_match('/Duplicate entry.*contact_email/',$response->error)) {
       $display_error = 'The email address "'.$_REQUEST['email'].'" is already registered. You may <a href="recover.php">recover the password</a> if lost.';
     }
+    if (preg_match('/Duplicate entry.*institution_name/',$response->error)) {
+      $display_error = 'The institition "'.$_REQUEST['inst_name'].'" is already registered under another email address. Please check to see if your institution is already registered, or register under a different name.';
+    }
     else { $display_error = $response->error; }
     print '<ul><li class="warn" data-errorcode='.$response->error.'>'.$display_error.'</li></ul>'.PHP_EOL;
     print '<div>You can try registering again below.</div>'.PHP_EOL;
