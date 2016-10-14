@@ -9,6 +9,8 @@ $charset = "utf8";
 $audioOK = false; // set to true to allow music
 
 $require_supervisor_confirmation = true; // false allows supervisors to register on the site without needing a sort-tetris administrator activate the user manually
+$system_email_from = ''; //this email address will be used to send recovered passwords
+
 
 /* Captcha API keys */
 $using_captcha = false; //set to true when you add your keys (below)

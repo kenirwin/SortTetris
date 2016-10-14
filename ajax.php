@@ -31,6 +31,10 @@ try {
     print(json_encode(RegisterSupervisor($request, $require_supervisor_confirmation)));
   }
 
+  elseif ($request->action == 'recoverPassword') {
+    print(json_encode(RecoverPassword($request, $system_email_from)));
+  }
+
     elseif ($request->action == "list-all-games") {
       if ($local_request) { print(json_encode(ListGames(true))); }
       else { print "only local requests"; }
@@ -169,6 +173,27 @@ function PrepareInsert ($fields, $data, $table) {
     return($return);
 }
 
+function RecoverPassword ($request, $system_email_from) {
+  try { 
+    $db = MysqlConnect();
+    $stmt = $db->prepare('SELECT `password` FROM `institutions` WHERE `contact_email` = ? LIMIT 0,1');
+    $stmt->execute(array($request->email));
+    if ($stmt->rowCount() == 1) { 
+      $row=$stmt->fetch(PDO::FETCH_ASSOC);
+      if (mail($request->email,'Sort Tetris Password Recovery','Here it is:'.$row['password'],'From: '.$system_email_from)) 
+	return (array('success'=>true));
+    }
+    elseif ($stmt->rowCount() == 0) {
+      return (array('success'=>false,'error'=>'No supervisor account found for that email address'));
+    }
+  }
+  catch (PDOException $e) {
+    return array('success'=>false,'error'=>$e->getMessage()); 
+  }
+  //send email
+  //return status
+}
+
 function RegisterSupervisor($request, $require_supervisor_confirmation) {
   if ($require_supervisor_confirmation) {
     $activated = 'N';
@@ -176,9 +201,14 @@ function RegisterSupervisor($request, $require_supervisor_confirmation) {
   else { $activated = 'Y'; }
   $db = MysqlConnect();
   $password = file_get_contents('http://www.dinopass.com/password/simple');
+  try {
   $stmt = $db->prepare('INSERT INTO institutions(institution_id,institution_name,contact_email,contact_name,password,activated) VALUES (?,?,?,?,?,?)');
   $stmt->execute(array(NULL,$request->inst_name,$request->email,$request->contact_name,$password,$activated));
   if ($stmt->rowCount() == 1) { return(array('success'=>true)); }
+  }
+  catch (PDOException $e) { 
+    return array('success'=>false,'error'=>$e->getMessage()); 
+  }
 }
 
 
