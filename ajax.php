@@ -24,7 +24,7 @@ try {
     if ($local_request) { 
       print(json_encode(Authenticate($request))); 
     }
-    else { print "only local requests"; }
+    else { DenyRemoteRequest();}
   }
 
   elseif ($request->action == "register") {
@@ -37,32 +37,32 @@ try {
 
   elseif ($request->action == "list-all-games") {
       if ($local_request) { print(json_encode(ListGames(true))); }
-      else { print "only local requests"; }
+      else { DenyRemoteRequest();}
   }
   
   elseif ($request->action == "admin-list-supervisors") {
     if ($local_request) { 
 	print(json_encode(AdminListSupervisors())); 
     }
-    else { print "local requests only"; }
+    else { DenyRemoteRequest();}
   }
   elseif ($request->action == "admin-activate-supervisor") {
-    //    if ($local_request) { 
+    if ($local_request) { 
       print(json_encode(AdminUpdateSupervisor($request->action, $request->inst_id))); 
-      //}
-  //else { print "local requests only"; }
+    }
+    else { DenyRemoteRequest();}
   }
   elseif ($request->action == "admin-deactivate-supervisor") {
-    //if ($local_request) { 
+    if ($local_request) { 
       print(json_encode(AdminUpdateSupervisor($request->action, $request->inst_id))); 
-      //}
-    //else { print(json_encode(array('success'=>false,'error'=>'local requests only'))); }
+      }
+    else { DenyRemoteRequest(); }
   }
   elseif ($request->action == "admin-delete-supervisor") {
     if ($local_request) { 
       print(json_encode(AdminDeleteSupervisor($request->inst_id))); 
     }
-    else { print "local requests only"; }
+    else { DenyRemoteRequest(); }
   }
 
 
@@ -279,6 +279,14 @@ function AdminUpdateSupervisor($update,$id) {
 function AdminDeleteSupervisor($id) {
   try {
     $db=MysqlConnect();
+    $stmt=$db->prepare('DELETE FROM institutions WHERE institution_id = ?');
+    $stmt->execute(array($id));
+    if ($stmt->rowCount() == 1) {
+      return (array('success'=>true));
+    }
+    else {
+      return array('success'=>false,'error'=>'unknown error'); 
+    }
   }
   catch (PDOException $e) {
     return array('success'=>false,'error'=>$e->getMessage()); 
@@ -314,5 +322,8 @@ function MysqlConnect() {
     }
 }
 
+function DenyRemoteRequest() {
+  print(json_encode(array('success'=>false,'error'=>'local requests only'))); 
+}
 
 ?>

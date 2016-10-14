@@ -34,11 +34,23 @@ color: #000 !important;
 	  $(this).append('<th class="deactivate">Deactivate</th><th class="delete">Delete</th>');
 	});
 
+      $('.delete').click(function() {
+	  var curr_row = $(this).parent();
+	  var thisid =$(this).parent().children('td:first-child').text();
+	  $.getJSON('./action.php', 
+		    { action: 'admin-delete-supervisor', inst_id: thisid},
+		    function(json) { 
+		      if (json.success) {
+			$(curr_row).hide();
+		      }
+		    });
+	});
+
       $('.activate').click(function() {
 	  var curr_row = $(this).parent();
 	  var row= $(this).parent().clone().addClass('moved');
 	  var thisid =$(this).parent().children('td:first-child').text();
-	  $.getJSON('../ajax.php', 
+	  $.getJSON('./action.php', 
 		    { action: 'admin-activate-supervisor', inst_id: thisid},
 		    function(json) { 
 		      if (json.success) {
@@ -53,7 +65,7 @@ color: #000 !important;
 	  var curr_row = $(this).parent();
 	  var row= $(this).parent().clone().addClass('moved');
 	  var thisid =$(this).parent().children('td:first-child').text();
-	  $.getJSON('../ajax.php', 
+	  $.getJSON('./action.php', 
 		    { action: 'admin-deactivate-supervisor', inst_id: thisid},
 		    function(json) { 
 		      if (json.success) {
