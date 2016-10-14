@@ -1,7 +1,15 @@
 <?php
 session_start();
 $_SESSION = array();
-
+?>
+<html>
+<head>
+<style>
+@import url("../style.css");
+</style>
+</head>
+<body>
+<?php
 if (isset($_POST['password']) && isset($_POST['email'])) {
   $id = VerifyLogin($_POST['password'], $_POST['email']);
   if ($id > 0) {
@@ -12,7 +20,7 @@ if (isset($_POST['password']) && isset($_POST['email'])) {
   }
 }
 ?>
-
+<h1>Sort Tetris - Supervisor Login</h1>
 <form method="post">
  <label for="email">Email:</label>
  <input type="text" name="email" /><br />
@@ -20,7 +28,10 @@ if (isset($_POST['password']) && isset($_POST['email'])) {
    <input type="password" name="password" /><br />
    <input type="submit" value="Log in" />
 </form>
-
+<div><a href="register.php">Register as a Supervisor</a></div>
+<?php include("../license.php"); ?>
+</body>
+</html>
 <?php
   function VerifyLogin($pass,$email) {
       if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {

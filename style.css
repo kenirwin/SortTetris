@@ -20,6 +20,7 @@ td {
 
 }
 
+label { padding-right: .5em; } 
 #game-inst-wrapper { 
     position: absolute;
     top: .5em;

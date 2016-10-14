@@ -3,6 +3,9 @@
 <title>Register as a Supervisor</title>
 <?php include("../global_settings.php"); ?>
 <script src='https://www.google.com/recaptcha/api.js'></script>
+<style>
+@import url("../style.css");
+</style>
 </head>
 <body>
 <h2>Register as a Supervisor</h2>
@@ -19,8 +22,9 @@
    <label for="inst_name">Institution Name</label><input type="text" name="inst_name" /><br />
    <input type="submit" name="submit_button" value="Register" />
    <div class="g-recaptcha" data-sitekey="<?php print($captcha_site_key); ?>"></div>
+<?php include("../license.php"); ?>
 </body>
-
+</html>
 <?php
    function ConfirmHuman($key) {
 	 $url = 'https://www.google.com/recaptcha/api/siteverify';
