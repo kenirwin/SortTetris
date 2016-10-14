@@ -33,17 +33,35 @@ color: #000 !important;
       $('#activated tr').each(function(){ 
 	  $(this).append('<th class="deactivate">Deactivate</th><th class="delete">Delete</th>');
 	});
+
       $('.activate').click(function() {
+	  var curr_row = $(this).parent();
 	  var row= $(this).parent().clone().addClass('moved');
-	  $("#activated tbody").append(row);
-	   $('.moved .eactivate').text('Deactivate').addClass('deactivate').removeClass('moved').removeClass('activate');
-	  $(this).parent().hide();
+	  var thisid =$(this).parent().children('td:first-child').text();
+	  $.getJSON('../ajax.php', 
+		    { action: 'admin-activate-supervisor', inst_id: thisid},
+		    function(json) { 
+		      if (json.success) {
+			$("#activated tbody").append(row);
+			$('.moved .activate').text('Deactivate').addClass('deactivate').removeClass('moved').removeClass('activate');
+			$(curr_row).hide();
+       		      }
+		    });
 	});
+
       $('.deactivate').click(function() {
+	  var curr_row = $(this).parent();
 	  var row= $(this).parent().clone().addClass('moved');
-	   $("#deactivated tbody").append(row);
-	   $('.moved .deactivate').text('Activate').addClass('activate').removeClass('moved').removeClass('deactivate');
-	  $(this).parent().hide();
+	  var thisid =$(this).parent().children('td:first-child').text();
+	  $.getJSON('../ajax.php', 
+		    { action: 'admin-deactivate-supervisor', inst_id: thisid},
+		    function(json) { 
+		      if (json.success) {
+			$("#deactivated tbody").append(row);
+			$('.moved .deactivate').text('Activate').addClass('activate').removeClass('moved').removeClass('deactivate');
+			$(curr_row).hide();
+		      }
+		    });
 	});
     });
 </script>

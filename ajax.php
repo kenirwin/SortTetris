@@ -35,11 +35,37 @@ try {
     print(json_encode(RecoverPassword($request, $system_email_from)));
   }
 
-    elseif ($request->action == "list-all-games") {
+  elseif ($request->action == "list-all-games") {
       if ($local_request) { print(json_encode(ListGames(true))); }
       else { print "only local requests"; }
+  }
+  
+  elseif ($request->action == "admin-list-supervisors") {
+    if ($local_request) { 
+	print(json_encode(AdminListSupervisors())); 
     }
-    
+    else { print "local requests only"; }
+  }
+  elseif ($request->action == "admin-activate-supervisor") {
+    //    if ($local_request) { 
+      print(json_encode(AdminUpdateSupervisor($request->action, $request->inst_id))); 
+      //}
+  //else { print "local requests only"; }
+  }
+  elseif ($request->action == "admin-deactivate-supervisor") {
+    //if ($local_request) { 
+      print(json_encode(AdminUpdateSupervisor($request->action, $request->inst_id))); 
+      //}
+    //else { print(json_encode(array('success'=>false,'error'=>'local requests only'))); }
+  }
+  elseif ($request->action == "admin-delete-supervisor") {
+    if ($local_request) { 
+      print(json_encode(AdminDeleteSupervisor($request->inst_id))); 
+    }
+    else { print "local requests only"; }
+  }
+
+
     elseif ($request->action == "submit") {
     $db = MysqlConnect();
     if (! isset($request->inst_id)) { $request->inst_id = -1; }
@@ -135,7 +161,7 @@ function ListGames($include_private=false) {
 
 function ListInstitutions() {
   $db = MysqlConnect();
-  $query = "SELECT `institution_id`, `institution_name` FROM institutions";
+  $query = 'SELECT `institution_id`, `institution_name` FROM institutions WHERE activated="Y"';
   $stmt = $db->query($query);
   $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return (json_encode($results));
@@ -212,6 +238,52 @@ function RegisterSupervisor($request, $require_supervisor_confirmation) {
 }
 
 
+      
+function AdminListSupervisors() {
+  try {
+    $db=MysqlConnect(); 
+    $stmt=$db->prepare('SELECT institution_id,institution_name,contact_email,contact_name,activated FROM institutions');
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $return = array('success'=>true,'results'=>$results);
+    return ($return);
+  }
+  catch (PDOException $e) {
+    return array('success'=>false,'error'=>$e->getMessage()); 
+  }
+}
+
+function AdminUpdateSupervisor($update,$id) {
+  try {
+    $db=MysqlConnect();
+    $stmt=$db->prepare('UPDATE institutions SET activated = ? WHERE institution_id = ?');
+    if ($update == 'admin-activate-supervisor') {
+      $values = array('Y',$id);
+    }
+    elseif ($update == 'admin-deactivate-supervisor') {
+      $values = array('N',$id);
+    }
+    $response=$stmt->execute($values);
+    if ($stmt->rowCount() == 1) {
+      return (array('success'=>true));
+    }
+    else {
+      return array('success'=>false,'error'=>'unknown error'); 
+    }
+ }
+  catch (PDOException $e) {
+    return array('success'=>false,'error'=>$e->getMessage()); 
+  }
+}
+
+function AdminDeleteSupervisor($id) {
+  try {
+    $db=MysqlConnect();
+  }
+  catch (PDOException $e) {
+    return array('success'=>false,'error'=>$e->getMessage()); 
+  }
+} 
 
 function CheckRequiredFields ($request, $required) {
     foreach ($required as $f) {
