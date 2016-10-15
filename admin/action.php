@@ -2,7 +2,7 @@
 $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/admin\/.*/','/',$_SERVER['REQUEST_URI']);
 $url = $path .'ajax.php';
 $fields_string = $_SERVER['QUERY_STRING'];
-$fields = split('&',$fields_string);
+$fields = preg_split('/\&/',$fields_string);
 $ch = curl_init();
 
 //set the url, number of POST vars, POST data
