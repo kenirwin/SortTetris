@@ -10,13 +10,13 @@ width: 75%;
 td,th {
 border: 1px solid #999;
 }
-th.activate { 
+tbody th.activate { 
 color: green;
 }
-th.delete {
+tbody th.delete {
 color: red;
 }
-th.deactivate {
+tbody th.deactivate {
 color: #666;
 }
 thead th { 
@@ -33,7 +33,10 @@ color: #000 !important;
       $('#activated tr').each(function(){ 
 	  $(this).append('<th class="deactivate">Deactivate</th><th class="delete">Delete</th>');
 	});
+      Bindings();
 
+
+      function Bindings () {
       $('.delete').click(function() {
 	  var curr_row = $(this).parent();
 	  var thisid =$(this).parent().children('td:first-child').text();
@@ -56,9 +59,11 @@ color: #000 !important;
 		      if (json.success) {
 			$("#activated tbody").append(row);
 			$('.moved .activate').text('Deactivate').addClass('deactivate').removeClass('moved').removeClass('activate');
+			$('.moved').removeClass('moved');
 			$(curr_row).hide();
        		      }
 		    });
+	  Bindings();
 	});
 
       $('.deactivate').click(function() {
@@ -70,11 +75,14 @@ color: #000 !important;
 		    function(json) { 
 		      if (json.success) {
 			$("#deactivated tbody").append(row);
-			$('.moved .deactivate').text('Activate').addClass('activate').removeClass('moved').removeClass('deactivate');
+			$('.moved .deactivate').text('Activate').addClass('activate').removeClass('deactivate');
+			$('.moved').removeClass('moved');
 			$(curr_row).hide();
 		      }
 		    });
+	  Bindings();
 	});
+      } //end function Bindings
     });
 </script>
 </head>
