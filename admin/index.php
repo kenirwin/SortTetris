@@ -87,7 +87,8 @@ color: #000 !important;
 </script>
 </head>
 <body>
-<title>Sort Tetris - Manage Supervisors</title>
+<h1>Sort Tetris - Manage Supervisors</h1>
+<div id="nav"><a href="../" class="button-small">Play</a> <a href="../supervisor" class="button-small">Supervisor Login</a></div>
 
 <?php
 if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
@@ -119,6 +120,6 @@ if ($response->success) {
   print '<h2>Activated Supervisors</h2>';
   print '<table id="activated">'.$thead.'<tbody>'.$actives.'</tbody></table>'.PHP_EOL;
 }
-
-<?php include("license.php"); ?>
 ?>
+
+<?php include("../license.php"); ?>
