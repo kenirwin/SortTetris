@@ -120,4 +120,5 @@ if ($response->success) {
   print '<table id="activated">'.$thead.'<tbody>'.$actives.'</tbody></table>'.PHP_EOL;
 }
 
+<?php include("license.php"); ?>
 ?>
