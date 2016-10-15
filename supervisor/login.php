@@ -21,6 +21,11 @@ if (isset($_POST['password']) && isset($_POST['email'])) {
 }
 ?>
 <h1>Sort Tetris - Supervisor Login</h1>
+<div id="description">
+  When you <a href="register.php">register</a> as a supervisor, you will get access to the scores of all players who play Sort Tetris after identifying themselves as a member of your instution/office/class/etc. Be sure your students/employees are identifying themselves to get credit for their practice. 
+</div>
+
+<div id="nav"><a href="../" class="button-small">Play</a> <a href="register.php" class="button-small">Register as a Supervisor</a></div>
 <form method="post">
  <label for="email">Email:</label>
  <input type="text" name="email" /><br />
@@ -28,7 +33,7 @@ if (isset($_POST['password']) && isset($_POST['email'])) {
    <input type="password" name="password" /><br />
    <input type="submit" value="Log in" />
 </form>
-<div><a href="register.php">Register as a Supervisor</a></div>
+
 <?php include("../license.php"); ?>
 </body>
 </html>

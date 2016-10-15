@@ -9,7 +9,8 @@
 </style>
 </head>
 <body>
-<h1>Register as a Supervisor</h1>
+<h1>Sort Tetris - Register as a Supervisor</h1>
+
 <?php
    if (isset($_REQUEST['submit_button']) && (isset($_REQUEST['g-recaptcha-response']))) {
      ConfirmHuman($captcha_secret_key);
@@ -18,6 +19,12 @@
      print '<hr />'.PHP_EOL;
    }
 ?>
+
+<div id="description">
+   Once you have registered, you&apos;ll receive an email with a password to gain access to the perfomance history for players identified with your institution.
+</div>
+
+<div id="nav"><a href="../" class="button-small">Play</a> <a href="login.php" class="button-small">Supervisor Login</a></div>
 
 <form method="post">
    <label for="name">Name</label><input type="text" name="name" /><br />

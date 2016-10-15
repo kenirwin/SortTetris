@@ -10,7 +10,7 @@ else {
 
 $game_header .= '<div id="links"><span id="choose-game"><a href="./">Choose another game</a></span>';
 if (isset($infopage) && file_exists('infopages/'.$infopage) && $infopage != '') {
-    $game_header.=' | <span id="infopage">Need help identifying items? <a href="infopages/'.$infopage.'">Here is a helpful guide</a></span>';
+    $game_header.=' | <span id="infopage">Need help identifying items? <a href="infopages/'.$infopage.'">Here is a helpful guide</a> | <a href="supervisor">For supervisors</a></span>';
 }
 $game_header .= '</div>'.PHP_EOL;
 

@@ -149,6 +149,7 @@ else {
 </head>
 <body>
 <h1>Sort Tetris</h1>
+
     <div id="description">
     <p>Sort Tetris is an educational falling-blocks style game designed to provide practice sorting things into categories. It can be adapted to sort any short textual or small visual items into 2-5 categories. Examples include:</p>
 <ul>
@@ -159,8 +160,14 @@ else {
 </ul>
 
     <p><b>Playing the Game:</b> Sortable items will fall down the page. Select the approriate category from the green buttons to the right of the game. Correct answers will disappear; incorrect answers will fall to the bottom of the screen. The game will speed up as you answer more items correctly.</p>
+
+																							  <p><b>For Supervisors and Teachers:</b> If you would like your employees or students to play Sort Tetris, they can play as guests or you can <a href="supervisor/register.php">register as a supervisor</a>. Registered supervisors will be able to track the progress of users who identify their institutional affiliation using the green "Playing for Work/School" pulldown. Registered supervisors can <a href="supervisor/login.php">log in</a> here.</p>
 </div>
 
+
+
+
+<div id="game-selector">
 <?php InstSelector(); ?>
 
 <h2>Choose a Game</h2>
@@ -181,6 +188,7 @@ $response = json_decode(curl_exec($ch));
     print '</ol>';
 }
 ?>
+</div>
 
 <?php include("license.php"); ?>
 

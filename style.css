@@ -34,6 +34,7 @@ label { padding-right: .5em; }
     
 }
 #links { margin-top: 1em; margin-bottom: 1em; }
+
 #game { width: 50%; }
 
 #item { position: absolute; 
@@ -63,7 +64,7 @@ label { padding-right: .5em; }
 #long-stats table { position: absolute }
 
 #debug { position: absolute; left: 1000px; display:none }
-#license { margin-top: 3em; }
+#license { margin-top: 3em; clear: both}
 #gameover { position: absolute; top: 10%; left: 5%; width: 90%; z-index:100; background-color: #999; border: 10px solid gold; border-radius: 10px; display:none; font-family: Atari, 'Press Start 2P', sans-serif; text-align: center;  line-height: 1.7em}
 
 #gameover input[type="text"] {
@@ -112,7 +113,12 @@ label { padding-right: .5em; }
 
 #description { font-size: 115%; 
                margin: 0 5em 0 2em;
+	       width: 60%;
+	       float: right;
              } 
+#game-selector {
+
+}
 #list-games { font-size: 125%; 
             }
 
