@@ -1,3 +1,5 @@
 *~
 global_settings.php
 mysql_connect.php
+error_log
+.htaccess
