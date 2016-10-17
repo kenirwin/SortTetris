@@ -107,7 +107,7 @@ if (isset($_GET['settings'])) {
 <div>
 <label for="gameover-score">Score:</label><span id="gameover-score"></span><br />
 <label for="accuracy">Accuracy Bonus: </label><span id="accuracy"></span><br />
-<label for="final-score">Final Score: </label><span id="final-score"></span>
+<label for="final-score" id="final-label">Final Score: </label><span id="final-score"></span>
 </div>
 
 <form id="name-entry">

@@ -51,20 +51,24 @@ label { padding-right: .5em; }
 }
 #game-table img { width: 400px }
 
-#score { position: absolute; left: 450px; top: 12em; 
+#score { position: absolute; left: 450px; top: 15em; 
          font-weight: bold; font-size: 105%; 
          background-color: #fff;
          border-radius: 5px;
        }
-#controls { position: absolute; left: 450px; top: 15em;} 
+#final-score,#final-label { 
+    line-height: 2em;
+    font-size: 3em;
+}
+#controls { position: absolute; left: 450px; top: 19em;} 
 #audio-toggle { position: absolute; left: 750px; top: 16.5em; }
 #audio-toggle-button { height: 50px } 
 
-#long-stats { position: absolute; left: 450px; top: 16em; z-index: 100; }
+#long-stats { position: absolute; left: 450px; top: 20em; z-index: 100; }
 #long-stats table { position: absolute }
 
 #debug { position: absolute; left: 1000px; display:none }
-#license { margin-top: 3em; clear: both}
+#license { margin-top: 9em; clear: both}
 #gameover { position: absolute; top: 10%; left: 5%; width: 90%; z-index:100; background-color: #999; border: 10px solid gold; border-radius: 10px; display:none; font-family: Atari, 'Press Start 2P', sans-serif; text-align: center;  line-height: 1.7em}
 
 #gameover input[type="text"] {
@@ -113,7 +117,7 @@ label { padding-right: .5em; }
 
 #description { font-size: 115%; 
                margin: 0 5em 0 2em;
-	       width: 60%;
+	       width: 55%;
 	       float: right;
              } 
 #game-selector {
