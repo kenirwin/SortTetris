@@ -65,8 +65,10 @@ try {
       $check = CheckRequiredFields($request,$required_fields);
       if ($check === true) {
 	print(json_encode(AdminUpdateSupervisor($request->action, $request->inst_id))); }
-      print(json_encode(array('success'=>false,'error'=>$check)));
+      else {
+	print(json_encode(array('success'=>false,'error'=>$check)));
       }
+    }
     else { DenyRemoteRequest(); }
   }
   elseif ($request->action == "admin-delete-supervisor") {
@@ -76,7 +78,9 @@ try {
       if ($check === true) {
 	print(json_encode(AdminDeleteSupervisor($request->inst_id))); 
       }
-      print(json_encode(array('success'=>false,'error'=>$check)));
+      else  {
+	print(json_encode(array('success'=>false,'error'=>$check)));
+      }
     }
     else { DenyRemoteRequest(); }
   }

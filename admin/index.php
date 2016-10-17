@@ -37,6 +37,9 @@ color: #000 !important;
 
 
       function Bindings () {
+	$('.delete').unbind();
+	$('.activate').unbind();
+	$('.deactivate').unbind();
       $('.delete').click(function() {
 	  var curr_row = $(this).parent();
 	  var thisid =$(this).parent().children('td:first-child').text();
@@ -46,6 +49,9 @@ color: #000 !important;
 		      if (json.success) {
 			$(curr_row).hide();
 		      }
+		      else { 
+			alert(json.success + json.error);
+			  }
 		    });
 	});
 
@@ -62,6 +68,10 @@ color: #000 !important;
 			$('.moved').removeClass('moved');
 			$(curr_row).hide();
        		      }
+		      else { 
+			alert(json.success + json.error);
+		      }
+
 		    });
 	  Bindings();
 	});
@@ -79,6 +89,10 @@ color: #000 !important;
 			$('.moved').removeClass('moved');
 			$(curr_row).hide();
 		      }
+		      else { 
+			alert(json.success + json.error);
+		      }
+		      
 		    });
 	  Bindings();
 	});
