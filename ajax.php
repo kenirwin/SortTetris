@@ -21,8 +21,8 @@ try {
   }
 
   elseif ($request->action == "authenticate") {
-    if ($local_request) { 
-      print(json_encode(Authenticate($request))); 
+    if ($local_request) {
+      print(json_encode(Authenticate($request)));
     }
     else { DenyRemoteRequest();}
   }
@@ -47,20 +47,36 @@ try {
     else { DenyRemoteRequest();}
   }
   elseif ($request->action == "admin-activate-supervisor") {
+    $required_fields = array('action','inst_id');
     if ($local_request) { 
-      print(json_encode(AdminUpdateSupervisor($request->action, $request->inst_id))); 
+      $check = CheckRequiredFields($request,$required_fields);
+      if ($check === true) {
+	print(json_encode(AdminUpdateSupervisor($request->action, $request->inst_id))); 
+      }
+      else { 
+	print(json_encode(array('success'=>false,'error'=>$check)));
+      }
     }
     else { DenyRemoteRequest();}
   }
   elseif ($request->action == "admin-deactivate-supervisor") {
+    $required_fields = array('action','inst_id');
     if ($local_request) { 
-      print(json_encode(AdminUpdateSupervisor($request->action, $request->inst_id))); 
+      $check = CheckRequiredFields($request,$required_fields);
+      if ($check === true) {
+	print(json_encode(AdminUpdateSupervisor($request->action, $request->inst_id))); }
+      print(json_encode(array('success'=>false,'error'=>$check)));
       }
     else { DenyRemoteRequest(); }
   }
   elseif ($request->action == "admin-delete-supervisor") {
+    $required_fields = array('action','inst_id');
     if ($local_request) { 
-      print(json_encode(AdminDeleteSupervisor($request->inst_id))); 
+      $check = CheckRequiredFields($request,$required_fields);
+      if ($check === true) {
+	print(json_encode(AdminDeleteSupervisor($request->inst_id))); 
+      }
+      print(json_encode(array('success'=>false,'error'=>$check)));
     }
     else { DenyRemoteRequest(); }
   }
@@ -81,19 +97,19 @@ try {
         }
     }
     else {
-        throw new Exception ($check);
+      print(json_encode(array('success'=>false,'error'=>$check)));
     }
 }
 
 elseif ($request->action == ("supervisor"||"leaderboard")) {
-    $required_fields = array ('config_file');
+  $required_fields = array ('config_file','inst_id');
     $check = CheckRequiredFields($request,$required_fields);
     $db = MysqlConnect();
     if ($check === true) {
       print(HighScores($request->config_file, $db, $request->inst_id, $request->action)); 
     }
     else {
-        throw new Exception ($check);
+      print(json_encode(array('success'=>false,'error'=>$check)));
     }
 }
 
