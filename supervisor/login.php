@@ -33,6 +33,7 @@ if (isset($_POST['password']) && isset($_POST['email'])) {
    <input type="password" name="password" /><br />
    <input type="submit" value="Log in" />
 </form>
+<div id="recover-login"><a href="recover.php">Forgot your password? Recover it.</a></div>
 
 <?php include("../license.php"); ?>
 </body>
