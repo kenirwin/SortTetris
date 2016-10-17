@@ -273,12 +273,39 @@ function AdminListSupervisors() {
   }
 }
 
+function AdminSendActivationEmail($id) {
+  global $system_email_from;
+  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/ajax.php.*/','/',$_SERVER['REQUEST_URI']);
+  try {
+    $db=MysqlConnect();
+    $stmt=$db->prepare('SELECT * FROM institutions where institution_id=?');
+    $stmt->execute(array($id));
+    var_dump;($stmt);
+    if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      $to=$row['contact_email'];
+      $subject = 'Sort Tetris Supervisor Registration';
+      $headers = 'From: '.$system_email_from;      
+      $content  ='Dear '.$row['contact_name'].':'.PHP_EOL.PHP_EOL.'Your Sort Tetris registration as a supervisor has been activated. Your password is: '.$row['password'] . PHP_EOL . PHP_EOL . 'You can now send '.$row['institution_name'].' students/employees/etc to the website to play the game, and you will be able to observe their progress using the supervisor login: ' . $path . 'supervisor/';
+      if (mail($to,$subject,$content,$headers)) {
+	return true;
+      }
+      else {
+	return false;
+      }
+    }
+  }
+    catch (PDOException $e) {
+    return false;
+  }
+}
+
 function AdminUpdateSupervisor($update,$id) {
   try {
     $db=MysqlConnect();
     $stmt=$db->prepare('UPDATE institutions SET activated = ? WHERE institution_id = ?');
     if ($update == 'admin-activate-supervisor') {
       $values = array('Y',$id);
+      AdminSendActivationEmail($id);
     }
     elseif ($update == 'admin-deactivate-supervisor') {
       $values = array('N',$id);
@@ -288,7 +315,7 @@ function AdminUpdateSupervisor($update,$id) {
       return (array('success'=>true));
     }
     else {
-      return array('success'=>false,'error'=>'unknown error'); 
+      return array('success'=>false,'error'=>'unknown error in function: '.__FUNCTION__); 
     }
  }
   catch (PDOException $e) {

@@ -9,7 +9,7 @@
 </style>
 </head>
 <body>
-<h1>Recover Supervisor Password</h1>
+<h1>Sort Tetris - Recover Supervisor Password</h1>
 
 <?php
    if (isset($_REQUEST['submit_button']) && (isset($_REQUEST['g-recaptcha-response']))) {
