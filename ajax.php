@@ -65,7 +65,6 @@ try {
     else { DenyRemoteRequest(); }
   }
 
-
     elseif ($request->action == "submit") {
     $db = MysqlConnect();
     if (! isset($request->inst_id)) { $request->inst_id = -1; }
@@ -206,7 +205,7 @@ function RecoverPassword ($request, $system_email_from) {
     $stmt->execute(array($request->email));
     if ($stmt->rowCount() == 1) { 
       $row=$stmt->fetch(PDO::FETCH_ASSOC);
-      if (mail($request->email,'Sort Tetris Password Recovery','Here it is:'.$row['password'],'From: '.$system_email_from)) 
+      if (mail($request->email,'Sort Tetris Password Recovery','Here is the supervisor password you requested for Sort Tetris:'.$row['password'],'From: '.$system_email_from)) 
 	return (array('success'=>true));
     }
     elseif ($stmt->rowCount() == 0) {
@@ -221,6 +220,8 @@ function RecoverPassword ($request, $system_email_from) {
 }
 
 function RegisterSupervisor($request, $require_supervisor_confirmation) {
+  global $system_email_from;
+  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/ajax.php.*/','/',$_SERVER['REQUEST_URI']);
   if ($require_supervisor_confirmation) {
     $activated = 'N';
   }
@@ -230,7 +231,26 @@ function RegisterSupervisor($request, $require_supervisor_confirmation) {
   try {
   $stmt = $db->prepare('INSERT INTO institutions(institution_id,institution_name,contact_email,contact_name,password,activated) VALUES (?,?,?,?,?,?)');
   $stmt->execute(array(NULL,$request->inst_name,$request->email,$request->contact_name,$password,$activated));
-  if ($stmt->rowCount() == 1) { return(array('success'=>true)); }
+  if ($stmt->rowCount() == 1) { 
+      $to=$request->email;
+      $subject = 'Sort Tetris Supervisor Registration';
+      $headers = 'From: '.$system_email_from;
+      if ($activated == 'Y') {
+	$content  ='Here is the supervisor password you requested for Sort Tetris: '.$password . PHP_EOL . PHP_EOL . 'You can now send students/employees/etc to the website to play the game, and you will be able to observe their progress using the supervisor login: ' . $path . 'supervisor/';
+      }
+      else {
+	$content = 'Thank you for registering as a Sort Tetris supervisor. Here is your supervisor password:'.$row['password'].PHP_EOL.'You will receive an email when your supervisor account is activated. When that occurs, you will be able to send students/employees/etc to the website to play the game, and you will be able to observe their progress using the supervisor login: '.$path.'supervisor/';
+      }
+      if (mail($to,$subject,$content, $headers)) {
+	return(array('success'=>true)); 
+      }
+      else { 
+	return(array('success'=>false, 'error'=>'unable to send confirmation email and password')); 
+      }
+  }
+  else { 
+    return(array('success'=>false, 'error'=>'unable to add supervisor')); 
+  }
   }
   catch (PDOException $e) { 
     return array('success'=>false,'error'=>$e->getMessage()); 

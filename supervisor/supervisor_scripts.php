@@ -44,7 +44,7 @@ function SubmitSupervisorRequest($require_supervisor_confirmation, $db) {
   $url .= $path.'ajax.php?action=register&inst_name='.urlencode($_REQUEST['inst_name']).'&email='.urlencode($_REQUEST['email']).'&contact_name='.urlencode($_REQUEST['name']);
   $response = json_decode(file_get_contents($url));
   if ($response->success == true) {
-    print '<h2>Registration Successful.</h2> <div>More info.</div>';
+    print '<h2>Registration Successful.</h2> <div>An email has been sent with your login information.</div>';
   }
   else { 
     print ('<h2 class="warn">Registration Failed:</h2> ');
