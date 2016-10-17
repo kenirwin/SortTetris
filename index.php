@@ -18,13 +18,17 @@ session_start();
 <script>
     $(document).ready(function() { 
 	$form = $("#inst-form");
-	$("#inst-display-edit").click(function() {
+	$("#institution-select").click(function() {
 	    $("#inst-display").hide();
 	    $("#inst-form").show();
 	  });
 	$("#form-submit").click(function() {
 	    var inst_id = $("#inst-id").val();
 	    var inst_name = $("#inst-id option:selected").text();
+	    if (isNaN(inst_id)) {
+	      inst_id = 0;
+	      inst_name = 'None';
+	    }
             $("#inst-name").val(inst_name);
 	    $("#inst-id-score").val(inst_id);
 	    $.ajax({
@@ -221,7 +225,7 @@ function InstSelector() {
   foreach(json_decode($json) as $data) {
     $opts .=  '<option value="'. $data->institution_id .'">'.$data->institution_name.'</option>'.PHP_EOL;
   }
-  $opts.= '<option value="-1">None</option>';
+  $opts.= '<option value="0">None</option>';
   print '<form id="inst-form" style="display:'.$selector_display.'"><select name="inst_id" id="inst-id">'.$opts.'</select><input type="hidden" name="inst_name" id="inst-name" value=""><input type="button" value="Submit" name="set_institution" id="form-submit"/></form>'.PHP_EOL;
   print '<div id="inst-display" style="display:'.$selected_display.'"><span id="inst-display-name">';
   if (isset($_SESSION['inst_name'])) { print $_SESSION['inst_name']; }
