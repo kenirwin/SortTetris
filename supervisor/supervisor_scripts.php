@@ -6,7 +6,7 @@
 			 'response' => $_REQUEST['g-recaptcha-response']
 			 
 			 );	 
-	 
+	 $fields_string = '';
 	 foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
 	 rtrim($fields_string, '&');
 	 
@@ -39,9 +39,9 @@
 	 }
        }
        
-function SubmitSupervisorRequest($require_supervisor_confirmation, $db) {
+function SubmitSupervisorRequest($require_supervisor_confirmation) {
   $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
-  $url .= $path.'ajax.php?action=register&inst_name='.urlencode($_REQUEST['inst_name']).'&email='.urlencode($_REQUEST['email']).'&contact_name='.urlencode($_REQUEST['name']);
+  $url = $path.'ajax.php?action=register&inst_name='.urlencode($_REQUEST['inst_name']).'&email='.urlencode($_REQUEST['email']).'&contact_name='.urlencode($_REQUEST['name']);
   $response = json_decode(file_get_contents($url));
   if ($response->success == true) {
     print '<h2>Registration Successful.</h2> <div>An email has been sent with your login information.</div>';
@@ -63,7 +63,7 @@ function SubmitSupervisorRequest($require_supervisor_confirmation, $db) {
 
 function RecoverPassword() {
   $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
-  $url .= $path.'ajax.php?action=recoverPassword&email='.urlencode($_REQUEST['email']);
+  $url = $path.'ajax.php?action=recoverPassword&email='.urlencode($_REQUEST['email']);
   $response = json_decode(file_get_contents($url));
   if ($response->success == true) { 
     print '<h2>Success</h2><div>The password has been sent to your email</div>'.PHP_EOL;
