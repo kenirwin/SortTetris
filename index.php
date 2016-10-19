@@ -202,32 +202,38 @@ if (! empty($google_analytics_block)) {
 </html>
 <?php
 function InstSelector() {
-  if (isset($_SESSION['inst_id'])) {
-    $selector_display="none";
-    $selected_display="block";
+  global $display_institution_select;
+  if ($display_institution_select) { 
+    if (isset($_SESSION['inst_id'])) {
+      $selector_display="none";
+      $selected_display="block";
+    }
+    else {
+      $selector_display="block";
+      $selected_display="none";
+    }
+    
+    if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
+      $curr_dir = $m[1];
+    }
+    $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
+    $ajax_url = $path.'ajax.php?action=list-institutions';
+    $json = file_get_contents($ajax_url);
+    $opts = '<option>--Select an Institution--</option>';
+    $inst_ct = sizeof(json_decode($json));
+    if ($inst_ct > 0) {
+      foreach(json_decode($json) as $data) {
+	$opts .=  '<option value="'. $data->institution_id .'">'.$data->institution_name.'</option>'.PHP_EOL;
+      }
+      $opts.= '<option value="0">None</option>';
+      print '<div class="button" id="institution-select">Playing for Work/School?'.PHP_EOL;
+      print '<form id="inst-form" style="display:'.$selector_display.'"><select name="inst_id" id="inst-id">'.$opts.'</select><input type="hidden" name="inst_name" id="inst-name" value=""><input type="button" value="Submit" name="set_institution" id="form-submit"/></form>'.PHP_EOL;
+      print '<div id="inst-display" style="display:'.$selected_display.'"><span id="inst-display-name">';
+      if (isset($_SESSION['inst_name'])) { print $_SESSION['inst_name']; }
+      print '</span> <span id="inst-display-edit">Edit</span></div>'.PHP_EOL;
+      print '</div>'.PHP_EOL;
+    } 
   }
-  else {
-    $selector_display="block";
-    $selected_display="none";
-  }
-  print '<div class="button" id="institution-select">Playing for Work/School?'.PHP_EOL;
-
-  if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
-    $curr_dir = $m[1];
-  }
-  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
-  $ajax_url = $path.'ajax.php?action=list-institutions';
-  $json = file_get_contents($ajax_url);
-  $opts = '<option>--Select an Institution--</option>';
-  foreach(json_decode($json) as $data) {
-    $opts .=  '<option value="'. $data->institution_id .'">'.$data->institution_name.'</option>'.PHP_EOL;
-  }
-  $opts.= '<option value="0">None</option>';
-  print '<form id="inst-form" style="display:'.$selector_display.'"><select name="inst_id" id="inst-id">'.$opts.'</select><input type="hidden" name="inst_name" id="inst-name" value=""><input type="button" value="Submit" name="set_institution" id="form-submit"/></form>'.PHP_EOL;
-  print '<div id="inst-display" style="display:'.$selected_display.'"><span id="inst-display-name">';
-  if (isset($_SESSION['inst_name'])) { print $_SESSION['inst_name']; }
-  print '</span> <span id="inst-display-edit">Edit</span></div>'.PHP_EOL;
-  print '</div>'.PHP_EOL;
   }
 
 ?>
