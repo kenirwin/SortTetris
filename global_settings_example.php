@@ -14,7 +14,7 @@ $allow_supervisor_registration = false;
 $require_supervisor_confirmation = true; // false allows supervisors to register on the site without needing a sort-tetris administrator activate the user manually
 $allow_admin = false; // set this to true once you have password-protected the admin directory
 $system_email_from = ''; //this email address will be used to send recovered passwords
-
+$contact_email = ''; //email to which contact form submissions will be sent
 
 /* Captcha API keys */
 $using_captcha = false; //set to true when you add your keys (below)
