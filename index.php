@@ -110,14 +110,18 @@ if (isset($_GET['settings'])) {
 <label for="final-score" id="final-label">Final Score: </label><span id="final-score"></span>
 </div>
 
+<?
+			   if (TestMysql()) {
+?>
 <form id="name-entry">
 <input type="text" placeholder="your name"  id="name" size="10">
 <input type="hidden" id="inst-id-score" value="<?php if (isset($_SESSION['inst_id'])) { print($_SESSION['inst_id']);} ?>" />
 <span id="name-submit" type="button" class="button">-></span>
-
 </form>
-
 <h3 id="name-display"></h3>
+<?
+			   }
+?>
 
 <h2>High Scores</h2>
 <center>
@@ -164,8 +168,6 @@ else {
 
 																							  <p><b>For Supervisors and Teachers:</b> If you would like your employees or students to play Sort Tetris, they can play as guests or you can <a href="supervisor/register.php">register as a supervisor</a>. Registered supervisors will be able to track the progress of users who identify their institutional affiliation using the green "Playing for Work/School" pulldown. Registered supervisors can <a href="supervisor/login.php">log in</a> here.</p>
 </div>
-
-
 
 
 <div id="game-selector">
@@ -235,5 +237,15 @@ function InstSelector() {
     } 
   }
   }
+
+function TestMysql() {
+    if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
+      $curr_dir = $m[1];
+    }
+    $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
+  $url = $path.'ajax.php?action=test-mysql';
+  $response = json_decode(file_get_contents($url));
+  return($response->success);
+}
 
 ?>
