@@ -67,7 +67,7 @@ function RecoverPassword() {
 
 function DisplayRecoveryForm() {
   global $captcha_site_key;
-  print '<form method="post">
+  print '<form method="post" id="recover-form">
    <label for="email">Email</label><input type="text" name="email" /><br />
    <input type="submit" name="submit_button" value="Recover Password" />
    <div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>'.PHP_EOL;
