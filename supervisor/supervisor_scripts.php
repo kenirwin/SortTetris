@@ -5,6 +5,7 @@ function TestMysql() {
   $response = json_decode(file_get_contents($url));
   return($response->success);
 }
+
 function PrintRegForm() {
   global $captcha_site_key;
   print '

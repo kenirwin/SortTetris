@@ -162,6 +162,7 @@ button, .button, .button-small {
 
 .button-small {
     padding: .25em .25em;
+    margin: .25em;
 }
 .button a, .button-small a {
     color: #fff;
