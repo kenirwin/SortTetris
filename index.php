@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 $mysql_connected = TestMysql();
 ?>
@@ -111,7 +111,7 @@ if (isset($_GET['settings'])) {
 <label for="final-score" id="final-label">Final Score: </label><span id="final-score"></span>
 </div>
 
-<?
+<?php
 			   if ($mysql_connected) {
 ?>
 <form id="name-entry">
@@ -120,7 +120,7 @@ if (isset($_GET['settings'])) {
 <span id="name-submit" type="button" class="button">-></span>
 </form>
 <h3 id="name-display"></h3>
-<?
+<?php
 			   }
 ?>
 
@@ -180,7 +180,7 @@ if ($mysql_connected && $display_supervisor_reg_links && $allow_supervisor_regis
 <?php InstSelector(); ?>
 
 <h2>Choose a Game</h2>
-<?
+<?php
     if (preg_match('/^(.+)\//',$_SERVER['REQUEST_URI'], $m)) {
         $path = 'http://' . $_SERVER['HTTP_HOST'] . $m[1];
     }

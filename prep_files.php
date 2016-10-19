@@ -1,4 +1,4 @@
-<?
+<?php
 $line = array();
 $contents = array(); //new stdClass();
 $maindir = 'raw-data';
