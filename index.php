@@ -1,5 +1,6 @@
 <?
 session_start();
+$mysql_connected = TestMysql();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -111,7 +112,7 @@ if (isset($_GET['settings'])) {
 </div>
 
 <?
-			   if (TestMysql()) {
+			   if ($mysql_connected) {
 ?>
 <form id="name-entry">
 <input type="text" placeholder="your name"  id="name" size="10">
@@ -143,11 +144,11 @@ if ($audioOK == true) {
 }
 ?>
 
-<img id="preloadImg"></div>
-<?php
-}
+   <img id="preloadImg"></div>
+      <?php
+      }
 else {
-?>
+  ?>
 
 <title>Sort Tetris - Choose a Game</title>
 <link rel="stylesheet" type="text/css" href="style.css"/>
@@ -166,8 +167,13 @@ else {
 
     <p><b>Playing the Game:</b> Sortable items will fall down the page. Select the approriate category from the green buttons to the right of the game. Correct answers will disappear; incorrect answers will fall to the bottom of the screen. The game will speed up as you answer more items correctly.</p>
 
-																							  <p><b>For Supervisors and Teachers:</b> If you would like your employees or students to play Sort Tetris, they can play as guests or you can <a href="supervisor/register.php">register as a supervisor</a>. Registered supervisors will be able to track the progress of users who identify their institutional affiliation using the green "Playing for Work/School" pulldown. Registered supervisors can <a href="supervisor/login.php">log in</a> here.</p>
-</div>
+																			      
+<?php
+if ($mysql_connected && $display_supervisor_reg_links && $allow_supervisor_registration) {
+  print '<p><b>For Supervisors and Teachers:</b> If you would like your employees or students to play Sort Tetris, they can play as guests or you can <a href="supervisor/register.php">register as a supervisor</a>. Registered supervisors will be able to track the progress of users who identify their institutional affiliation using the green "Playing for Work/School" pulldown. Registered supervisors can <a href="supervisor/login.php">log in</a> here.</p>';
+}
+?>
+																							    </div>
 
 
 <div id="game-selector">
