@@ -1,4 +1,9 @@
 <?php
+include ('../global_settings.php');
+if (! $allow_admin) {
+  die('Admin functions not allowed. To activate them, password-protect this directory and set <b>$allow_admin = true</b> in <b>global_settings.php</b>');
+}
+
 $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/admin\/.*/','/',$_SERVER['REQUEST_URI']);
 $url = $path .'ajax.php';
 $fields_string = $_SERVER['QUERY_STRING'];

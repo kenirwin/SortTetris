@@ -12,6 +12,7 @@ $display_institution_select = false; // set to true to allow users to select the
 $display_supervisor_reg_links = true; //only effective if next setting==true
 $allow_supervisor_registration = false; 
 $require_supervisor_confirmation = true; // false allows supervisors to register on the site without needing a sort-tetris administrator activate the user manually
+$allow_admin = false; // set this to true once you have password-protected the admin directory
 $system_email_from = ''; //this email address will be used to send recovered passwords
 
 

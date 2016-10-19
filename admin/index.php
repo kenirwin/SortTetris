@@ -1,3 +1,9 @@
+<?php
+include ('../global_settings.php');
+if (! $allow_admin) {
+  die('Admin functions not allowed. To activate them, password-protect this directory and set <b>$allow_admin = true</b> in <b>global_settings.php</b>');
+}
+?>
 <html>
 <head>
 <title>Sort Tetris - Manage Supervisors</title>
