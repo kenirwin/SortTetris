@@ -36,7 +36,7 @@ else {
   
   $mode_query = 'SET SESSION sql_mode = "NO_AUTO_VALUE_ON_ZERO"';
   
-  $inst_query = "CREATE TABLE IF NOT EXISTS `institutions_test` (
+  $inst_query = "CREATE TABLE IF NOT EXISTS `institutions` (
   `institution_id` int(11) NOT NULL AUTO_INCREMENT,
   `institution_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `contact_email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -48,7 +48,7 @@ else {
   UNIQUE KEY `institution_name` (`institution_name`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=60 ;";
 
-$leaderboard_query = "CREATE TABLE IF NOT EXISTS `leaderboard_test` (
+$leaderboard_query = "CREATE TABLE IF NOT EXISTS `leaderboard` (
   `game_id` int(11) NOT NULL AUTO_INCREMENT,
   `time_entry` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -112,7 +112,7 @@ if ($failed === true) {
 }
 
 else {
-  print '<h2>Installation successful!</h2> You can now delete the `install` directory entirely.'.PHP_EOL;
+  print '<h2>Installation successful!</h2> <a href="../">Play the game</a>'.PHP_EOL;
 }
 }
   
