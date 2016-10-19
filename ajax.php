@@ -48,7 +48,6 @@ try {
   }
 
   elseif ($request->action == "test-mysql") {
-    $local_request = true;
     if ($local_request) { 
 	print(json_encode(TestMysql())); 
     }
