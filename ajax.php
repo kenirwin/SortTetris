@@ -46,6 +46,14 @@ try {
     }
     else { DenyRemoteRequest();}
   }
+
+  elseif ($request->action == "test-mysql") {
+    $local_request = true;
+    if ($local_request) { 
+	print(json_encode(TestMysql())); 
+    }
+    else { DenyRemoteRequest();}
+  }
   elseif ($request->action == "admin-activate-supervisor") {
     $required_fields = array('action','inst_id');
     if ($local_request) { 
@@ -277,8 +285,6 @@ function RegisterSupervisor($request, $require_supervisor_confirmation) {
   }
 }
 
-
-      
 function AdminListSupervisors() {
   try {
     $db=MysqlConnect(); 
@@ -369,12 +375,26 @@ function CheckRequiredFields ($request, $required) {
     return true;
 }
 
-function MysqlConnect() { 
+
+function TestMysql() {
+  $db = MysqlConnect(false);
+  if (isset(json_decode($db)->message)) {
+    return (array('success'=>false));
+  }
+  else { return(array('success'=>true)); }
+}
+
+function MysqlConnect($print_errors=true) { 
     include ("global_settings.php"); 
     foreach (['host', 'database','charset','user','pass'] as $f) {
         if (!isset($$f)) { 
-            $return = ['message','MySQL Connect Error: variable $'.$f.' not set in global_settings.php'];
-            print(json_encode($return));
+	  $return = array('message' => 'MySQL Connect Error: variable $'.$f.' not set in global_settings.php');
+	    if ($print_errors) {
+	      print (json_encode($return));
+	    }
+	    else { 
+	      return(json_encode($return));
+	    }
         }
     }
     
@@ -384,8 +404,13 @@ function MysqlConnect() {
         return $db;
     }
     catch (PDOException $e) {
-        $return = [ 'message'=> 'MySQL error: '.$e->getMessage() ];
-        print (json_encode($return));
+      $return = array( 'message'=> 'MySQL error: '.$e->getMessage());
+	    if ($print_errors) {
+	         print (json_encode($return));
+	    }
+	    else { 
+	      return(json_encode($return));
+	    }
     }
 }
 

@@ -21,11 +21,16 @@
    }
 ?>
 <?
-if ($allow_supervisor_registration) {
-  PrintRegForm();
+if (TestMysql()) {
+  if ($allow_supervisor_registration) {
+    PrintRegForm();
+  }
+  else { 
+    print 'Registration is not enabled for this site. The administrator will need to set <b>$allow_supervisor_registration = true</b> in <b>global_settings.php</b> to allow this function.';
+  }
 }
-else { 
-  print 'Registration is not enabled for this site. The administrator will need to set <b>$allow_supervisor_registration = true</b> in <b>global_settings.php</b> to allow this function.';
+else {
+  print 'Unable to connect to MySQL.';
 }
 ?>
 <?

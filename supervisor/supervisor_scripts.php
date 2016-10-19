@@ -1,4 +1,10 @@
 <?
+function TestMysql() {
+  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
+  $url = $path.'ajax.php?action=test-mysql';
+  $response = json_decode(file_get_contents($url));
+  return($response->success);
+}
 function PrintRegForm() {
   global $captcha_site_key;
   print '
