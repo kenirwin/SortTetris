@@ -377,7 +377,7 @@ function CheckRequiredFields ($request, $required) {
 
 function TestMysql() {
   $db = MysqlConnect(false);
-  if (isset(json_decode($db)->message)) {
+  if (is_string($db)) {
     return (array('success'=>false));
   }
   else { return(array('success'=>true)); }
