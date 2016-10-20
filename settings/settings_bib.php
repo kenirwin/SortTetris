@@ -12,7 +12,7 @@ $infopage = 'citations.html'; // in the infopages/ folder
 /* Scoring, Win conditions */
 
 $point_units = 100; // base score per correct
-$drop_delay = 600; // milliseconds between move down
+$drop_delay = 700; // milliseconds between move down
 $delay_decrease_per_level=50; //speed-up by x ms/drop 
 $height = 12; // number of wrong lines allowed before end of game
 $correct_per_level = 6; // level up after this many correct
