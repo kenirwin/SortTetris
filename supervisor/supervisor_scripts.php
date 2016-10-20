@@ -30,7 +30,7 @@ print'<form method="post" id="reg-form">
    <label for="confirm_email">Confirm Email</label><input type="text" name="confirm_email" /><br />
    <label for="inst_name">Institution Name</label><input type="text" name="inst_name" /><br />
    <input type="submit" name="submit_button" value="Register" />'.PHP_EOL;
-if ($using_catcha) {
+if ($using_captcha === true) {
   print'<div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>';
 }
 }
@@ -80,11 +80,12 @@ function RecoverPassword() {
 
 function DisplayRecoveryForm() {
   global $captcha_site_key, $using_captcha;
+  global $using_captcha;
   SupervisorNav();
   print '<form method="post" id="recover-form">
    <label for="email">Email</label><input type="text" name="email" /><br />
    <input type="submit" name="submit_button" value="Recover Password" />'.PHP_EOL;
-  if ($using_catcha) {
+  if ($using_captcha) {
    print '<div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>'.PHP_EOL;
   }
 }
