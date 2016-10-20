@@ -25,15 +25,24 @@ The basic functionality of Sort Tetris should work "out of the box" upon moving 
 5. Create the database tables by one of two methods:
    * Automated: Use a web browser to go to 'install/index.php' 
    * OR Manual: Use the `tables.sql` file to create the table in your mysql database
-6. To allow supervisors to registerfor a login on your website, you will want to obtain a ReCaptcha API key pair to limit bogus registrations. You can do so at: https://developers.google.com/recaptcha/docs/start . Once you have done so, add them to the global_settings.php file and set `$using_captcha` to true.
 
-The `global_settings.php` file includes an `$audioOK` variable; by default it is set to false. If your server supports playing mp3 audio, you can set it to true. (Servers without support for this feature may hang significantly if the setting is turned on, so the default is to false.)
+### Optional additional installation instructions
 
-You may add a Google Analytics ID to the appropriate variable in `global_settings.php` to track use of the program in Google Analytics.
+1. Allow supervisors to register by altering several settings in `global_settings.php`:
+ * $allow_supervisor_registration - when set to true, supervisors may register
+ * $display_supervisor_reg_links - when true, links appear to the registration form. (If false, but registration is allowed, registering supervisors would have to know how to find the registration link directly.)
+ * $require_supervisor_confirmation - when true, the site administrator would have to activate registering supervisors in the Admin module (see below)
+ * $display_institution_select - when true, the institutional login link will appear on the game page. If false, an institutional player would have to have a direct link to their an institution URL in order to play as a logged-in user. 
 
+2. Access administrative function using the  $allow_admin variable. When true, the ./admin URL will function. You should not activate this setting until you have password-protected the admin directory.
 
+3. Turn on the sound! If you server supports playing mp3 audio, set `$audioOK = true` in `global_settings.php`. By default it is set to false because servers without support for this feature may hang significantly if the setting is turned on.
 
-## Configuration
+4. Use Google Analytics. You may add a Google Analytics ID to the $google_analytics_id variable in `global_settings.php` to track use of the program in Google Analytics.
+
+5. Protect your site using Captcha. To limit bogus activity on the Supervisor functions, it is strongly recommended that you use Google's ReCaptcha service. Obtain a ReCaptcha API key pair at: https://developers.google.com/recaptcha/docs/start . Once you have done so, add them to the global_settings.php file and set `$using_captcha` to true.
+
+## Game Configuration
 
 The `settings/settings_*` files define the configuration for the games. By default, the program displays a list of public games configurations, including all of those included with the initial download. Game configurations can be made public or private in individual `settings_` files. 
 
@@ -42,6 +51,8 @@ Additional settings can be supported by the same installation by creating additi
 The two most important variables in the settings files are `$buttons` and `$data_file`: 
 * `$buttons` array, which defines the allowable answers (e.g. "book","chapter","article" or "mammal", "fish", "bird")
 * `$data_file` points to a json file such as bibliography.json or animals.json
+
+## Creating New Content
 
 ### Generating JSON files
 
