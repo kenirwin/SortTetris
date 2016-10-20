@@ -1,0 +1,5 @@
+v. 0.5.0 - 2016-10-20
+* added supervisor and admin modules
+* allow players to declare institutional affiliation
+* added install script for sql tables
+* added institutions sql table
