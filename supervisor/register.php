@@ -39,13 +39,27 @@
 <h1>Sort Tetris - Register as a Supervisor</h1>
 
 <?php
-   if (isset($_REQUEST['submit_button']) && (isset($_REQUEST['g-recaptcha-response']))) {
-     ConfirmHuman($captcha_secret_key);
+if (isset($_REQUEST['submit_button'])) {
+  if (! $using_captcha) {
      SubmitSupervisorRequest($require_supervisor_confirmation);
-     
-     print '<hr />'.PHP_EOL;
-     PrintRegForm();
-   }
+     print '<hr />';
+  }
+  else {
+    if ($_REQUEST['g-recaptcha-response'] == '') {
+      print '<div class="warn">Be sure to check the "I&apos;m not a robot" checkbox</div>'.PHP_EOL;
+      print '<hr /><h2>Try Request Again</h2>'.PHP_EOL;
+      PrintRegForm();
+    }
+    elseif (ConfirmHuman($captcha_secret_key) === true) {
+     SubmitSupervisorRequest($require_supervisor_confirmation);
+    }
+    else { 
+      print '<hr /><h2>Try Request Again</h2>'.PHP_EOL;
+      PrintRegForm();
+    }
+  }
+}    
+
 elseif (TestMysql()) {
   if ($allow_supervisor_registration) {
     PrintRegForm();

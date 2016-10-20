@@ -29,15 +29,28 @@
 <h1>Sort Tetris - Recover Supervisor Password</h1>
 
 <?php
-   if (isset($_REQUEST['submit_button']) && (isset($_REQUEST['g-recaptcha-response']))) {
-     if (ConfirmHuman($captcha_secret_key)) {
-       RecoverPassword();
-     }
-     else { DisplayRecoveryForm(); }
-   }
-   else { 
-     DisplayRecoveryForm();
-   }
+if (isset($_REQUEST['submit_button'])) {
+  if (! $using_captcha) {
+    RecoverPassword();
+  }
+  else {
+    if ($_REQUEST['g-recaptcha-response'] == '') {
+      print '<div class="warn">Be sure to check the "I&apos;m not a robot" checkbox</div>'.PHP_EOL;
+      print '<hr /><h2>Try Password Recovery Again</h2>'.PHP_EOL;
+      DisplayRecoveryForm(); 
+    }
+    elseif (ConfirmHuman($captcha_secret_key) === true) {
+      RecoverPassword();
+    }
+    else { 
+      print '<hr /><h2>Try Password Recovery Again</h2>'.PHP_EOL;
+      DisplayRecoveryForm(); 
+    }
+  }
+}    
+else { 
+  DisplayRecoveryForm();
+}
 
 ?>
 

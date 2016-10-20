@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION = array();
+include('supervisor_scripts.php');
 ?>
 <html>
 <head>
@@ -25,7 +26,9 @@ if (isset($_POST['password']) && isset($_POST['email'])) {
   When you <a href="register.php">register</a> as a supervisor, you will get access to the scores of all players who play Sort Tetris after identifying themselves as a member of your instution/office/class/etc. Be sure your students/employees are identifying themselves to get credit for their practice. 
 </div>
 
-<div id="nav"><a href="../" class="button-small">Play</a> <a href="register.php" class="button-small">Register as a Supervisor</a></div>
+<?php
+  SupervisorNav();
+?>
 <form method="post">
  <label for="email">Email:</label>
  <input type="text" name="email" /><br />

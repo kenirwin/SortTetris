@@ -1,4 +1,13 @@
 <?
+function SupervisorNav() {
+  print '<div id="supervisor-nav">'.PHP_EOL.
+    '<a class="button-small" href="../">Play</a></span>'.PHP_EOL. 
+    '<a class="button-small" href="./">Login as Supervisor</a></span>'.PHP_EOL. 
+    '<a class="button-small" href="register.php">Register as Supervisor</a></span>'.PHP_EOL. 
+    '<a class="button-small" href="recover.php">Recover Password</a></span>'.PHP_EOL.
+    '</div>'.PHP_EOL;
+}
+
 function TestMysql() {
   $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
   $url = $path.'ajax.php?action=test-mysql';
@@ -13,9 +22,9 @@ function PrintRegForm() {
    Once you have registered, you&apos;ll receive an email with a password to gain access to the perfomance history for players identified with your institution.
 </div>
 
-<div id="nav"><a href="../" class="button-small">Play</a> <a href="login.php" class="button-small">Supervisor Login</a></div>
-
-<form method="post" id="reg-form">
+';
+  SupervisorNav();
+print'<form method="post" id="reg-form">
    <label for="name">Name</label><input type="text" name="name" /><br />
    <label for="email">Email</label><input type="text" name="email" id="email"/><br />
    <label for="confirm_email">Confirm Email</label><input type="text" name="confirm_email" /><br />
@@ -30,6 +39,7 @@ function SubmitSupervisorRequest($require_supervisor_confirmation) {
   $response = json_decode(file_get_contents($url));
   if ($response->success == true) {
     print '<h2>Registration Successful.</h2> <div>An email has been sent with your login information.</div>';
+    SupervisorNav();
   }
   else { 
     print ('<h2 class="warn">Registration Failed:</h2> ');
@@ -52,6 +62,7 @@ function RecoverPassword() {
   $response = json_decode(file_get_contents($url));
   if ($response->success == true) { 
     print '<h2>Success</h2><div>The password has been sent to your email</div>'.PHP_EOL;
+    SupervisorNav();
   }
   else {
     print '<h2>Unable to Recover Password</h2>';
@@ -67,6 +78,7 @@ function RecoverPassword() {
 
 function DisplayRecoveryForm() {
   global $captcha_site_key;
+  SupervisorNav();
   print '<form method="post" id="recover-form">
    <label for="email">Email</label><input type="text" name="email" /><br />
    <input type="submit" name="submit_button" value="Recover Password" />
