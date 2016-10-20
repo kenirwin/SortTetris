@@ -16,7 +16,7 @@ function TestMysql() {
 }
 
 function PrintRegForm() {
-  global $captcha_site_key;
+  global $captcha_site_key, $using_captcha;
   print '
 <div id="description">
    Once you have registered, you&apos;ll receive an email with a password to gain access to the perfomance history for players identified with your institution.
@@ -29,8 +29,10 @@ print'<form method="post" id="reg-form">
    <label for="email">Email</label><input type="text" name="email" id="email"/><br />
    <label for="confirm_email">Confirm Email</label><input type="text" name="confirm_email" /><br />
    <label for="inst_name">Institution Name</label><input type="text" name="inst_name" /><br />
-   <input type="submit" name="submit_button" value="Register" />
-   <div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>';
+   <input type="submit" name="submit_button" value="Register" />'.PHP_EOL;
+if ($using_catcha) {
+  print'<div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>';
+}
 }
 
 function SubmitSupervisorRequest($require_supervisor_confirmation) {
@@ -77,12 +79,14 @@ function RecoverPassword() {
 }
 
 function DisplayRecoveryForm() {
-  global $captcha_site_key;
+  global $captcha_site_key, $using_captcha;
   SupervisorNav();
   print '<form method="post" id="recover-form">
    <label for="email">Email</label><input type="text" name="email" /><br />
-   <input type="submit" name="submit_button" value="Recover Password" />
-   <div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>'.PHP_EOL;
+   <input type="submit" name="submit_button" value="Recover Password" />'.PHP_EOL;
+  if ($using_catcha) {
+   print '<div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>'.PHP_EOL;
+  }
 }
 
 ?>
