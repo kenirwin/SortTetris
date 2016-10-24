@@ -2,6 +2,7 @@
 session_start();
 $_SESSION = array();
 include('supervisor_scripts.php');
+include('../global_settings.php');
 ?>
 <html>
 <head>
@@ -38,7 +39,12 @@ if (isset($_POST['password']) && isset($_POST['email'])) {
 </form>
 <div id="recover-login"><a href="recover.php">Forgot your password? Recover it.</a></div>
 
-<?php include("../license.php"); ?>
+<?php include('../license.php'); ?>
+<?php
+if (isset($google_analytics_id)) {
+  include_once('../google_analytics.php');
+}
+?>
 </body>
 </html>
 <?php

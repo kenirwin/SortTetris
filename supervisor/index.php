@@ -13,7 +13,10 @@ if (!isset($_SESSION['institution_id'])) {
 </head>
 <body>
 <h1>Sort Tetris - Site Administration</h1>
-<?php include("display_login.php"); ?>
+<?php 
+include('display_login.php'); 
+include('../global_settings.php');
+?>
 <h2>View Recent Scores for:</h2>
 
 <?
@@ -32,3 +35,8 @@ print '</ol>';
 
 ?>
 <?php include("../license.php"); ?>
+<?php
+if (isset($google_analytics_id)) {
+  include_once('../google_analytics.php');
+}
+?>

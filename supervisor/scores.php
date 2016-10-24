@@ -138,4 +138,10 @@ function json2highcharts ($json) {
 }
 ?>
 
-<?php include("../license.php"); ?>
+<?php include('../license.php'); ?>
+<?php
+include('../global_settings.php');
+if (isset($google_analytics_id)) {
+  include_once('../google_analytics.php');
+}
+?>

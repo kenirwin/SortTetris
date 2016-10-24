@@ -76,6 +76,11 @@ else {
 <?
 
 ?>
-<?php include("../license.php"); ?>
+<?php include('../license.php'); ?>
+<?php
+if (isset($google_analytics_id)) {
+  include_once('../google_analytics.php');
+}
+?>
 </body>
 </html>

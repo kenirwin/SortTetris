@@ -199,7 +199,7 @@ $response = json_decode(curl_exec($ch));
 ?>
 </div>
 
-<?php include("license.php"); ?>
+<?php include('license.php'); ?>
 
 <?php
 if (isset($google_analytics_id)) {
