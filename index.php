@@ -202,8 +202,8 @@ $response = json_decode(curl_exec($ch));
 <?php include("license.php"); ?>
 
 <?php
-if (! empty($google_analytics_block)) {
-    print $google_analytics_block;
+if (isset($google_analytics_id)) {
+  include_once('google_analytics.php');
 }
 ?>
 
