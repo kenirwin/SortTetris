@@ -39,6 +39,9 @@ $mysql_connected = TestMysql();
 		}
 	      });
 	  });
+	$('#inst-id').change(function() {
+	    $('#form-submit').click();
+	  });
       });
 </script>
 
