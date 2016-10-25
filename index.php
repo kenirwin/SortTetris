@@ -15,27 +15,27 @@ $mysql_connected = TestMysql();
 
 <script>
     $(document).ready(function() { 
-	$form = $("#inst-form");
-	$("#institution-select").click(function() {
-	    $("#inst-display").hide();
-	    $("#inst-form").show();
+	$form = $('#inst-form');
+	$('#institution-select').click(function() {
+	    $('#inst-display').hide();
+	    $('#inst-form').show();
 	  });
-	$("#form-submit").click(function() {
-	    var inst_id = $("#inst-id").val();
-	    var inst_name = $("#inst-id option:selected").text();
+	$('#form-submit').click(function() {
+	    var inst_id = $('#inst-id').val();
+	    var inst_name = $('#inst-id option:selected').text();
 	    if (isNaN(inst_id)) {
 	      inst_id = 0;
 	      inst_name = 'None';
 	    }
-            $("#inst-name").val(inst_name);
-	    $("#inst-id-score").val(inst_id);
+            $('#inst-name').val(inst_name);
+	    $('inst-id-score').val(inst_id);
 	    $.ajax({
 	      url: './inst_select.php',
 		  data: $form.serialize(),
 		  success: function(result) {		
-		  $("#inst-display-name").text(inst_name);
-		  $("#inst-form").hide();
-		  $("#inst-display").show();
+		  $('#inst-display-name').text(inst_name);
+		  $('#inst-form').hide();
+		  $('#inst-display').show();
 		}
 	      });
 	  });
