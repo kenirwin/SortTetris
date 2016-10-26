@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `institutions` (
   PRIMARY KEY (`institution_id`),
   UNIQUE KEY `contact_email` (`contact_email`),
   UNIQUE KEY `institution_name` (`institution_name`)
-) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=60 ;
+) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -48,4 +48,4 @@ CREATE TABLE IF NOT EXISTS `leaderboard` (
   `config_file` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `inst_id` int(11) NOT NULL,
   PRIMARY KEY (`game_id`)
-) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=132 ;
+) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
