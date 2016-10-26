@@ -3,3 +3,12 @@ v. 0.5.0 - 2016-10-20
 * allow players to declare institutional affiliation
 * added install script for sql tables
 * added institutions sql table
+
+v. 0.5.1 - 2016-10-26
+* auto-submit institution selection when changed
+* added google analytics to supervisor pages
+* email admin on registration
+* added citation tetris instructional guide
+* settings_bib: slower start speed, go to level 8 instead of 6
+* minor stylistic fixes
+
