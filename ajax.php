@@ -247,8 +247,9 @@ function RecoverPassword ($request, $system_email_from) {
 }
 
 function RegisterSupervisor($request, $require_supervisor_confirmation) {
-  global $system_email_from;
+  global $system_email_from, $contact_email;
   $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/ajax.php.*/','/',$_SERVER['REQUEST_URI']);
+  $admin_url = $path .'admin/';
   if ($require_supervisor_confirmation) {
     $activated = 'N';
   }
@@ -264,12 +265,17 @@ function RegisterSupervisor($request, $require_supervisor_confirmation) {
       $headers = 'From: '.$system_email_from;
       if ($activated == 'Y') {
 	$content  ='Here is the supervisor password you requested for Sort Tetris: '.$password . PHP_EOL . PHP_EOL . 'You can now send students/employees/etc to the website to play the game, and you will be able to observe their progress using the supervisor login: ' . $path . 'supervisor/';
+	$admin_subject = 'New Sort Tetris Registration (no action required)';
+	$admin_content = 'New Sort Tetris supervisor registration from '.$request->inst_name.PHP_EOL.PHP_EOL.'The supervisor is automatically activated according to the settings in globals_settings.php. If you wish to review this and other activations, you may log in to the admin module: '.$admin_url;
       }
       else {
 	$content = 'Thank you for registering as a Sort Tetris supervisor. Here is your supervisor password:'.$row['password'].PHP_EOL.'You will receive an email when your supervisor account is activated. When that occurs, you will be able to send students/employees/etc to the website to play the game, and you will be able to observe their progress using the supervisor login: '.$path.'supervisor/';
+	$admin_subject = 'New Sort Tetris Registration - Requires Activation';
+	$admin_content = 'New Sort Tetris supervisor registration from '.$request->inst_name.PHP_EOL.PHP_EOL.'Please act promptly to activate the supervisor request in to the admin module: '.$admin_url;
       }
       if (mail($to,$subject,$content, $headers)) {
-	return(array('success'=>true)); 
+	mail($contact_email,$admin_subject,$admin_content,$headers);
+	return(array('success'=>true,'new_inst_id'=>$db->lastInsertId())); 
       }
       else { 
 	return(array('success'=>false, 'error'=>'unable to send confirmation email and password')); 
