@@ -148,7 +148,7 @@ label { padding-right: .5em; }
 .label {background-color: #fff }
 
 
-button, .button, .button-small { 
+button, .button, .button-small, .button-inline{ 
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
@@ -164,7 +164,11 @@ button, .button, .button-small {
     padding: .25em .25em;
     margin: .25em;
 }
-.button a, .button-small a {
+.button-inline {
+    padding: .1em .25em;
+    margin: 0 .25em;
+}
+.button a, .button-small a, .button-inline a{
     color: #fff;
 }
 .inactive {
