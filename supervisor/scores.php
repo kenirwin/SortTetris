@@ -45,8 +45,12 @@ $(document).ready(function() {
       });
 
     $('#container').highcharts({
-        chart: {
-            type: 'spline'
+        title: {
+	  text: 'User Scores over Time',
+	  x: -20
+	},
+	chart: {
+	  type: 'spline',
         },
         xAxis: {
             title: {
