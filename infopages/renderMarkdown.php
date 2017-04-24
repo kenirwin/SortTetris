@@ -1,8 +1,9 @@
 <?php
+include('functions.php');
 $_REQUEST['file'] = 'instruments.md';
 if (isset ($_REQUEST['file'])) {
   $filename = str_replace('/', '' ,$_REQUEST['file']);
-  $file =  file_get_contents($filename);
+  $file =  CurlGet($filename);
 }
 
 print (RenderMarkdown($file));

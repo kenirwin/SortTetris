@@ -1,5 +1,6 @@
 <?php
 include ('../global_settings.php');
+include ('../functions.php');
 if (! $allow_admin) {
   die('Admin functions not allowed. To activate them, password-protect this directory and set <b>$allow_admin = true</b> in <b>global_settings.php</b>');
 }
@@ -116,7 +117,7 @@ if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
 }
 $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
 $ajax_url = $path.'../ajax.php?action=admin-list-supervisors';
-$json = file_get_contents($ajax_url);
+$json = CurlGet($ajax_url);
 $response = json_decode($json);
 if ($response->success) { 
   $actives = '';
