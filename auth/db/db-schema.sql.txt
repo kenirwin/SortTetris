@@ -1,0 +1,54 @@
+/**
+ * Users table schema
+ */
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+/**
+ * Remembered_logins table schema
+ */
+CREATE TABLE IF NOT EXISTS `remembered_logins` (
+  `token` varchar(40) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `expires_at` datetime NOT NULL,
+  PRIMARY KEY (`token`),
+  KEY `user_id` (`user_id`),
+  KEY `expires_at` (`expires_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `remembered_logins`
+  ADD CONSTRAINT `remembered_logins_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+/**
+ * Add password reset columns to users table
+ */
+ALTER TABLE  `users` ADD  `password_reset_token` VARCHAR( 40 ) NULL DEFAULT NULL ,
+  ADD  `password_reset_expires_at` DATETIME NULL DEFAULT NULL ,
+  ADD UNIQUE (
+    `password_reset_token`
+  );
+
+
+/**
+ * Add account activation columns to users table
+ */
+ALTER TABLE  `users` ADD  `activation_token` VARCHAR( 40 ) NULL DEFAULT NULL ,
+  ADD  `is_active` BOOLEAN NOT NULL DEFAULT FALSE ,
+  ADD UNIQUE (
+    `activation_token`
+  );
+
+
+/**
+ * Add administrator role column to users table
+ */
+ALTER TABLE  `users` ADD  `is_admin` BOOLEAN NOT NULL DEFAULT FALSE ;
