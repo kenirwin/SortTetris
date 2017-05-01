@@ -1,6 +1,7 @@
 <?php
 header("Content-type: application/json");
 include ("global_settings.php"); 
+include ("functions.php");
 
 $request = (object) $_REQUEST;
 
@@ -255,7 +256,7 @@ function RegisterSupervisor($request, $require_supervisor_confirmation) {
   }
   else { $activated = 'Y'; }
   $db = MysqlConnect();
-  $password = file_get_contents('http://www.dinopass.com/password/simple');
+  $password = CurlGet('http://www.dinopass.com/password/simple');
   try {
   $stmt = $db->prepare('INSERT INTO institutions(institution_id,institution_name,contact_email,contact_name,password,activated) VALUES (?,?,?,?,?,?)');
   $stmt->execute(array(NULL,$request->inst_name,$request->email,$request->contact_name,$password,$activated));
@@ -379,7 +380,6 @@ function CheckRequiredFields ($request, $required) {
     }
     return true;
 }
-
 
 function TestMysql() {
   $db = MysqlConnect(false);

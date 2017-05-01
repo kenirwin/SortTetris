@@ -11,7 +11,7 @@ function SupervisorNav() {
 function TestMysql() {
   $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
   $url = $path.'ajax.php?action=test-mysql';
-  $response = json_decode(file_get_contents($url));
+  $response = json_decode(CurlGet($url));
   return($response->success);
 }
 
@@ -38,7 +38,7 @@ if ($using_captcha === true) {
 function SubmitSupervisorRequest($require_supervisor_confirmation) {
   $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
   $url = $path.'ajax.php?action=register&inst_name='.urlencode($_REQUEST['inst_name']).'&email='.urlencode($_REQUEST['email']).'&contact_name='.urlencode($_REQUEST['name']);
-  $response = json_decode(file_get_contents($url));
+  $response = json_decode(CurlGet($url));
   if ($response->success == true) {
     print '<h2>Registration Successful.</h2> <div>An email has been sent with your login information.</div>';
     SupervisorNav();
@@ -54,6 +54,7 @@ function SubmitSupervisorRequest($require_supervisor_confirmation) {
     else { $display_error = $response->error; }
     print '<ul><li class="warn" data-errorcode='.$response->error.'>'.$display_error.'</li></ul>'.PHP_EOL;
     print '<div>You can try registering again below.</div>'.PHP_EOL;
+    PrintRegForm();
   }
 }
 
@@ -61,7 +62,7 @@ function SubmitSupervisorRequest($require_supervisor_confirmation) {
 function RecoverPassword() {
   $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
   $url = $path.'ajax.php?action=recoverPassword&email='.urlencode($_REQUEST['email']);
-  $response = json_decode(file_get_contents($url));
+  $response = json_decode(CurlGet($url));
   if ($response->success == true) { 
     print '<h2>Success</h2><div>The password has been sent to your email</div>'.PHP_EOL;
     SupervisorNav();

@@ -3,6 +3,7 @@ session_start();
 $_SESSION = array();
 include('supervisor_scripts.php');
 include('../global_settings.php');
+include('../functions.php');
 ?>
 <html>
 <head>
@@ -54,7 +55,7 @@ if (isset($google_analytics_id)) {
       }
       $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
       $ajax_url = $path.'../ajax.php?action=authenticate&user='.$email.'&pass='.$pass;
-      $json = file_get_contents($ajax_url);
+      $json = CurlGet($ajax_url);
       $response = json_decode($json);
       if (isset($response->institution_id)) {
 	$_SESSION['institution_id'] = $response->institution_id;

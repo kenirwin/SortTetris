@@ -1,6 +1,8 @@
 <?php
 session_start();
+include("functions.php");
 $mysql_connected = TestMysql();
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -229,7 +231,7 @@ function InstSelector() {
     }
     $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
     $ajax_url = $path.'ajax.php?action=list-institutions';
-    $json = file_get_contents($ajax_url);
+    $json = CurlGet($ajax_url);
     $opts = '<option>--Select an Institution--</option>';
     $inst_ct = sizeof(json_decode($json));
     if ($inst_ct > 0) {
@@ -253,8 +255,9 @@ function TestMysql() {
     }
     $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
   $url = $path.'ajax.php?action=test-mysql';
-  $response = json_decode(file_get_contents($url));
+  $response = json_decode(CurlGet($url));
   return($response->success);
 }
+
 
 ?>

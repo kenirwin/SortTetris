@@ -1,9 +1,11 @@
 <html>
 <head>
 <title>Register as a Supervisor</title>
+<?php include('../functions.php'); ?>
 <?php include('../global_settings.php'); ?>
 <?php include('../captcha.php'); ?>
 <?php include('supervisor_scripts.php'); ?>
+
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript" src="../lib/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
