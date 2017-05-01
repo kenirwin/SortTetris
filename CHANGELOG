@@ -1,3 +1,6 @@
+v. 0.5.1 - 2017-05-01
+* removed all file_get_contents() calls; replaced with cUrl
+
 v. 0.5.0 - 2016-10-20
 * added supervisor and admin modules
 * allow players to declare institutional affiliation
