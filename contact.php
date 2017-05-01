@@ -103,6 +103,11 @@ function PrintContactForm() {
 }
 
 function SubmittedValue($field) {
-  return $_REQUEST[$field];
+  if (isset($_REQUEST[$field]) && !empty($_REQUEST[$field])) { 
+    return $_REQUEST[$field];
+  }
+  else {
+    return "";
+  }
 }
 ?>
