@@ -183,6 +183,7 @@ class User
     $user = new static();
 
     $user->name = $data['name'];
+    $user->institution_name = $data['institution_name'];
     $user->email = $data['email'];
     $user->password = $data['password'];
 
@@ -196,8 +197,9 @@ class User
 
         $db = Database::getInstance();
 
-        $stmt = $db->prepare('INSERT INTO users (name, email, password, activation_token) VALUES (:name, :email, :password, :token)');
+        $stmt = $db->prepare('INSERT INTO users (name, institution_name, email, password, activation_token) VALUES (:name, :institution_name, :email, :password, :token)');
         $stmt->bindParam(':name', $user->name);
+	$stmt->bindParam(':institution_name', $user->institution_name);
         $stmt->bindParam(':email', $user->email);
         $stmt->bindParam(':password', Hash::make($user->password));
         $stmt->bindParam(':token', $hashed_token);
@@ -210,7 +212,7 @@ class User
       } catch(PDOException $exception) {
 
         // Log the exception message
-        error_log($exception->getMessage());
+        error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
       }
     }
 
