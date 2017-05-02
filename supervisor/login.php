@@ -5,7 +5,7 @@
  */
 
 // Initialisation
-require_once('../includes/init.php');
+require_once('includes/init.php');
 
 // Require the user to NOT be logged in before they can see this page.
 Auth::getInstance()->requireGuest();
