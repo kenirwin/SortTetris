@@ -1,10 +1,12 @@
 <?php
-session_start();
-include_once('../functions.php');
-if (!isset($_SESSION['institution_id'])) {
-  header('Location: login.php');
-  die();
-}
+// Initialisation
+require_once('../includes/init.php');
+// Require the user to be logged in before they can see this page.
+Auth::getInstance()->requireLogin();
+// Set the title, show the page header, then the rest of the HTML
+$page_title = 'Supervisor View';
+include('../includes/header.php');
+include('../functions.php');
 ?>
 <head>
 <title>Sort Tetris: High Scores - <?php print $_REQUEST['title']; ?></title>
@@ -21,7 +23,8 @@ table {border: 1px solid black  }
 <script src="../lib/jquery.dynatable.js"></script>
 <?php
   $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
-$ajax_url = $path.'ajax.php?action=supervisor&config_file='.$_REQUEST['config'].'&inst_id='.$_SESSION['institution_id'];
+$ajax_url = $path.'ajax.php?action=supervisor&config_file='.$_REQUEST['config'].'&inst_id='.$_SESSION['user_id'];
+print $ajax_url;
   $json = CurlGet($ajax_url);
   $series_json = json2highcharts($json);
 ?>
@@ -31,6 +34,7 @@ $(document).ready(function() {
       });
     var $records = $('#json-records'),
       myRecords = JSON.parse($records.text());
+    console.log(myRecords);
     $('#my-final-table').dynatable({
       dataset: {
 	records: myRecords,
