@@ -17,10 +17,10 @@ class Util
   {
     $regex = preg_quote(Config::REDIR_PATH); 
     //    if (preg_match("/$regex/", $url)) {
-      header('Location: http://' . $_SERVER['HTTP_HOST'] . $url);
+    //   header('Location: http://' . $_SERVER['HTTP_HOST'] . $url);
       //}
       //else {
-      //header('Location: http://' . $_SERVER['HTTP_HOST'] . Config::REDIR_PATH . $url);
+      header('Location: http://' . $_SERVER['HTTP_HOST'] . Config::REDIR_PATH . $url);
       //}
     exit;
   }
