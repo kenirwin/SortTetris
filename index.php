@@ -236,7 +236,7 @@ function InstSelector() {
     $inst_ct = sizeof(json_decode($json));
     if ($inst_ct > 0) {
       foreach(json_decode($json) as $data) {
-	$opts .=  '<option value="'. $data->institution_id .'">'.$data->institution_name.'</option>'.PHP_EOL;
+	$opts .=  '<option value="'. $data->id .'">'.$data->institution_name.'</option>'.PHP_EOL;
       }
       $opts.= '<option value="0">None</option>';
       print '<div class="button" id="institution-select">Playing for Work/School?'.PHP_EOL;
