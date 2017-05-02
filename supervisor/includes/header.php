@@ -9,7 +9,7 @@
 <body>
 
   <nav role="navigation" class="uk-navbar">
-   <a href="./" class="uk-navbar-brand">Sort Tetris</a>
+   <a href="../" class="uk-navbar-brand">Sort Tetris</a>
 
     <div class="uk-navbar-flip">
       <ul class="uk-navbar-nav">
