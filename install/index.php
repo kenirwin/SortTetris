@@ -60,6 +60,8 @@ $leaderboard_query = "CREATE TABLE IF NOT EXISTS `leaderboard` (
   PRIMARY KEY (`game_id`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;";
 
+
+
 $failed = false; 
 try {
   $stmt = $db->prepare($mode_query);
