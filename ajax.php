@@ -133,7 +133,7 @@ catch (Exception $e) {
 
 function Authenticate($req) {
     $db = MysqlConnect();  
-    $stmt = $db->prepare('SELECT institution_id,institution_name FROM institutions WHERE contact_email = ? AND password = ?');
+    $stmt = $db->prepare('SELECT id,institution_name FROM users WHERE email = ? AND password = ?');
     $stmt->execute(array($req->user,$req->pass));
     if ($stmt->rowCount() == 0) {
       return(array("error" => "Invalid username or password"));
@@ -188,7 +188,7 @@ function ListGames($include_private=false) {
 
 function ListInstitutions() {
   $db = MysqlConnect();
-  $query = 'SELECT `institution_id`, `institution_name` FROM institutions WHERE activated="Y"';
+  $query = 'SELECT `id`, `institution_name` FROM `users` WHERE is_active=1';
   $stmt = $db->query($query);
   $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return (json_encode($results));
@@ -226,75 +226,10 @@ function PrepareInsert ($fields, $data, $table) {
     return($return);
 }
 
-function RecoverPassword ($request, $system_email_from) {
-  try { 
-    $db = MysqlConnect();
-    $stmt = $db->prepare('SELECT `password` FROM `institutions` WHERE `contact_email` = ? LIMIT 0,1');
-    $stmt->execute(array($request->email));
-    if ($stmt->rowCount() == 1) { 
-      $row=$stmt->fetch(PDO::FETCH_ASSOC);
-      if (mail($request->email,'Sort Tetris Password Recovery','Here is the supervisor password you requested for Sort Tetris:'.$row['password'],'From: '.$system_email_from)) 
-	return (array('success'=>true));
-    }
-    elseif ($stmt->rowCount() == 0) {
-      return (array('success'=>false,'error'=>'No supervisor account found for that email address'));
-    }
-  }
-  catch (PDOException $e) {
-    return array('success'=>false,'error'=>$e->getMessage()); 
-  }
-  //send email
-  //return status
-}
-
-function RegisterSupervisor($request, $require_supervisor_confirmation) {
-  global $system_email_from, $contact_email;
-  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/ajax.php.*/','/',$_SERVER['REQUEST_URI']);
-  $admin_url = $path .'admin/';
-  if ($require_supervisor_confirmation) {
-    $activated = 'N';
-  }
-  else { $activated = 'Y'; }
-  $db = MysqlConnect();
-  $password = CurlGet('http://www.dinopass.com/password/simple');
-  try {
-  $stmt = $db->prepare('INSERT INTO institutions(institution_id,institution_name,contact_email,contact_name,password,activated) VALUES (?,?,?,?,?,?)');
-  $stmt->execute(array(NULL,$request->inst_name,$request->email,$request->contact_name,$password,$activated));
-  if ($stmt->rowCount() == 1) { 
-      $to=$request->email;
-      $subject = 'Sort Tetris Supervisor Registration';
-      $headers = 'From: '.$system_email_from;
-      if ($activated == 'Y') {
-	$content  ='Here is the supervisor password you requested for Sort Tetris: '.$password . PHP_EOL . PHP_EOL . 'You can now send students/employees/etc to the website to play the game, and you will be able to observe their progress using the supervisor login: ' . $path . 'supervisor/';
-	$admin_subject = 'New Sort Tetris Registration (no action required)';
-	$admin_content = 'New Sort Tetris supervisor registration from '.$request->inst_name.PHP_EOL.PHP_EOL.'The supervisor is automatically activated according to the settings in globals_settings.php. If you wish to review this and other activations, you may log in to the admin module: '.$admin_url;
-      }
-      else {
-	$content = 'Thank you for registering as a Sort Tetris supervisor. Here is your supervisor password:'.$row['password'].PHP_EOL.'You will receive an email when your supervisor account is activated. When that occurs, you will be able to send students/employees/etc to the website to play the game, and you will be able to observe their progress using the supervisor login: '.$path.'supervisor/';
-	$admin_subject = 'New Sort Tetris Registration - Requires Activation';
-	$admin_content = 'New Sort Tetris supervisor registration from '.$request->inst_name.PHP_EOL.PHP_EOL.'Please act promptly to activate the supervisor request in to the admin module: '.$admin_url;
-      }
-      if (mail($to,$subject,$content, $headers)) {
-	mail($contact_email,$admin_subject,$admin_content,$headers);
-	return(array('success'=>true,'new_inst_id'=>$db->lastInsertId())); 
-      }
-      else { 
-	return(array('success'=>false, 'error'=>'unable to send confirmation email and password')); 
-      }
-  }
-  else { 
-    return(array('success'=>false, 'error'=>'unable to add supervisor')); 
-  }
-  }
-  catch (PDOException $e) { 
-    return array('success'=>false,'error'=>$e->getMessage()); 
-  }
-}
-
 function AdminListSupervisors() {
   try {
     $db=MysqlConnect(); 
-    $stmt=$db->prepare('SELECT institution_id,institution_name,contact_email,contact_name,activated FROM institutions');
+    $stmt=$db->prepare('SELECT id,institution_name,email,name,is_active FROM users');
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $return = array('success'=>true,'results'=>$results);
@@ -305,36 +240,11 @@ function AdminListSupervisors() {
   }
 }
 
-function AdminSendActivationEmail($id) {
-  global $system_email_from;
-  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/ajax.php.*/','/',$_SERVER['REQUEST_URI']);
-  try {
-    $db=MysqlConnect();
-    $stmt=$db->prepare('SELECT * FROM institutions where institution_id=?');
-    $stmt->execute(array($id));
-    var_dump;($stmt);
-    if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-      $to=$row['contact_email'];
-      $subject = 'Sort Tetris Supervisor Registration';
-      $headers = 'From: '.$system_email_from;      
-      $content  ='Dear '.$row['contact_name'].':'.PHP_EOL.PHP_EOL.'Your Sort Tetris registration as a supervisor has been activated. Your password is: '.$row['password'] . PHP_EOL . PHP_EOL . 'You can now send '.$row['institution_name'].' students/employees/etc to the website to play the game, and you will be able to observe their progress using the supervisor login: ' . $path . 'supervisor/';
-      if (mail($to,$subject,$content,$headers)) {
-	return true;
-      }
-      else {
-	return false;
-      }
-    }
-  }
-    catch (PDOException $e) {
-    return false;
-  }
-}
-
+/*
 function AdminUpdateSupervisor($update,$id) {
   try {
     $db=MysqlConnect();
-    $stmt=$db->prepare('UPDATE institutions SET activated = ? WHERE institution_id = ?');
+    $stmt=$db->prepare('UPDATE users SET activated = ? WHERE id = ?');
     if ($update == 'admin-activate-supervisor') {
       $values = array('Y',$id);
       AdminSendActivationEmail($id);
@@ -354,7 +264,8 @@ function AdminUpdateSupervisor($update,$id) {
     return array('success'=>false,'error'=>$e->getMessage()); 
   }
 }
-
+*/
+/*
 function AdminDeleteSupervisor($id) {
   try {
     $db=MysqlConnect();
@@ -371,6 +282,7 @@ function AdminDeleteSupervisor($id) {
     return array('success'=>false,'error'=>$e->getMessage()); 
   }
 } 
+*/
 
 function CheckRequiredFields ($request, $required) {
     foreach ($required as $f) {
