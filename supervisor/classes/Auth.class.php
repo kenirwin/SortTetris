@@ -261,9 +261,7 @@ EOT;
 
     // Store the user ID in the session
     $_SESSION['user_id'] = $user->id;
-    $_SESSION['name'] = $user->name;
-    $_SESSION['institution_name'] = $user->institution_name;
-    $_SESSION['id'] = $user->id;
+
     // Regenerate the session ID to prevent session hijacking
     session_regenerate_id();
   }

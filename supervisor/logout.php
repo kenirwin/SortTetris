@@ -5,7 +5,7 @@
  */
 
 // Initialisation
-require_once('includes/init.php');
+require_once('../includes/init.php');
 
 Auth::getInstance()->logout();
 

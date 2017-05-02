@@ -1,0 +1,67 @@
+<?php
+session_start();
+$_SESSION = array();
+include('supervisor_scripts.php');
+include('../global_settings.php');
+include('../functions.php');
+?>
+<html>
+<head>
+<style>
+@import url("../style.css");
+</style>
+</head>
+<body>
+<?php
+if (isset($_POST['password']) && isset($_POST['email'])) {
+  $id = VerifyLogin($_POST['password'], $_POST['email']);
+  if ($id > 0) {
+    header('Location: index.php');
+  }
+  else { 
+    print '<div class="notice">Unable to authenticate</div>'.PHP_EOL;
+  }
+}
+?>
+<h1>Sort Tetris - Supervisor Login</h1>
+<div id="description">
+  When you <a href="register.php">register</a> as a supervisor, you will get access to the scores of all players who play Sort Tetris after identifying themselves as a member of your instution/office/class/etc. Be sure your students/employees are identifying themselves to get credit for their practice. 
+</div>
+
+<?php
+  SupervisorNav();
+?>
+<form method="post">
+ <label for="email">Email:</label>
+ <input type="text" name="email" /><br />
+   <label for="password">Password:</label>
+   <input type="password" name="password" /><br />
+   <input type="submit" value="Log in" />
+</form>
+<div id="recover-login"><a href="recover.php">Forgot your password? Recover it.</a></div>
+
+<?php include('../license.php'); ?>
+<?php
+if (isset($google_analytics_id)) {
+  include_once('../google_analytics.php');
+}
+?>
+</body>
+</html>
+<?php
+  function VerifyLogin($pass,$email) {
+      if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
+	$curr_dir = $m[1];
+      }
+      $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
+      $ajax_url = $path.'../ajax.php?action=authenticate&user='.$email.'&pass='.$pass;
+      $json = CurlGet($ajax_url);
+      $response = json_decode($json);
+      if (isset($response->institution_id)) {
+	$_SESSION['institution_id'] = $response->institution_id;
+	$_SESSION['institution_name'] = $response->institution_name;
+	return($response->institution_id);
+      }
+      else { return(0); }
+    }
+?>

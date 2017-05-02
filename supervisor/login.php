@@ -1,67 +1,84 @@
 <?php
-session_start();
-$_SESSION = array();
-include('supervisor_scripts.php');
-include('../global_settings.php');
-include('../functions.php');
-?>
-<html>
-<head>
-<style>
-@import url("../style.css");
-</style>
-</head>
-<body>
-<?php
-if (isset($_POST['password']) && isset($_POST['email'])) {
-  $id = VerifyLogin($_POST['password'], $_POST['email']);
-  if ($id > 0) {
-    header('Location: index.php');
-  }
-  else { 
-    print '<div class="notice">Unable to authenticate</div>'.PHP_EOL;
-  }
-}
-?>
-<h1>Sort Tetris - Supervisor Login</h1>
-<div id="description">
-  When you <a href="register.php">register</a> as a supervisor, you will get access to the scores of all players who play Sort Tetris after identifying themselves as a member of your instution/office/class/etc. Be sure your students/employees are identifying themselves to get credit for their practice. 
-</div>
 
-<?php
-  SupervisorNav();
-?>
-<form method="post">
- <label for="email">Email:</label>
- <input type="text" name="email" /><br />
-   <label for="password">Password:</label>
-   <input type="password" name="password" /><br />
-   <input type="submit" value="Log in" />
-</form>
-<div id="recover-login"><a href="recover.php">Forgot your password? Recover it.</a></div>
+/**
+ * Log in a user
+ */
 
-<?php include('../license.php'); ?>
-<?php
-if (isset($google_analytics_id)) {
-  include_once('../google_analytics.php');
-}
-?>
-</body>
-</html>
-<?php
-  function VerifyLogin($pass,$email) {
-      if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
-	$curr_dir = $m[1];
-      }
-      $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
-      $ajax_url = $path.'../ajax.php?action=authenticate&user='.$email.'&pass='.$pass;
-      $json = CurlGet($ajax_url);
-      $response = json_decode($json);
-      if (isset($response->institution_id)) {
-	$_SESSION['institution_id'] = $response->institution_id;
-	$_SESSION['institution_name'] = $response->institution_name;
-	return($response->institution_id);
-      }
-      else { return(0); }
+// Initialisation
+require_once('../includes/init.php');
+
+// Require the user to NOT be logged in before they can see this page.
+Auth::getInstance()->requireGuest();
+
+// Get checked status of the "remember me" checkbox
+$remember_me = isset($_POST['remember_me']);
+
+// Process the submitted form
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  $email = $_POST['email'];
+
+  if (Auth::getInstance()->login($email, $_POST['password'], $remember_me)) {
+
+    // Redirect to home page or intended page, if set
+    if (isset($_SESSION['return_to'])) {
+      $url = $_SESSION['return_to'];
+      unset($_SESSION['return_to']);
+    } else {
+      $url = '/index.php';
     }
+
+    Util::redirect($url);
+  }
+}
+
+
+// Set the title, show the page header, then the rest of the HTML
+$page_title = 'Login';
+include('includes/header.php');
+
 ?>
+
+<h1>Login</h1>
+<?php 
+$_SESSION = array();
+session_destroy(); 
+//print_r($_SESSION);
+?>
+<?php if (isset($email)): ?>
+  <div class="uk-alert uk-alert-warning">Invalid login</div>
+<?php endif; ?>
+
+<form method="post" class="uk-form uk-form-horizontal">
+  <div class="uk-form-row">
+    <label for="email" class="uk-form-label">Email address</label>
+    <div class="uk-form-controls">
+      <input id="email" name="email" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>" type="email" autofocus="autofocus" required="required" />
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <label for="password" class="uk-form-label">Password</label>
+    <div class="uk-form-controls">
+      <input type="password" id="password" name="password" required="required" />
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <div class="uk-form-controls uk-form-controls-text">
+      <label for="remember_me" class="uk-form-label">
+        <input id="remember_me" name="remember_me" type="checkbox" value="1"
+               <?php if ($remember_me): ?>checked="checked"<?php endif; ?>/> remember me
+      </label>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <div class="uk-form-controls">
+      <button class="uk-button uk-button-primary">Login</button>
+      <a href="forgot_password.php">I forgot my password</a>
+    </div>
+  </div>
+</form>
+
+<?php include('includes/footer.php'); ?>
