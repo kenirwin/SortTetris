@@ -15,7 +15,7 @@ else {
     header('Location: ./unavailable.php?reason=disallowed');
   }
   elseif (preg_match('/supervisor\/signup.php/', $_SERVER['SCRIPT_NAME'])) {
-    if (!isset($allow_supervisor_registrationxxx) || $allow_supervisor_registration === false) {
+    if (!isset($allow_supervisor_registration) || $allow_supervisor_registration === false) {
       header('Location: ./unavailable.php?reason=registration-disallowed');
     }
   }
