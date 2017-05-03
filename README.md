@@ -17,12 +17,14 @@ http://www.sort-tetris.com/play/
 ## Installation
 
 The basic functionality of Sort Tetris should work "out of the box" upon moving the files to a suitable server. The leaderboard and supervisor functions, however, require access to MySQL. To set up the leaderboard:
-1. IMPORTANT SECURITY FIRST-STEP: password-protect the `admin` folder using .htaccess
-2. create a database and authorized user or use an existing MySQL database
- * Database user permissions: ALTER, CREATE, DELETE, INSERT, SELECT, UPDATE
-3. copy the file `global_settings_example.php` to `global_settings.php`
-4. modify the variables in `global_settings.php` to connect to the database
-5. Create the database tables by one of two methods:
+1. create a database and authorized user or use an existing MySQL database
+   * Database user permissions: ALTER, CREATE, DELETE, INSERT, SELECT, UPDATE
+2. copy the file `global_settings_example.php` to `global_settings.php`
+3. modify the variables in `global_settings.php` to connect to the database
+4. copy the file `supervisor/classes/Config_Sample.class.php` to `supervisor/classes/Config.class.php`
+5. modify the variables in `Config.class.php`; there will be some overlap with step 3.
+   * Future versions will combine the `global_settings.php` and `Config.class.php` files, but not yet.
+6. Create the database tables by one of two methods:
    * Automated: Use a web browser to go to 'install/index.php' 
    * OR Manual: Use the `tables.sql` file to create the table in your mysql database
 
