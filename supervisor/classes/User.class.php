@@ -63,7 +63,7 @@ class User
 
     } catch(PDOException $exception) {
 
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
 
       $data['users'] = [];
     }
@@ -119,7 +119,7 @@ class User
 
     } catch(PDOException $exception) {
 
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
     }
   }
   
@@ -166,7 +166,7 @@ class User
 
     } catch(PDOException $exception) {
 
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
     }
   }
   
@@ -241,8 +241,7 @@ class User
       }
 
     } catch(PDOException $exception) {
-
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
     }
   }
 
@@ -266,7 +265,7 @@ class User
     } catch(PDOException $exception) {
 
       // Log the detailed exception
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
     }
 
     return 0;
@@ -304,8 +303,7 @@ class User
       }
 
     } catch(PDOException $exception) {
-
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
     }
   }
 
@@ -330,7 +328,7 @@ class User
     } catch(PDOException $exception) {
 
       // Log the detailed exception
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
     }
   }
 
@@ -353,7 +351,7 @@ class User
     } catch(PDOException $exception) {
 
       // Log the detailed exception
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
     }
   }
 
@@ -367,6 +365,7 @@ class User
    */
   public function save($data)
   {
+    $this->institution_name = $data['institution_name'];
     $this->name = $data['name'];
     $this->email = $data['email'];
 
@@ -390,7 +389,7 @@ class User
         // Prepare the SQL: Update the existing record if editing, or insert new if adding
         if (isset($this->id)) {
 
-          $sql = 'UPDATE users SET name = :name, email = :email, is_active = :is_active, is_admin = :is_admin';
+          $sql = 'UPDATE users SET institution_name = :institution_name, name = :name, email = :email, is_active = :is_active, is_admin = :is_admin';
 
           if (isset($this->password)) {  // only update password if set
             $sql .= ', password = :password';
@@ -400,11 +399,12 @@ class User
 
         } else {
 
-          $sql = 'INSERT INTO users (name, email, password, is_active, is_admin) VALUES (:name, :email, :password, :is_active, :is_admin)';
+          $sql = 'INSERT INTO users (institution_name, name, email, password, is_active, is_admin) VALUES (:institution_name, :name, :email, :password, :is_active, :is_admin)';
         }
 
         // Bind the parameters
         $stmt = $db->prepare($sql);
+	$stmt->bindParam(':institution_name', $this->institution_name);
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':is_active', $this->is_active);
@@ -434,7 +434,7 @@ class User
 
         // Set generic error message and log the detailed exception
         $this->errors = ['error' => 'A database error occurred.'];
-        error_log($exception->getMessage());
+        error_log($exception->getMessage() . ' on line: ' .$exception->getLine());
       }
     }
 
@@ -471,7 +471,7 @@ class User
     } catch(PDOException $exception) {
 
       // Log the detailed exception
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
     }
 
     return false;
@@ -499,7 +499,7 @@ class User
       } catch(PDOException $exception) {
 
         // Log the detailed exception
-        error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
       }
     }
   }
@@ -539,7 +539,7 @@ class User
     } catch(PDOException $exception) {
 
       // Log the detailed exception
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
     }
 
     return false;
@@ -574,7 +574,7 @@ class User
 
         // Set generic error message and log the detailed exception
         $this->errors = ['error' => 'A database error occurred.'];
-        error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
       }
       
     } else {
@@ -638,7 +638,7 @@ class User
 
     } catch(PDOException $exception) {
 
-      error_log($exception->getMessage());
+      error_log($exception->getMessage() . ' on line: '. $exception->getLine() );
       $count = 0;
     }
 

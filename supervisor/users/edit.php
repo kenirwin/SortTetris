@@ -5,7 +5,7 @@
  */
 
 // Initialisation
-require_once('../../includes/init.php');
+require_once('../includes/init.php');
 
 // Require the user to be logged in before they can see this page.
 Auth::getInstance()->requireLogin();
@@ -23,13 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($user->save($_POST)) {
 
     // Redirect to show page
-    Util::redirect('/admin/users/show.php?id=' . $user->id);
+    Util::redirect('/users/show.php?id=' . $user->id);
   }
 }
 
 
 // Show the page header, then the rest of the HTML
-include('../../includes/header.php');
+include('../includes/header.php');
 
 ?>
 
@@ -37,4 +37,4 @@ include('../../includes/header.php');
 
 <?php include('form.php'); ?>
     
-<?php include('../../includes/footer.php'); ?>
+<?php include('../includes/footer.php'); ?>

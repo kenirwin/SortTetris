@@ -5,7 +5,7 @@
  */
 
 // Initialisation
-require_once('../../includes/init.php');
+require_once('../includes/init.php');
 
 // Require the user to be logged in before they can see this page.
 Auth::getInstance()->requireLogin();
@@ -23,12 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $user->delete();
 
   // Redirect to index page
-  Util::redirect('/admin/users');
+  Util::redirect('/users');
 }
 
 
 // Show the page header, then the rest of the HTML
-include('../../includes/header.php');
+include('../includes/header.php');
 
 ?>
 
@@ -39,8 +39,8 @@ include('../../includes/header.php');
   <p>Are you sure?</p>
 
   <button class="uk-button uk-button-danger">Delete</button>
-  <a href="/admin/users/show.php?id=<?php echo $user->id; ?>">Cancel</a>
+  <a href=".//show.php?id=<?php echo $user->id; ?>">Cancel</a>
 </form>
 
     
-<?php include('../../includes/footer.php'); ?>
+<?php include('../includes/footer.php'); ?>

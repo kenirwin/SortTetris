@@ -8,6 +8,13 @@
 
 <form method="post" id="userForm" class="uk-form uk-form-horizontal">
   <div class="uk-form-row">
+    <label for="institution_name" class="uk-form-label">Institution Name</label>
+    <div class="uk-form-controls">
+      <input id="institution_name" name="institution_name" required="required" value="<?php echo htmlspecialchars($user->institution_name); ?>" />
+    </div>
+  </div>
+
+  <div class="uk-form-row">
     <label for="name" class="uk-form-label">Name</label>
     <div class="uk-form-controls">
       <input id="name" name="name" required="required" value="<?php echo htmlspecialchars($user->name); ?>" />
@@ -15,7 +22,7 @@
   </div>
 
   <div class="uk-form-row">
-    <label for="email" class="uk-form-label">email address</label>
+    <label for="email" class="uk-form-label">Email address</label>
     <div class="uk-form-controls">
       <input id="email" name="email" required="required" type="email" value="<?php echo htmlspecialchars($user->email); ?>" />
     </div>
@@ -66,7 +73,7 @@
   <div class="uk-form-row">
     <div class="uk-form-controls">
       <button class="uk-button uk-button-primary">Save</button>
-      <a href="/admin/users<?php if (isset($user->id)) { echo '/show.php?id=' . $user->id; } ?>">Cancel</a>
+      <a href="<?php print Config::REDIR_PATH;?>/users<?php if (isset($user->id)) { echo '/show.php?id=' . $user->id; } ?>">Cancel</a>
     </div>
   </div>
 </form>
