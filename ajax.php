@@ -175,7 +175,7 @@ function MysqlConnect($print_errors=true) {
   if (file_exists('global_settings.php')) {
     include ('global_settings.php');
   }
-    foreach (['host', 'database','charset','user','pass'] as $f) {
+    foreach (['host', 'database','charset','db_user','db_pass'] as $f) {
         if (!isset($$f)) { 
 	  $return = array('message' => 'MySQL Connect Error: variable $'.$f.' not set in global_settings.php');
 	    if ($print_errors) {
@@ -188,7 +188,7 @@ function MysqlConnect($print_errors=true) {
     }
     
     try {
-        $db = new PDO("mysql:host=$host;dbname=$database;charset=$charset", "$user", "$pass");
+        $db = new PDO("mysql:host=$host;dbname=$database;charset=$charset", "$db_user", "$db_pass");
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $db;
     }

@@ -2,8 +2,8 @@
 /* mysql connection info */
 $host = "localhost";
 $database = "";
-$user = "";
-$pass = "";
+$db_user = "";
+$db_pass = "";
 $charset = "utf8";
 
 $audioOK = false; // set to true to allow music
@@ -11,10 +11,8 @@ $audioOK = false; // set to true to allow music
 $display_institution_select = false; // set to true to allow users to select their inst manually
 $display_supervisor_reg_links = true; //only effective if next setting==true
 $allow_supervisor_registration = false; 
-$require_supervisor_confirmation = true; // false allows supervisors to register on the site without needing a sort-tetris administrator activate the user manually
-$allow_admin = false; // set this to true once you have password-protected the admin directory
-$system_email_from = ''; //this email address will be used to send recovered passwords
-$contact_email = ''; //email to which contact form submissions will be sent
+$allow_admin = false; //set to true once database has been set up in this file and in supervisor/classes/Config.class.php, only if you wish to allow supervisor logins
+
 
 /* Captcha API keys */
 $using_captcha = false; //set to true when you add your keys (below)
