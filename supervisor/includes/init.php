@@ -3,7 +3,9 @@
 /**
  * Initialisations
  */
-
+if (! file_exists(dirname(dirname(__FILE__)) . '/classes/Config.class.php')) {
+  header('Location: ./unavailable.php');
+}
 
 // Register autoload function
 spl_autoload_register('myAutoloader');
