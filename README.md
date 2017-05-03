@@ -33,16 +33,15 @@ The basic functionality of Sort Tetris should work "out of the box" upon moving 
 1. Allow supervisors to register by altering several settings in `global_settings.php`:
  * $allow_supervisor_registration - when set to true, supervisors may register
  * $display_supervisor_reg_links - when true, links appear to the registration form. (If false, but registration is allowed, registering supervisors would have to know how to find the registration link directly.)
- * $require_supervisor_confirmation - when true, the site administrator would have to activate registering supervisors in the Admin module (see below)
  * $display_institution_select - when true, the institutional login link will appear on the game page. If false, an institutional player would have to have a direct link to their an institution URL in order to play as a logged-in user. 
 
-2. Access administrative function using the  $allow_admin variable. When true, the ./admin URL will function. You should not activate this setting until you have password-protected the admin directory.
+2. Allow access to administrative functions using the $allow_admin variable. When true, the ./supervisor URL will function.
 
 3. Turn on the sound! If you server supports playing mp3 audio, set `$audioOK = true` in `global_settings.php`. By default it is set to false because servers without support for this feature may hang significantly if the setting is turned on.
 
 4. Use Google Analytics. You may add a Google Analytics ID to the $google_analytics_id variable in `global_settings.php` to track use of the program in Google Analytics.
 
-5. Protect your site using Captcha. To limit bogus activity on the Supervisor functions, it is strongly recommended that you use Google's ReCaptcha service. Obtain a ReCaptcha API key pair at: https://developers.google.com/recaptcha/docs/start . Once you have done so, add them to the global_settings.php file and set `$using_captcha` to true.
+<> 5. Protect your site using Captcha. To limit bogus activity on the Supervisor functions, it is strongly recommended that you use Google's ReCaptcha service. Obtain a ReCaptcha API key pair at: https://developers.google.com/recaptcha/docs/start . Once you have done so, add them to the global_settings.php file and set `$using_captcha` to true.
 
 ## Game Configuration
 
@@ -91,6 +90,8 @@ Written by Ken Irwin, Wittenberg University
 
 Structure based in part on Tetris with jQuery by Franck Marcia (MIT License):
 http://fmarcia.info/jquery/tetris/tetris.html
+
+Supervisor & Admin functionality substantially based on code from Dave Hollingworth's excellent Udemy course materials for [Login and Registration from Scratch with PHP and MySQL](https://www.udemy.com/authentication-from-scratch-with-php-and-mysql/learn/v4/overview)
 
 Animal photos used under the Creative Commons CC0 from https://pixabay.com, or under public domain from Wikimedia Commons.
 
