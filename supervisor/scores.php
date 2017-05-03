@@ -5,7 +5,7 @@ require_once('includes/init.php');
 Auth::getInstance()->requireLogin();
 // Set the title, show the page header, then the rest of the HTML
 $page_title = 'Supervisor View';
-include('../includes/header.php');
+include('includes/header.php');
 include('../functions.php');
 ?>
 <head>

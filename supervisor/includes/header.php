@@ -18,7 +18,7 @@
           <?php if (Auth::getInstance()->isAdmin()): ?>
             <li><a href="./admin/users">Admin</a></li>
           <?php endif; ?>
-          <li><a href="./scores.php">Supervisor Panel</a></li>
+          <li><a href="./index.php">Supervisor Panel</a></li>
           <li><a href="./logout.php">Logout</a></li>
 
         <?php else: ?>
