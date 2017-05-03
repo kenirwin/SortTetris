@@ -40,6 +40,8 @@ include('includes/header.php');
   </ul>
 <?php endif; ?>
 
+<div class="uk-grid">
+<div class="uk-width-medium-4-10">
 <form method="post" id="signupForm" class="uk-form uk-form-horizontal">
   <div class="uk-form-row">
     <label for="name" class="uk-form-label">Name</label>
@@ -75,5 +77,15 @@ include('includes/header.php');
     </div>
   </div>
 </form>
+</div>
 
+<div class="uk-width-medium-5-10" id="description">
+<div class="uk-panel">
+<div class="uk-panel-box">
+  When you <a href="register.php">register</a> as a supervisor, you will get access to the scores of all players who play Sort Tetris after identifying themselves as a member of your instution/office/class/etc. Be sure your students/employees are identifying themselves to get credit for their practice. 
+</div>
+</div>
+</div>
+
+</div>
 <?php include('includes/footer.php'); ?>

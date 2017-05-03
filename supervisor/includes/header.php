@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><?php if (isset($page_title)): ?><?php echo $page_title; ?> | <?php endif; ?>Example Site</title>
+  <title><?php if (isset($page_title)): ?><?php echo $page_title; ?> | <?php endif; ?>Sort Tetris Supervisor</title>
   <meta charset="utf-8" /> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.18.0/css/uikit.gradient.min.css" />
-  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
@@ -18,13 +18,13 @@
           <?php if (Auth::getInstance()->isAdmin()): ?>
             <li><a href="./admin/users">Admin</a></li>
           <?php endif; ?>
-          <li><a href="./profile.php">Profile</a></li>
+          <li><a href="./scores.php">Supervisor Panel</a></li>
           <li><a href="./logout.php">Logout</a></li>
 
         <?php else: ?>
 
           <li><a href="./login.php">Login</a></li>
-
+	  <li><a href="./signup.php">Register</a></li>   
         <?php endif; ?>
 
       </ul>
