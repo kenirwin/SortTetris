@@ -1,6 +1,8 @@
 <?php
 header("Content-type: application/json");
-include ("global_settings.php"); 
+if (file_exists('global_settings.php')) {
+  include ('global_settings.php');
+}
 include ("functions.php");
 
 $request = (object) $_REQUEST;
@@ -170,7 +172,9 @@ function TestMysql() {
 }
 
 function MysqlConnect($print_errors=true) { 
-    include ("global_settings.php"); 
+  if (file_exists('global_settings.php')) {
+    include ('global_settings.php');
+  }
     foreach (['host', 'database','charset','user','pass'] as $f) {
         if (!isset($$f)) { 
 	  $return = array('message' => 'MySQL Connect Error: variable $'.$f.' not set in global_settings.php');

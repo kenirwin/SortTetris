@@ -48,7 +48,10 @@ $mysql_connected = TestMysql();
 </script>
 
 <?php
-include ('global_settings.php'); 
+if (file_exists('global_settings.php')) {
+  include ('global_settings.php');
+}
+
 if (isset($_GET['settings'])) {
     $filename = './settings/settings_'.$_GET['settings'].'.php';
     if (is_readable($filename)) {
@@ -78,7 +81,7 @@ if (isset($_GET['settings'])) {
 </head>
 <body>
 <?php
-     if ($audioOK) { 
+    if (isset($audioOK) && $audioOK) { 
          include ("audio.php");
      }
 ?>
@@ -143,8 +146,8 @@ if (isset($_GET['settings'])) {
 <p>Note: You will not be able to select an answer for the current block after un-pausing the game.</p>
 </div>
 </div>
-<?php
-if ($audioOK == true) {
+<?php							    
+if (isset ($audioOK) && ($audioOK == true)) {
   print '<div id="audio-toggle"><img src="images/audioOn.png" id="audio-toggle-button"></div>';
 }
 ?>
@@ -192,7 +195,7 @@ if ($mysql_connected && $display_supervisor_reg_links && $allow_supervisor_regis
     $ch = curl_init($path."/ajax.php?action=list-games");
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = json_decode(curl_exec($ch));
+    $response = json_decode(curl_exec($ch));
     curl_close($ch);
     
     print '<ol id="list-games">'.PHP_EOL;
@@ -256,7 +259,11 @@ function TestMysql() {
     $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
   $url = $path.'ajax.php?action=test-mysql';
   $response = json_decode(CurlGet($url));
-  return($response->success);
+  if (is_null($response)) {
+    return false;
+  }
+  else
+    return($response->success);
 }
 
 

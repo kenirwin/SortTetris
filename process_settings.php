@@ -36,7 +36,7 @@ else {
 <script type="text/javascript">
 var settings_buttons = <?php print($json_buttons); ?>;
 var settings_dataFile = "<?php print($data_file); ?>";
-var settings_audioOK = <?php if($audioOK) { print 'true'; } else print 'false'; ?>;
+var settings_audioOK = <?php if(isset($audioOK) && $audioOK) { print 'true'; } else print 'false'; ?>;
 var settings_itemLabel = "<?php print($item_label_cap); ?>";
 var settings_pointUnits = <?php print($point_units); ?>;
 var settings_interval = <?php print($drop_delay); ?>;
