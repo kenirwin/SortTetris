@@ -177,7 +177,7 @@ else {
 
 																			      
 <?php
-if ($mysql_connected && $display_supervisor_reg_links && $allow_supervisor_registration) {
+if (isset($display_supervisor_reg_links)  && isset($allow_supervisor_registration) && $mysql_connected && $display_supervisor_reg_links && $allow_supervisor_registration) {
   print '<p><b>For Supervisors and Teachers:</b> If you would like your employees or students to play Sort Tetris, they can play as guests or you can <a href="supervisor/signup.php" class="button-inline">register as a supervisor</a>. Registered supervisors will be able to track the progress of users who identify their institutional affiliation using the green "Playing for Work/School" pulldown. Registered supervisors can <a href="supervisor/login.php" class="button-inline">log in</a> here.</p>';
 }
 ?>
