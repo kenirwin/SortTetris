@@ -175,3 +175,4 @@ button, .button, .button-small, .button-inline{
     background-color: lightgrey;
     color: darkgrey;
 }
+.warn { color: red; } 
