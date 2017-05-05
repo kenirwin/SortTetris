@@ -12,8 +12,18 @@ Auth::getInstance()->requireGuest();
 
 // Process the submitted form
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-  $user = User::signup($_POST);
+  include('../global_settings.php');
+  $proceed = true;
+  if ($using_captcha) {
+    include('../captcha.php');
+    if (! ConfirmHuman($captcha_secret_key)) {
+      $proceed = false;
+      $message_sent = false;
+    }
+  }
+  if ($proceed === true) {
+    $user = User::signup($_POST);
+  }
 
   if (empty($user->errors)) {
 
@@ -69,6 +79,15 @@ include('includes/header.php');
       <input type="password" id="password" name="password" required="required" pattern=".{5,}" title="minimum 5 characters" />
     </div>
   </div>
+
+  <?php
+  if ($using_captcha) {
+    print '<div class="uk-form-row">'.PHP_EOL;
+    print '<div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>'.PHP_EOL;
+    print '</div>'.PHP_EOL;
+  }
+?>
+
 
   <div class="uk-form-row">
     <div class="uk-form-controls">

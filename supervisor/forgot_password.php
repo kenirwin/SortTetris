@@ -56,7 +56,9 @@ include('../global_settings.php');
 
   <?php
   if ($using_captcha) {
-    print '<div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>';
+    print '<div class="uk-form-row">'.PHP_EOL;
+    print '<div class="g-recaptcha" data-sitekey="'.$captcha_site_key.'"></div>'.PHP_EOL;
+    print '</div>'.PHP_EOL;
   }
 ?>
 

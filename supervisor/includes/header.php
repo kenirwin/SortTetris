@@ -5,7 +5,7 @@
   <meta charset="utf-8" /> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.18.0/css/uikit.gradient.min.css" />
    <link rel="stylesheet" href= <?php print '"'.Config::REDIR_PATH .'/css/styles.css"'; ?> />
-  <?php if (preg_match('/(forgot_password)/',$_SERVER['SCRIPT_NAME'])) :?>
+  <?php if (preg_match('/(forgot_password)|(signup.php)/',$_SERVER['SCRIPT_NAME'])) :?>
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <?php endif ?>
 </head>
