@@ -5,7 +5,7 @@
 <script type="text/javascript" src="./lib/jquery.js"></script>
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 <style>
-@import url("../style.css");
+@import url("./style.css");
 </style>
 <script type="text/javascript">
    $(document).ready(function() {
@@ -80,7 +80,6 @@ function SendMail() {
   else { 
     print '<div class="warn">Unable to send mail.</div>'.PHP_EOL;
   }
-  print '<div><a href="./">Return to the game</a></div>'.PHP_EOL;
   }
 function PrintContactForm() {
   global $captcha_site_key, $using_captcha;
@@ -101,6 +100,9 @@ function PrintContactForm() {
   print '<input type="submit" name="submit_contact"/>'.PHP_EOL;
   print '</form>'.PHP_EOL;
 }
+
+print '<div><a href="./">Return to the game</a></div>'.PHP_EOL;
+include('license.php');
 
 function SubmittedValue($field) {
   if (isset($_REQUEST[$field]) && !empty($_REQUEST[$field])) { 
