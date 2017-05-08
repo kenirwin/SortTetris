@@ -41,7 +41,7 @@ The basic functionality of Sort Tetris should work "out of the box" upon moving 
 
 4. Use Google Analytics. You may add a Google Analytics ID to the $google_analytics_id variable in `global_settings.php` to track use of the program in Google Analytics.
 
-[not currently enabled]: 5. Protect your site using Captcha. To limit bogus activity on the Supervisor functions, it is strongly recommended that you use Google's ReCaptcha service. Obtain a ReCaptcha API key pair at: https://developers.google.com/recaptcha/docs/start . Once you have done so, add them to the global_settings.php file and set `$using_captcha` to true.
+5. Protect your site using Captcha. To limit bogus activity on the Supervisor functions, it is strongly recommended that you use Google's ReCaptcha service. Obtain a ReCaptcha API key pair at: https://developers.google.com/recaptcha/docs/start . Once you have done so, add them to the global_settings.php file and set `$using_captcha` to true.
 
 ## Game Configuration
 
