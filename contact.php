@@ -73,7 +73,7 @@ function SendMail() {
   $to = $contact_email;
   $subject = $_REQUEST['subject'];
   $content = $_REQUEST['message'];
-  $headers = 'From: '.$REQUEST['from_name'] .'<'. $_REQUEST['from_email'].'>';
+  $headers = 'From: '.$_REQUEST['from_name'] .'<'. $_REQUEST['from_email'].'>';
   if (mail($to,$subject,$content,$headers)) {
     print "<div>Mail sent. We will be in touch with you as soon as possible.</div>";
   }
