@@ -1,6 +1,6 @@
 <?php
 $buttons = array ('mammal','bird','fish');
-$data_file = 'pix.json';
+$data_file = 'animalpix.json';
 $item_label = 'animal';
 $game_title = 'Pictured Animal Tetris';
 $game_logo_file = ''; //leave blank for text title
