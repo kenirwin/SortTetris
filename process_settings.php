@@ -16,7 +16,7 @@ if (isset($infopage) && file_exists('infopages/'.$infopage) && $infopage != '') 
 $game_header .= '</div>'.PHP_EOL;
 
   if ($mysql_connected && $display_supervisor_reg_links && $allow_supervisor_registration) {
-    $supervisor_login_link .='<p class="supervisor_login_link"><a href="supervisor">Supervisor Login</a></p>';
+    $supervisor_login_link ='<p class="supervisor_login_link"><a href="supervisor">Supervisor Login</a></p>';
   }
 
 
