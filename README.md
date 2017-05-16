@@ -69,7 +69,7 @@ This will generate a correctly-formatted JSON file `animals.json` in the `data-f
 
 The `infopages/` directory contains infomrational or instructional materials to support learning. Links to relevant infopages are defined in the settings for each game. Users are encouraged to develop helpful infopages for any game they create. 
 
-The `generate_infopage.php` script creates very simple infopages most suitable for known-item lists, such as presidents or instruments. The script lists all of the answers by category and links to the relevant Wikipedia page. Note: this is not a "smart" feature -- it speeds up the process of creating such a page, but may link to the "wrong" Wikipedia page (e.g. the "triagle" wikipedia page is about the shape, not about the musical instrument.) It is strongly suggested that you test and edit any infopages generated automatically. 
+The `generate_infopage.php` script creates very simple infopages most suitable for known-item lists, such as presidents or instruments. The script lists all of the answers by category and links to the relevant Wikipedia page. Note: this is not a "smart" feature -- it speeds up the process of creating such a page, but may link to the "wrong" Wikipedia page (e.g. the "triangle" wikipedia page is about the shape, not about the musical instrument.) It is strongly suggested that you test and edit any infopages generated automatically. 
 
 The `generate_infopage.php` script does not, by default, write a new file (to protect edited infopages from being accidentally overwritten.) To use the script to create a file, use the `>` directive to write a new file, e.g.
 
