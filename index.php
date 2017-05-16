@@ -211,6 +211,13 @@ if (isset($display_supervisor_reg_links)  && isset($allow_supervisor_registratio
 ?>
 </div>
 
+<?php
+if (isset($supervisor_login_link)){
+  print $supervisor_login_link;
+}
+
+?>
+
 <?php include('license.php'); ?>
 
 <?php
