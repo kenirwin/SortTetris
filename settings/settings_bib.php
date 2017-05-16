@@ -5,7 +5,7 @@ $buttons = array ('book','book chapter','article');
 $data_file = 'bibliography.json';
 $item_label = 'citation';
 $game_title = 'Citation Tetris';
-$game_logo_file = 'logo.png'; //leave blank for text title
+$game_logo_file = 'images/logos/biblogo.png'; //leave blank for text title
 $public_game = true; //true to list as an available game; false hides unless users has the direct URL; settings inlude in GitHub repository should all be public
 $infopage = 'citations.html'; // in the infopages/ folder
 
