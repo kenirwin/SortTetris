@@ -22,7 +22,7 @@ table {border: 1px solid black  }
 <script src="../lib/jquery.js"></script>
 <script src="../lib/jquery.dynatable.js"></script>
 <?php
-  $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. preg_replace('/\/supervisor\/.*/','/',$_SERVER['REQUEST_URI']);
+$path = preg_replace('/\/supervisor\/.*/','/',$_SERVER['SCRIPT_URI']);
 $ajax_url = $path.'ajax.php?action=supervisor&config_file='.$_REQUEST['config'].'&inst_id='.$_SESSION['user_id'];
 
   $json = CurlGet($ajax_url);
