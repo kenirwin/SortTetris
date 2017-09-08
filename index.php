@@ -193,14 +193,12 @@ if (isset($display_supervisor_reg_links)  && isset($allow_supervisor_registratio
 
 <h2>Choose a Game</h2>
 <?php
-    if (preg_match('/^(.+)\//',$_SERVER['REQUEST_URI'], $m)) {
-        $path = 'http://' . $_SERVER['HTTP_HOST'] . $m[1];
-    }
-    $ch = curl_init($path."/ajax.php?action=list-games");
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response = json_decode(curl_exec($ch));
-    curl_close($ch);
+   $path = Path();
+  $ch = curl_init($path."/ajax.php?action=list-games");
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $response = json_decode(curl_exec($ch));
+  curl_close($ch);
     
     print '<ol id="list-games">'.PHP_EOL;
     foreach($response as $game) {
@@ -240,10 +238,7 @@ function InstSelector() {
       $selected_display="none";
     }
     
-    if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
-      $curr_dir = $m[1];
-    }
-    $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
+    $path = Path();
     $ajax_url = $path.'ajax.php?action=list-institutions';
     $json = CurlGet($ajax_url);
     $opts = '<option>--Select an Institution--</option>';
@@ -264,10 +259,7 @@ function InstSelector() {
   }
 
 function TestMysql() {
-    if(preg_match("/(.*\/)/",$_SERVER['REQUEST_URI'],$m)) {
-      $curr_dir = $m[1];
-    }
-    $path = $_SERVER['REQUEST_SCHEME'] .'://'.$_SERVER['HTTP_HOST']. $curr_dir;
+  $path = Path();
   $url = $path.'ajax.php?action=test-mysql';
   $response = json_decode(CurlGet($url));
   if (is_null($response)) {
@@ -277,5 +269,13 @@ function TestMysql() {
     return($response->success);
 }
 
-
+function Path () {
+  if(preg_match("/(.*\/)/",$_SERVER['SCRIPT_URI'],$m)) {
+    $curr_dir = $m[1];
+    return $curr_dir;
+  }
+  else {
+    return false;
+  }
+}
 ?>
