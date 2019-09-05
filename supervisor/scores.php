@@ -76,7 +76,7 @@ $(document).ready(function() {
             }
         },
 series : 
-	<?php echo($series_json);?>
+	<?php print ($series_json);?>
 
     });
 
@@ -86,7 +86,7 @@ series :
 </head>
 
 <body>
-<h1>Scores: <? print $_REQUEST['title']; ?></h1>
+<h1>Scores: <?php print $_REQUEST['title']; ?></h1>
 <?php include("display_login.php"); ?>
 <p><a href="./">Return to Main Supervisor Screen</a></p>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -114,7 +114,7 @@ series :
 
 
 <pre id="json-records">
-<?
+<?php
   print ($json);
 ?>
 </pre>

@@ -10,7 +10,7 @@
 <body>
 <h1>Sort Tetris - Installation</h1>
 
-<?
+<?php
 $db = MysqlConnect();
 
 if (!isset($_REQUEST['install']) || ! $_REQUEST['install']) {

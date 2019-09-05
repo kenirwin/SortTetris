@@ -21,7 +21,7 @@ include('../global_settings.php');
 ?>
 <h2>View Recent Scores for:</h2>
 
-<?
+<?php
 $path = preg_replace('/\/supervisor\/.*/','/',$_SERVER['SCRIPT_URI']);
 $ch = curl_init($path."ajax.php?action=list-all-games");
 curl_setopt($ch, CURLOPT_HEADER, 0);
